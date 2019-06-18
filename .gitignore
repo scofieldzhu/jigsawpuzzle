@@ -6,6 +6,11 @@
 *.lo
 *.o
 *.obj
+*.ilk
+*.exp
+*.tlog
+*.idb
+*.log
 
 # Precompiled Headers
 *.gch
@@ -14,7 +19,6 @@
 # Compiled Dynamic libraries
 *.so
 *.dylib
-*.dll
 
 # Fortran module files
 *.mod
@@ -24,9 +28,37 @@
 *.lai
 *.la
 *.a
-*.lib
 
 # Executables
 *.exe
 *.out
 *.app
+*.db
+*.user
+*.dat
+
+#Temp files
+*.VC.opendb
+*.VC.db
+*.suo
+*.pdb
+
+#ignore files
+*.licenseheader
+*.vcxproj.user
+
+#Debugger files
+
+#ignore directories
+trunk/builds/_bin/
+trunk/builds/x64/
+trunk/builds/jigsawpuzzle/GeneratedFiles/
+trunk/builds/jigsawpuzzle/x64/
+trunk/builds/.vs/
+
+
+*.pdb
+*.pdb
+*.pdb
+*.pdb
+*.tcf
