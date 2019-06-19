@@ -14,7 +14,7 @@ class UIMediator
 {
 public:
 	virtual void subscribeEvents() = 0;
-	virtual void unsubscribeEvents() = 0;
+	virtual void unsubscribe() = 0;
 	void setUI(UI* ui) { ui_ = ui; }
 	UI* ui() { return ui_; }
 	UIMediator(UI* ui):ui_(ui){}
