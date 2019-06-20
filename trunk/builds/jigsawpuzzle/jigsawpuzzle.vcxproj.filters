@@ -60,6 +60,18 @@
     <ClCompile Include="..\..\src\app\appsession.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\ui\clientview.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\logic\mediator\controlpanelmediator.cpp">
+      <Filter>logic\mediator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\global\glo.cpp">
+      <Filter>global</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\global\uiglo.cpp">
+      <Filter>global</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="..\..\src\ui\mainwindow.h">
@@ -68,6 +80,12 @@
     <QtMoc Include="..\..\src\ui\controlpanel.h">
       <Filter>ui</Filter>
     </QtMoc>
+    <QtMoc Include="..\..\src\ui\clientview.h">
+      <Filter>ui</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\logic\mediator\controlpanelmediator.h">
+      <Filter>logic\mediator</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\logic\uimediator.hxx">
@@ -75,6 +93,12 @@
     </ClInclude>
     <ClInclude Include="..\..\src\app\appsession.h">
       <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\global\glo.h">
+      <Filter>global</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\global\uiglo.h">
+      <Filter>global</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

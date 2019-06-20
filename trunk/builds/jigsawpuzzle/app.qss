@@ -1,0 +1,7 @@
+
+ClientView{
+	background:green;
+}
+ControlPanel {
+	background:red;
+}

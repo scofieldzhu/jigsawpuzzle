@@ -13,6 +13,7 @@ template <class UI>
 class UIMediator
 {
 public:
+	typedef UIMediator<UI> MediatorSelf;
 	virtual void subscribeEvents() = 0;
 	virtual void unsubscribe() = 0;
 	void setUI(UI* ui) { ui_ = ui; }

@@ -11,15 +11,21 @@ CreateTime: 2019-6-18 22:04
 
 #include <QWidget>
 
+class QPushButton;
+class ControlPanelMediator;
 class ControlPanel : public QWidget
 {
 	Q_OBJECT
 public:
-	ControlPanel(QWidget* parent = Q_NULLPTR);
+	ControlPanel(QWidget* parent, int32_t fixedwidth);
 	~ControlPanel();
+	QPushButton* startgametbtn = nullptr;
+	QPushButton* nextgamebtn = nullptr;
+	QPushButton* showoriginimgbtn = nullptr;
+	ControlPanelMediator* mediator = nullptr;
 
 private:
 	void createControls();
-
+	void paintEvent(QPaintEvent*);
 };
 #endif

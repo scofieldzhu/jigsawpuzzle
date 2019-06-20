@@ -3,27 +3,24 @@ JigsawPuzzle is a kind of simple jigsaw puzzle game.
 Copyright (c) scofieldzhu. All rights reserved.	
 
 Project: jigsawpuzzle 
-Module: mainwindow.h 
-CreateTime: 2019-6-18 21:00
+Module: clientview.h 
+CreateTime: 2019-6-20 20:10
 =========================================================================*/
-#ifndef __mainwindow_h__
-#define __mainwindow_h__
+#ifndef __clientview_h__
+#define __clientview_h__
 
 #include <QWidget>
 
-class ClientView;
-class ControlPanel;
-class MainWindow : public QWidget
+class ClientView : public QWidget
 {
 	Q_OBJECT
 public:
-	MainWindow();
-	~MainWindow();
-	ClientView* clientview = nullptr;
-	ControlPanel* ctrlpanel = nullptr;
+	ClientView(QWidget* parent = Q_NULLPTR);
+	~ClientView();
 
 private:
 	void createControls();
+	void paintEvent(QPaintEvent*);
 };
 
 #endif

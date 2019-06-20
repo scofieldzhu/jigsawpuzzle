@@ -11,11 +11,23 @@ CreateTime: 2019-6-19 21:07
 
 #include "session.h"
 
+class MainWindow;
+class QApplication;
 class AppSession : public RATEL::Session
 {
 public:
-	AppSession();
+	MainWindow* mainWindow() { return mainwindow_; }
+	AppSession(QApplication& a);
 	~AppSession();
+
+private:
+	void loadStyleSheets();
+	bool onEnter();
+	bool onLeave();
+	QApplication& app_;
+	MainWindow* mainwindow_ = nullptr;
 };
+
+AppSession* GetAppSession();
 
 #endif
