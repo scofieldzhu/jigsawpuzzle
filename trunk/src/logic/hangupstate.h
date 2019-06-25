@@ -3,16 +3,22 @@ JigsawPuzzle is a kind of simple jigsaw puzzle game.
 Copyright (c) scofieldzhu. All rights reserved.	
 
 Project: jigsawpuzzle 
-Module: glo.h 
-CreateTime: 2019-6-20 21:34
+Module: hangupstate.h 
+CreateTime: 2019-6-22 20:45
 =========================================================================*/
-#ifndef __glo_h__
-#define __glo_h__
+#ifndef __hangupstate_h__
+#define __hangupstate_h__
 
-#include "common.h"
+#include "gamestate.h"
 
-class AppSession;
-AppSession* GetTheAppSession();
-
+class HangUpState : public GameState
+{
+public:
+	GameState* handleEvent(uint32_t evttype);
+	void enter();
+	void exit();
+	HangUpState();
+	~HangUpState();
+};
 
 #endif

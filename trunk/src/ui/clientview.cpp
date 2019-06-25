@@ -7,8 +7,10 @@ Module: clientview.cpp
 CreateTime: 2019-6-20 20:10
 =========================================================================*/
 #include "clientview.h"
+#include <QBoxLayout>
 #include <QStyleOption>
 #include <QPainter>
+#include "gameview.h"
 
 ClientView::ClientView(QWidget* parent /*= Q_NULLPTR*/)
 	:QWidget(parent)
@@ -21,6 +23,15 @@ ClientView::~ClientView()
 
 void ClientView::createControls()
 {
+	QHBoxLayout* mainlayout = new QHBoxLayout();
+	mainlayout->setContentsMargins(4, 4, 4, 4);
+	mainlayout->setSpacing(0);
+
+	wpview_ = new GameView(nullptr, this);
+	wpview_->setBackgroundBrush(QColor(230, 200, 167));
+	mainlayout->addWidget(wpview_);
+
+	setLayout(mainlayout);
 }
 
 void ClientView::paintEvent(QPaintEvent*)

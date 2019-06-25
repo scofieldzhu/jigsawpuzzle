@@ -12,6 +12,9 @@ CreateTime: 2019-6-20 21:17
 #include "controlpanel.h"
 #include "uiglo.h"
 #include "mainwindow.h"
+#include "gamescene.h"
+#include "gameview.h"
+#include "sliceimageitem.h"
 
 ControlPanelMediator::ControlPanelMediator(ControlPanel* ui)
 	:QObject(ui),
@@ -37,8 +40,7 @@ void ControlPanelMediator::unsubscribe()
 
 void ControlPanelMediator::handleStartGameBtnClicked()
 {
-	QMessageBox msgbox(QMessageBox::Information, "tip dialog", "start game!", QMessageBox::NoButton, GetMainWindow());
-	msgbox.exec();
+	
 }
 
 void ControlPanelMediator::handleNextGameBtnClicked()

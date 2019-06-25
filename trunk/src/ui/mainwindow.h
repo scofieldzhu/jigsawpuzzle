@@ -17,13 +17,15 @@ class MainWindow : public QWidget
 {
 	Q_OBJECT
 public:
+	ClientView* clientView() { return clientview_; }
+	ControlPanel* ctrlPanel() { return ctrlpanel_; }
 	MainWindow();
-	~MainWindow();
-	ClientView* clientview = nullptr;
-	ControlPanel* ctrlpanel = nullptr;
+	~MainWindow();	
 
 private:
 	void createControls();
+	ClientView* clientview_ = nullptr;
+	ControlPanel* ctrlpanel_ = nullptr;
 };
 
 #endif

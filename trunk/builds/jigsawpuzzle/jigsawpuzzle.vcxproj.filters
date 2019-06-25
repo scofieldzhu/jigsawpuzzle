@@ -72,6 +72,27 @@
     <ClCompile Include="..\..\src\global\uiglo.cpp">
       <Filter>global</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\logic\sliceimageitem.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\logic\jpgame.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\logic\playingstate.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\logic\pausestate.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\logic\hangupstate.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ui\gameview.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\logic\gamescene.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="..\..\src\ui\mainwindow.h">
@@ -86,6 +107,12 @@
     <QtMoc Include="..\..\src\logic\mediator\controlpanelmediator.h">
       <Filter>logic\mediator</Filter>
     </QtMoc>
+    <QtMoc Include="..\..\src\ui\gameview.h">
+      <Filter>ui</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\logic\gamescene.h">
+      <Filter>logic</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\logic\uimediator.hxx">
@@ -98,6 +125,27 @@
       <Filter>global</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\global\uiglo.h">
+      <Filter>global</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\logic\sliceimageitem.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\logic\jpgame.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\logic\gamestate.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\logic\playingstate.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\logic\pausestate.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\logic\hangupstate.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\global\common.h">
       <Filter>global</Filter>
     </ClInclude>
   </ItemGroup>

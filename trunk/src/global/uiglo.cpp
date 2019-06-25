@@ -8,8 +8,20 @@ CreateTime: 2019-6-20 21:39
 =========================================================================*/
 #include "uiglo.h"
 #include "appsession.h"
+#include "mainwindow.h"
+#include "clientview.h"
 
 MainWindow* GetMainWindow()
 {
 	return GetAppSession()->mainWindow();
+}
+
+ClientView* GetClientView()
+{
+	return GetMainWindow()->clientView(); 
+}
+
+GameView* GetGameView()
+{
+	return GetMainWindow()->clientView()->gameView();
 }

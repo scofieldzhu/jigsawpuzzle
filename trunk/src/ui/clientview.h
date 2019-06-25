@@ -11,16 +11,19 @@ CreateTime: 2019-6-20 20:10
 
 #include <QWidget>
 
+class GameView;
 class ClientView : public QWidget
 {
 	Q_OBJECT
 public:
+	GameView* gameView() { return wpview_; }
 	ClientView(QWidget* parent = Q_NULLPTR);
-	~ClientView();
+	~ClientView();	
 
 private:
 	void createControls();
 	void paintEvent(QPaintEvent*);
+	GameView* wpview_ = nullptr;
 };
 
 #endif

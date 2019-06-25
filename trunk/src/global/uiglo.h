@@ -9,7 +9,13 @@ CreateTime: 2019-6-20 21:39
 #ifndef __uiglo_h__
 #define __uiglo_h__
 
+#include "glo.h"
+
 class MainWindow;
 MainWindow* GetMainWindow();
+class ClientView;
+ClientView* GetClientView();
+class GameView;
+GameView* GetGameView();
 
 #endif

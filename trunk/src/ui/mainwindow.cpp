@@ -28,9 +28,9 @@ void MainWindow::createControls()
 	QHBoxLayout* hblayout = new QHBoxLayout();
 	hblayout->setContentsMargins(4, 4, 4, 4);
 	hblayout->setSpacing(0);
-	clientview = new ClientView(this);
-	hblayout->addWidget(clientview);
-	ctrlpanel = new ControlPanel(this, 250);
-	hblayout->addWidget(ctrlpanel);
+	clientview_ = new ClientView(this);
+	hblayout->addWidget(clientview_);
+	ctrlpanel_ = new ControlPanel(this, 250);
+	hblayout->addWidget(ctrlpanel_);
 	setLayout(hblayout);
 }
