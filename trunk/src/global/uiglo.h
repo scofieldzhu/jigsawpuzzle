@@ -17,5 +17,7 @@ class ClientView;
 ClientView* GetClientView();
 class GameView;
 GameView* GetGameView();
+class GameScene;
+GameScene* GetGameScene();
 
 #endif

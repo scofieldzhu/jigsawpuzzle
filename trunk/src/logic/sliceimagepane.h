@@ -3,23 +3,25 @@ JigsawPuzzle is a kind of simple jigsaw puzzle game.
 Copyright (c) scofieldzhu. All rights reserved.	
 
 Project: jigsawpuzzle 
-Module: sliceimageitem.h 
+Module: sliceimagepane.h 
 CreateTime: 2019-6-21 22:15
 =========================================================================*/
-#ifndef __sliceimageitem_h__
-#define __sliceimageitem_h__
+#ifndef __sliceimagepane_h__
+#define __sliceimagepane_h__
 
 #include <QGraphicsItem>
 
-class SliceImageItem : public QGraphicsItem
+class SliceImagePane : public QGraphicsItem
 {
 public:
 	void setImage(QPixmap& pix) { image_ = pix; }
 	QPixmap& image() { return image_; }
+	void setGridPos(const QPoint& pos);
+	const QPoint& currentGridPos()const { return curgridpos_; }
 	QRectF boundingRect() const;
 	void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-	SliceImageItem();
-	~SliceImageItem();
+	SliceImagePane(QPixmap& slice, const QPoint& destgridpos);
+	~SliceImagePane();
 
 protected:
 	void mousePressEvent(QGraphicsSceneMouseEvent *event);
@@ -28,6 +30,8 @@ protected:
 
 private:
 	QPixmap image_;
+	QPoint curgridpos_;
+	QPoint destgridpos_;
 };
 
 #endif

@@ -20,5 +20,7 @@ enum UIEventType
 
 class QPixmap;
 class GameState;
+class SliceImagePane;
+class JPGame;
 
 #endif

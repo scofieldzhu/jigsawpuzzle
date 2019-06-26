@@ -12,9 +12,7 @@ CreateTime: 2019-6-20 21:17
 #include "controlpanel.h"
 #include "uiglo.h"
 #include "mainwindow.h"
-#include "gamescene.h"
-#include "gameview.h"
-#include "sliceimageitem.h"
+#include "jpgame.h"
 
 ControlPanelMediator::ControlPanelMediator(ControlPanel* ui)
 	:QObject(ui),
@@ -40,13 +38,17 @@ void ControlPanelMediator::unsubscribe()
 
 void ControlPanelMediator::handleStartGameBtnClicked()
 {
-	
+	QPixmap bkgimg("111.jpg");
+	if(!bkgimg.isNull()){
+		activegame_ = new JPGame(bkgimg);
+		activegame_->start();
+	}	
 }
 
 void ControlPanelMediator::handleNextGameBtnClicked()
 {
-	QMessageBox msgbox(QMessageBox::Information, "tip dialog", "next game!", QMessageBox::NoButton, GetMainWindow());
-	msgbox.exec();
+	if(activegame_)
+		activegame_->shuffle();
 }
 
 void ControlPanelMediator::handleShowOriginImgBtnClicked()

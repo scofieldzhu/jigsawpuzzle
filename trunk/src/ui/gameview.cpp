@@ -9,10 +9,12 @@ CreateTime: 2019-6-21 21:38
 #include "gameview.h"
 #include "gamescene.h"
 
-
 GameView::GameView(GameScene* scene, QWidget* parent)
 	:QGraphicsView(scene, parent)
-{}
+{
+	setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+}
 
 GameView::~GameView()
 {}

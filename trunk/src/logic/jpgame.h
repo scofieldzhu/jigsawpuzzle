@@ -17,21 +17,17 @@ class JPGame
 {
 public:
 	void start();
+	void shuffle();
 	GameState* gameState() { return curstate_; }
 	void handleEvent(uint32_t evttype);
 	JPGame(QPixmap& srcimg);
 	~JPGame();
 
 private:
-	void splitImages();
-	struct ImageBoard{
-		QPixmap img;
-		uint32_t curseqno;
-		uint32_t originseqno;
-	};
+	void initGameResource();
 	GameState* curstate_;
 	QPixmap srcimage_;
-	std::vector<ImageBoard> imageboards_;
+	QList<SliceImagePane*> sliceimagepanes_;
 };
 
 #endif

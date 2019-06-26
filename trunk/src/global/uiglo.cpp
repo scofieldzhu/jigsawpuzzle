@@ -10,6 +10,7 @@ CreateTime: 2019-6-20 21:39
 #include "appsession.h"
 #include "mainwindow.h"
 #include "clientview.h"
+#include "gameview.h"
 
 MainWindow* GetMainWindow()
 {
@@ -24,4 +25,9 @@ ClientView* GetClientView()
 GameView* GetGameView()
 {
 	return GetMainWindow()->clientView()->gameView();
+}
+
+GameScene* GetGameScene()
+{
+	return GetGameView()->localScene();
 }

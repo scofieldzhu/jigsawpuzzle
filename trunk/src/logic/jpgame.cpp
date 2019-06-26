@@ -11,13 +11,12 @@ CreateTime: 2019-6-24 19:08
 #include "uiglo.h"
 #include "gamescene.h"
 #include "gameview.h"
-#include "sliceimageitem.h"
+#include "sliceimagepane.h"
 
 JPGame::JPGame(QPixmap& srcimg)
 	:curstate_(new HangUpState()),
 	srcimage_(srcimg)
 {
-	splitImages();
 	curstate_->enter();
 }
 
@@ -26,20 +25,38 @@ JPGame::~JPGame()
 	curstate_->exit();
 }
 
-void JPGame::splitImages()
+void JPGame::initGameResource()
 {
+	GameScene* scene = GetGameScene();
+	QRectF scenerect = scene->sceneRect();
+	QSizeF scenesize = scenerect.size();
 	uint32_t colnum = 3, rownum = 3;
-	uint32_t wholewidth = srcimage_.width();
-	uint32_t wholeheight = srcimage_.height();
-	uint32_t slicewidth = wholewidth / colnum;
-	uint32_t sliceheight = wholeheight / rownum;
-	for(uint32_t i = 0; i < rownum; ++i){
-		for(uint32_t j = 0; j < colnum; ++j){
-			uint32_t posx = j * slicewidth;
-			uint32_t posy = i * sliceheight;
-			QPixmap subimg = srcimage_.copy(posx, posy, slicewidth, sliceheight);
+	QPixmap bestfitimg = srcimage_.scaled(scenesize.width(), scenesize.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+	uint32_t srcimgwidth = bestfitimg.width();
+	uint32_t srcimgheight = bestfitimg.height();	
+	uint32_t srcsubimgwidth = srcimgwidth / colnum;
+	uint32_t srcsubimgheight = srcimgheight / rownum;	
+	uint32_t dstpanewidth = scenesize.width() / colnum;
+	uint32_t dstpaneheight = scenesize.height() / rownum;
+	QPointF startscenepos = scenerect.topLeft();
 
-			imageboards_.push_back({subimg, 0, 0});
+	//generate random sequence
+	std::vector<int32_t> randomnums(colnum * rownum, 0);
+	std::generate(randomnums.begin(), randomnums.end(), [n = 0]() mutable { return n++; });
+	std::random_shuffle(randomnums.begin(), randomnums.end());
+	int32_t rnumindex = 0;
+	for (int32_t i = 0; i < rownum; ++i){
+		for (int32_t j = 0; j < colnum; ++j){
+			uint32_t imgposx = j * srcsubimgwidth;
+			uint32_t imgposy = i * srcsubimgheight;
+			QPixmap subimg = bestfitimg.copy(imgposx, imgposy, srcsubimgwidth, srcsubimgheight);			
+			SliceImagePane* imgpane = new SliceImagePane(subimg, {i, j});
+			scene->addItem(imgpane);
+			int32_t noseq = randomnums[rnumindex++];
+			int32_t noseqx = noseq / colnum;
+			int32_t noseqy = noseq - noseqx * colnum;
+			imgpane->setGridPos({noseqx, noseqy});		
+			sliceimagepanes_.push_back(imgpane);
 		}
 	}
 }
@@ -47,24 +64,30 @@ void JPGame::splitImages()
 void JPGame::start()
 {
 	GameView* wp = GetGameView();
-
 	double width = wp->width();
 	double height = wp->height();
-
-	GameScene* ws = new GameScene(-width / 2.0, -height / 2.0, width, height, nullptr);
-
-	
-
-	SliceImageItem* slice = new SliceImageItem();
-	QPixmap img("11.jpg");
-	slice->setImage(img);
-	slice->setPos(0.0, 0.0);
-	ws->addItem(slice);
-
+	GameScene* ws = new GameScene(-width / 2.0, -height / 2.0, width, height, nullptr);	
 	wp->setScene(ws);
-
+	initGameResource();
 	wp->show();
 	wp->update();
+}
+
+void JPGame::shuffle()
+{
+	if(sliceimagepanes_.empty())
+		return;
+	uint32_t colnum = 3, rownum = 3;
+	std::vector<int32_t> randomnums(colnum * rownum, 0);
+	std::generate(randomnums.begin(), randomnums.end(), [n = 0]() mutable { return n++; });
+	std::random_shuffle(randomnums.begin(), randomnums.end());
+	int32_t rnumindex = 0;
+	for(SliceImagePane* pane : sliceimagepanes_){
+		int32_t noseq = randomnums[rnumindex++];
+		int32_t noseqx = noseq / colnum;
+		int32_t noseqy = noseq - noseqx * colnum;
+		pane->setGridPos({noseqx, noseqy});
+	}
 }
 
 void JPGame::handleEvent(uint32_t evttype)
