@@ -11,16 +11,15 @@ CreateTime: 2019-6-24 21:08
 
 #include "kernelpublic.h"
 
-enum UIEventType
-{
-	kStartGameEvent,
-	kStopGameEvent,
-	kPauseGameEvent
-};
-
 class QPixmap;
-class GameState;
 class SliceImagePane;
 class JPGame;
+
+enum GameState
+{
+	kStoppedState,
+	kPlayingState,		
+	kPausedState
+};
 
 #endif

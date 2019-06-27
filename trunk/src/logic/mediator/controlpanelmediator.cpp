@@ -40,7 +40,7 @@ void ControlPanelMediator::handleStartGameBtnClicked()
 {
 	QPixmap bkgimg("111.jpg");
 	if(!bkgimg.isNull()){
-		activegame_ = new JPGame(bkgimg);
+		activegame_ = new JPGame(bkgimg, 3, 3);
 		activegame_->start();
 	}	
 }

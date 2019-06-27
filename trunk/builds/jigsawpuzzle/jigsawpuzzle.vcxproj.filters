@@ -75,15 +75,6 @@
     <ClCompile Include="..\..\src\logic\jpgame.cpp">
       <Filter>logic</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\logic\playingstate.cpp">
-      <Filter>logic</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\logic\pausestate.cpp">
-      <Filter>logic</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\logic\hangupstate.cpp">
-      <Filter>logic</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\ui\gameview.cpp">
       <Filter>ui</Filter>
     </ClCompile>
@@ -128,18 +119,6 @@
       <Filter>global</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\logic\jpgame.h">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\logic\gamestate.h">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\logic\playingstate.h">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\logic\pausestate.h">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\logic\hangupstate.h">
       <Filter>logic</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\global\common.h">

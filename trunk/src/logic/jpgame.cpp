@@ -7,54 +7,47 @@ Module: jpgame.cpp
 CreateTime: 2019-6-24 19:08
 =========================================================================*/
 #include "jpgame.h"
-#include "hangupstate.h"
 #include "uiglo.h"
 #include "gamescene.h"
 #include "gameview.h"
 #include "sliceimagepane.h"
 
-JPGame::JPGame(QPixmap& srcimg)
-	:curstate_(new HangUpState()),
-	srcimage_(srcimg)
-{
-	curstate_->enter();
-}
+JPGame::JPGame(QPixmap& srcimg, uint32_t rows, uint32_t cols)
+	:srcimage_(srcimg),
+	kGridRows_(rows),
+	kGridCols_(cols)
+{}
 
 JPGame::~JPGame()
+{}
+
+std::vector<int32_t> JPGame::generateRandomNums(uint32_t cnt, int32_t min)
 {
-	curstate_->exit();
+	std::vector<int32_t> resultnums(cnt, 0);
+	std::generate(resultnums.begin(), resultnums.end(), [n = min]() mutable { return n++; });
+	std::random_shuffle(resultnums.begin(), resultnums.end());
+	return resultnums;
 }
 
 void JPGame::initGameResource()
 {
 	GameScene* scene = GetGameScene();
-	QRectF scenerect = scene->sceneRect();
-	QSizeF scenesize = scenerect.size();
-	uint32_t colnum = 3, rownum = 3;
+	QSizeF scenesize = scene->sceneRect().size();
 	QPixmap bestfitimg = srcimage_.scaled(scenesize.width(), scenesize.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 	uint32_t srcimgwidth = bestfitimg.width();
 	uint32_t srcimgheight = bestfitimg.height();	
-	uint32_t srcsubimgwidth = srcimgwidth / colnum;
-	uint32_t srcsubimgheight = srcimgheight / rownum;	
-	uint32_t dstpanewidth = scenesize.width() / colnum;
-	uint32_t dstpaneheight = scenesize.height() / rownum;
-	QPointF startscenepos = scenerect.topLeft();
-
-	//generate random sequence
-	std::vector<int32_t> randomnums(colnum * rownum, 0);
-	std::generate(randomnums.begin(), randomnums.end(), [n = 0]() mutable { return n++; });
-	std::random_shuffle(randomnums.begin(), randomnums.end());
+	uint32_t subimgwidth = srcimgwidth / kGridCols_;
+	uint32_t subimgheight = srcimgheight / kGridRows_;			
+	auto randomnums = generateRandomNums(kGridCols_ * kGridRows_, 0);
 	int32_t rnumindex = 0;
-	for (int32_t i = 0; i < rownum; ++i){
-		for (int32_t j = 0; j < colnum; ++j){
-			uint32_t imgposx = j * srcsubimgwidth;
-			uint32_t imgposy = i * srcsubimgheight;
-			QPixmap subimg = bestfitimg.copy(imgposx, imgposy, srcsubimgwidth, srcsubimgheight);			
+	for (int32_t i = 0; i < kGridRows_; ++i){
+		for (int32_t j = 0; j < kGridCols_; ++j){			
+			QPixmap subimg = bestfitimg.copy(j * subimgwidth, i * subimgheight, subimgwidth, subimgheight);			
 			SliceImagePane* imgpane = new SliceImagePane(subimg, {i, j});
 			scene->addItem(imgpane);
 			int32_t noseq = randomnums[rnumindex++];
-			int32_t noseqx = noseq / colnum;
-			int32_t noseqy = noseq - noseqx * colnum;
+			int32_t noseqx = noseq / kGridCols_;
+			int32_t noseqy = noseq - noseqx * kGridCols_;
 			imgpane->setGridPos({noseqx, noseqy});		
 			sliceimagepanes_.push_back(imgpane);
 		}
@@ -73,29 +66,21 @@ void JPGame::start()
 	wp->update();
 }
 
+void JPGame::pause()
+{
+
+}
+
 void JPGame::shuffle()
 {
 	if(sliceimagepanes_.empty())
 		return;
-	uint32_t colnum = 3, rownum = 3;
-	std::vector<int32_t> randomnums(colnum * rownum, 0);
-	std::generate(randomnums.begin(), randomnums.end(), [n = 0]() mutable { return n++; });
-	std::random_shuffle(randomnums.begin(), randomnums.end());
+	auto randomnums = generateRandomNums(kGridCols_ * kGridRows_, 0);
 	int32_t rnumindex = 0;
 	for(SliceImagePane* pane : sliceimagepanes_){
 		int32_t noseq = randomnums[rnumindex++];
-		int32_t noseqx = noseq / colnum;
-		int32_t noseqy = noseq - noseqx * colnum;
+		int32_t noseqx = noseq / kGridCols_;
+		int32_t noseqy = noseq - noseqx * kGridCols_;
 		pane->setGridPos({noseqx, noseqy});
-	}
-}
-
-void JPGame::handleEvent(uint32_t evttype)
-{
-	GameState* gs = curstate_->handleEvent(evttype);
-	if(gs != nullptr){
-		rtdelete(curstate_);
-		curstate_ = gs;
-		curstate_->enter();
 	}
 }

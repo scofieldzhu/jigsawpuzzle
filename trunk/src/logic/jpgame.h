@@ -12,21 +12,22 @@ CreateTime: 2019-6-24 19:08
 #include <QPixmap>
 #include "common.h"
 
-
 class JPGame
 {
 public:
 	void start();
+	void pause();
 	void shuffle();
-	GameState* gameState() { return curstate_; }
-	void handleEvent(uint32_t evttype);
-	JPGame(QPixmap& srcimg);
+	GameState state()const { return state_; }
+	JPGame(QPixmap& srcimg, uint32_t rows, uint32_t cols);
 	~JPGame();
 
 private:
+	std::vector<int32_t> generateRandomNums(uint32_t cnt, int32_t min);
 	void initGameResource();
-	GameState* curstate_;
+	GameState state_ = kStoppedState;
 	QPixmap srcimage_;
+	uint32_t kGridRows_, kGridCols_;
 	QList<SliceImagePane*> sliceimagepanes_;
 };
 
