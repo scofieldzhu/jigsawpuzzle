@@ -16,7 +16,9 @@ JPGame::JPGame(QPixmap& srcimg, uint32_t rows, uint32_t cols)
 	:srcimage_(srcimg),
 	kGridRows_(rows),
 	kGridCols_(cols)
-{}
+{
+	SetActiveGame(this);
+}
 
 JPGame::~JPGame()
 {}
@@ -48,7 +50,12 @@ void JPGame::initGameResource()
 			int32_t noseq = randomnums[rnumindex++];
 			int32_t noseqx = noseq / kGridCols_;
 			int32_t noseqy = noseq - noseqx * kGridCols_;
-			imgpane->setGridPos({noseqx, noseqy});		
+			const QPoint gpos(noseqx, noseqy);
+			imgpane->setGridPos(gpos);		
+			QPointF newpos = scene->sceneRect().topLeft();
+			newpos.rx() += (gpos.y() + 0.5) * subimgwidth;
+			newpos.ry() += (gpos.x() + 0.5) * subimgheight;
+			imgpane->setPos(newpos);
 			sliceimagepanes_.push_back(imgpane);
 		}
 	}
@@ -83,4 +90,17 @@ void JPGame::shuffle()
 		int32_t noseqy = noseq - noseqx * kGridCols_;
 		pane->setGridPos({noseqx, noseqy});
 	}
+}
+
+void JPGame::setOperatingImagePane(SliceImagePane* pane)
+{
+	for(SliceImagePane* p : sliceimagepanes_)
+		p->setOperating(p == pane);
+	GetGameScene()->update();
+}
+
+SliceImagePane* JPGame::operatingImagePane()
+{
+	auto it = std::find_if(sliceimagepanes_.begin(), sliceimagepanes_.end(), [](const SliceImagePane* p){return p->operating();});
+	return it == sliceimagepanes_.end() ? nullptr : *it;
 }

@@ -13,3 +13,15 @@ AppSession* GetTheAppSession()
 {
 	return GetAppSession();
 }
+
+JPGame* g_ActiveGame = nullptr;
+
+void SetActiveGame(JPGame* game)
+{
+	g_ActiveGame = game;
+}
+
+JPGame* GetActiveGame()
+{
+	return g_ActiveGame;
+}

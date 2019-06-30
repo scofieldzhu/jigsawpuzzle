@@ -13,6 +13,9 @@ CreateTime: 2019-6-20 21:34
 
 class AppSession;
 AppSession* GetTheAppSession();
+class JPGame;
+void SetActiveGame(JPGame* game);
+JPGame* GetActiveGame();
 
 
 #endif

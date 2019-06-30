@@ -19,6 +19,8 @@ public:
 	void pause();
 	void shuffle();
 	GameState state()const { return state_; }
+	void setOperatingImagePane(SliceImagePane* pane);
+	SliceImagePane* operatingImagePane();
 	JPGame(QPixmap& srcimg, uint32_t rows, uint32_t cols);
 	~JPGame();
 
