@@ -27,13 +27,8 @@ public:
 	SliceImagePane(QPixmap& slice, const QPoint& destgridpos);
 	~SliceImagePane();
 
-protected:
-	void mousePressEvent(QGraphicsSceneMouseEvent *event);
-	void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
-	void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-	void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event);
-
 private:
+	void mousePressEvent(QGraphicsSceneMouseEvent *event);
 	QPixmap image_;
 	QPoint curgridpos_;
 	QPoint kDestGridPos_;

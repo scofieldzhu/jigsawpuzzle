@@ -35,6 +35,11 @@
     <Filter Include="logic\mediator">
       <UniqueIdentifier>{1204f7bc-f35b-4561-9aa8-0e426b00fc0a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
+      <Extensions>ts</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="jigsawpuzzle.qrc">
@@ -46,6 +51,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\jigsawpuzzle.licenseheader" />
+    <None Include="jigsawpuzzle_zh.ts">
+      <Filter>Translation Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\app\main.cpp">

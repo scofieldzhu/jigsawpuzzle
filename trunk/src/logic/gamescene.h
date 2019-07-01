@@ -15,8 +15,14 @@ class GameScene : public QGraphicsScene
 {
 	Q_OBJECT
 public:
+	void setBackgroundImage(QPixmap& pix) { bkg_ = pix; }
+	QPixmap& backgroundImage() { return bkg_; }
 	GameScene(qreal x, qreal y, qreal width, qreal height, QObject* parent = nullptr);
 	~GameScene();
+
+private:
+	void drawBackground(QPainter *painter, const QRectF &rect);
+	QPixmap bkg_;
 };
 #endif
 

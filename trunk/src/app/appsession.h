@@ -22,6 +22,7 @@ public:
 
 private:
 	void loadStyleSheets();
+	void loadLanguage();
 	bool onEnter();
 	bool onLeave();
 	QApplication& app_;

@@ -21,7 +21,9 @@ JPGame::JPGame(QPixmap& srcimg, uint32_t rows, uint32_t cols)
 }
 
 JPGame::~JPGame()
-{}
+{
+	SetActiveGame(nullptr);
+}
 
 std::vector<int32_t> JPGame::generateRandomNums(uint32_t cnt, int32_t min)
 {
@@ -32,18 +34,19 @@ std::vector<int32_t> JPGame::generateRandomNums(uint32_t cnt, int32_t min)
 }
 
 void JPGame::initGameResource()
-{
+{	
 	GameScene* scene = GetGameScene();
 	QSizeF scenesize = scene->sceneRect().size();
 	QPixmap bestfitimg = srcimage_.scaled(scenesize.width(), scenesize.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+	scene->setBackgroundImage(bestfitimg);
 	uint32_t srcimgwidth = bestfitimg.width();
 	uint32_t srcimgheight = bestfitimg.height();	
 	uint32_t subimgwidth = srcimgwidth / kGridCols_;
 	uint32_t subimgheight = srcimgheight / kGridRows_;			
 	auto randomnums = generateRandomNums(kGridCols_ * kGridRows_, 0);
 	int32_t rnumindex = 0;
-	for (int32_t i = 0; i < kGridRows_; ++i){
-		for (int32_t j = 0; j < kGridCols_; ++j){			
+	for(int32_t i = 0; i < kGridRows_; ++i){
+		for(int32_t j = 0; j < kGridCols_; ++j){			
 			QPixmap subimg = bestfitimg.copy(j * subimgwidth, i * subimgheight, subimgwidth, subimgheight);			
 			SliceImagePane* imgpane = new SliceImagePane(subimg, {i, j});
 			scene->addItem(imgpane);
@@ -52,7 +55,7 @@ void JPGame::initGameResource()
 			int32_t noseqy = noseq - noseqx * kGridCols_;
 			const QPoint gpos(noseqx, noseqy);
 			imgpane->setGridPos(gpos);		
-			QPointF newpos = scene->sceneRect().topLeft();
+			QPointF newpos = scene->sceneRect().topLeft();			
 			newpos.rx() += (gpos.y() + 0.5) * subimgwidth;
 			newpos.ry() += (gpos.x() + 0.5) * subimgheight;
 			imgpane->setPos(newpos);
@@ -63,11 +66,11 @@ void JPGame::initGameResource()
 
 void JPGame::start()
 {
-	GameView* wp = GetGameView();
+	GameView* wp = GetGameView();	
 	double width = wp->width();
 	double height = wp->height();
 	GameScene* ws = new GameScene(-width / 2.0, -height / 2.0, width, height, nullptr);	
-	wp->setScene(ws);
+	wp->setScene(ws);		
 	initGameResource();
 	wp->show();
 	wp->update();
@@ -82,13 +85,19 @@ void JPGame::shuffle()
 {
 	if(sliceimagepanes_.empty())
 		return;
+	GameScene* scene = GetGameScene();
 	auto randomnums = generateRandomNums(kGridCols_ * kGridRows_, 0);
 	int32_t rnumindex = 0;
 	for(SliceImagePane* pane : sliceimagepanes_){
 		int32_t noseq = randomnums[rnumindex++];
 		int32_t noseqx = noseq / kGridCols_;
 		int32_t noseqy = noseq - noseqx * kGridCols_;
-		pane->setGridPos({noseqx, noseqy});
+		const QPoint gpos(noseqx, noseqy);
+		pane->setGridPos(gpos);
+		QPointF newpos = scene->sceneRect().topLeft();
+		newpos.rx() += (gpos.y() + 0.5) * pane->image().width();
+		newpos.ry() += (gpos.x() + 0.5) * pane->image().height();
+		pane->setPos(newpos);		
 	}
 }
 
@@ -103,4 +112,10 @@ SliceImagePane* JPGame::operatingImagePane()
 {
 	auto it = std::find_if(sliceimagepanes_.begin(), sliceimagepanes_.end(), [](const SliceImagePane* p){return p->operating();});
 	return it == sliceimagepanes_.end() ? nullptr : *it;
+}
+
+void JPGame::showOriginImage(bool toggled)
+{
+	for(auto pane : sliceimagepanes_)
+		pane->setVisible(!toggled);
 }

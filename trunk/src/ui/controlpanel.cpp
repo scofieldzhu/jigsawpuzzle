@@ -42,6 +42,8 @@ void ControlPanel::createControls()
 	mainlayout->addWidget(nextgamebtn);
 
 	showoriginimgbtn = new QPushButton();
+	showoriginimgbtn->setCheckable(true);
+	showoriginimgbtn->setChecked(false);
 	showoriginimgbtn->setFixedSize(200, 80);
 	showoriginimgbtn->setText(QObject::tr("Show Origin Image"));
 	mainlayout->addWidget(showoriginimgbtn);

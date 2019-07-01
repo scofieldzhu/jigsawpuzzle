@@ -21,6 +21,7 @@ public:
 	GameState state()const { return state_; }
 	void setOperatingImagePane(SliceImagePane* pane);
 	SliceImagePane* operatingImagePane();
+	void showOriginImage(bool toggled);
 	JPGame(QPixmap& srcimg, uint32_t rows, uint32_t cols);
 	~JPGame();
 

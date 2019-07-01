@@ -26,10 +26,7 @@ public:
 private slots:
 	void handleStartGameBtnClicked();
 	void handleNextGameBtnClicked();
-	void handleShowOriginImgBtnClicked();
-
-private:
-	JPGame* activegame_ = nullptr;
+	void handleShowOriginImgBtnClicked(bool);
 };
 
 #endif

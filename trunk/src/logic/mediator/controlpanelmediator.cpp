@@ -29,7 +29,7 @@ void ControlPanelMediator::subscribeEvents()
 {
 	connect(ui_->startgametbtn, SIGNAL(released()), this, SLOT(handleStartGameBtnClicked()));
 	connect(ui_->nextgamebtn, SIGNAL(released()), this, SLOT(handleNextGameBtnClicked()));
-	connect(ui_->showoriginimgbtn, SIGNAL(released()), this, SLOT(handleShowOriginImgBtnClicked()));
+	connect(ui_->showoriginimgbtn, SIGNAL(toggled(bool)), this, SLOT(handleShowOriginImgBtnClicked(bool)));
 }
 
 void ControlPanelMediator::unsubscribe()
@@ -40,19 +40,19 @@ void ControlPanelMediator::handleStartGameBtnClicked()
 {
 	QPixmap bkgimg("111.jpg");
 	if(!bkgimg.isNull()){
-		activegame_ = new JPGame(bkgimg, 3, 3);
-		activegame_->start();
+		JPGame* newgame = new JPGame(bkgimg, 3, 3);
+		newgame->start();
 	}	
 }
 
 void ControlPanelMediator::handleNextGameBtnClicked()
 {
-	if(activegame_)
-		activegame_->shuffle();
+	if(GetActiveGame())
+		GetActiveGame()->shuffle();
 }
 
-void ControlPanelMediator::handleShowOriginImgBtnClicked()
+void ControlPanelMediator::handleShowOriginImgBtnClicked(bool chk)
 {
-	QMessageBox msgbox(QMessageBox::Information, "tip dialog", "show origin image!", QMessageBox::NoButton, GetMainWindow());
-	msgbox.exec();
+	if(GetActiveGame())
+		GetActiveGame()->showOriginImage(chk);
 }

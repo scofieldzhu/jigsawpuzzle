@@ -36,15 +36,6 @@ void SliceImagePane::swap(SliceImagePane& pane)
 	update();
 }
 
-// void SliceImagePane::setGridPos(const QPoint& gpos)
-// {
-// 	curgridpos_ = gpos;
-// 	QPointF newpos = scene()->sceneRect().topLeft();
-// 	newpos.rx() += (curgridpos_.y() + 0.5) * image_.width();
-// 	newpos.ry() += (curgridpos_.x() + 0.5) * image_.height();
-// 	setPos(newpos);
-// }
-
 QRectF SliceImagePane::boundingRect() const
 {
 	QSize s = image_.size();
@@ -56,31 +47,27 @@ void SliceImagePane::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
 	Q_UNUSED(option);
 	Q_UNUSED(widget);	
 	painter->save();
-	QRectF boundrect = boundingRect();
-	painter->drawPixmap(boundingRect(), image_, {0.0, 0.0, (qreal)image_.width(), (qreal)image_.height()});
+ 	QRectF boundrect = boundingRect();
+ 	painter->drawPixmap(boundingRect(), image_, {0.0, 0.0, (qreal)image_.width(), (qreal)image_.height()});
 	QPen pen(Qt::black);
-	double border = 2.0;
-	QRectF newrt = boundrect;
-	QPointF newtf = newrt.topLeft();
-	newtf.rx() += border;
-	newtf.ry() += border;
-	newrt.setTopLeft(newtf);
-// 	QPointF newbr = newrt.bottomRight();
-// 	newbr.rx() -= border;
-// 	newbr.ry() -= border;
-// 	newrt.setBottomRight(newbr);
+ 	double border = 0.0;
 	if(operating_){
+		border = 2.0;
 		pen.setColor(Qt::red);
-		pen.setWidth(2.0);
+		pen.setWidth(border);
 	}
+ 	QRectF newrt = boundrect;
+ 	QPointF newtf = newrt.topLeft();
+ 	newtf.rx() += border;
+ 	newtf.ry() += border;
+ 	newrt.setTopLeft(newtf);
+   	QPointF newbr = newrt.bottomRight();
+   	newbr.rx() -= border;
+   	newbr.ry() -= border;
+   	newrt.setBottomRight(newbr);
 	painter->setPen(pen);
 	painter->drawRect(newrt);
 	painter->restore();
- 	/*painter->setBrush(Qt::darkGray);*/
-// 	painter->drawEllipse(-12, -12, 30, 30);
-// 	painter->setPen(QPen(Qt::black, 1));
-// 	painter->setBrush(QBrush(color));
-// 	painter->drawEllipse(-15, -15, 30, 30);
 }
 
 void SliceImagePane::setOperating(bool operating)
@@ -107,65 +94,6 @@ void SliceImagePane::mousePressEvent(QGraphicsSceneMouseEvent* event)
 		if(opimagepane){
 			swap(*opimagepane);
 			scene()->update();
-		}
-		//QGraphicsScene* gs = scene();
-		// 			QList<QGraphicsItem*> selitems = gs->selectedItems();
-		// 			if(!selitems.empty()){
-		// 				SliceImagePane* otherpane = static_cast<SliceImagePane*>(selitems[0]);
-		// 				swap(*otherpane);
-		// 				gs->update();
-		// 			}
+		}		
 	}
-// 		if(isSelected()){
-// 			event->accept();
-// 			return;
-// 		}
-// 		QGraphicsScene* gs = scene();
-// 		QList<QGraphicsItem*> selitems = gs->selectedItems();
-// 		if(selitems.empty()){
-// 			setSelected(true);
-// 			gs->update();
-// 			event->accept();
-// 			return;
-// 		}		
-// 		SliceImagePane* otherpane = static_cast<SliceImagePane*>(selitems[0]);
-// 		otherpane->setSelected(false);
-// 		QPoint newpos = otherpane->currentGridPos();
-// 		QPoint selfpos = curgridpos_;
-// 		setGridPos(newpos);
-// 		otherpane->setGridPos(selfpos);
-// 		//gs->clearSelection();
-// 		gs->update();
-// 		event->accept();
-// 	}else{
-// 		QGraphicsItem::mousePressEvent(event);
-// 		event->accept();
-// 	}
-}
-
-void SliceImagePane::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
-{
-	QGraphicsItem::mouseMoveEvent(event);
-}
-
-void SliceImagePane::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
-{
-	QGraphicsItem::mouseReleaseEvent(event);
-}
-
-void SliceImagePane::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
-{
-	QGraphicsItem::mouseDoubleClickEvent(event);
-// 	if(event->button() == Qt::LeftButton){
-// 		if(!isSelected()){				
-// 			QGraphicsScene* gs = scene();
-// 			QList<QGraphicsItem*> selitems = gs->selectedItems();
-// 			if(!selitems.empty()){
-// 				SliceImagePane* otherpane = static_cast<SliceImagePane*>(selitems[0]);
-// 				swap(*otherpane);
-// 				gs->update();
-// 			}
-// 		}
-// 		return;
-// 	}	
 }

@@ -122,6 +122,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\jigsawpuzzle.licenseheader" />
+    <None Include="jigsawpuzzle_zh.ts" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\app\appsession.cpp" />

@@ -14,6 +14,7 @@ CreateTime: 2019-6-18 21:00
 MainWindow::MainWindow()
 	:QWidget(nullptr, Qt::WindowFlags())
 {
+	setWindowTitle(QObject::tr("ChenChen-JigsawPuzzle"));
 	setGeometry(100, 100, 1260, 680);
 	createControls();
 }

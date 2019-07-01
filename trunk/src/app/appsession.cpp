@@ -9,6 +9,7 @@ CreateTime: 2019-6-19 21:07
 #include "appsession.h"
 #include <QFile>
 #include <QApplication>
+#include <QTranslator>
 #include "mainwindow.h"
 USING_RATEL
 
@@ -33,9 +34,19 @@ void AppSession::loadStyleSheets()
 	}
 }
 
+void AppSession::loadLanguage()
+{
+	QTranslator* zhtranslator = new QTranslator();
+	if(zhtranslator->load("jigsawpuzzle_zh.qm")){
+		app_.installTranslator(zhtranslator);
+	}
+	
+}
+
 bool AppSession::onEnter()
 {
 	loadStyleSheets();
+	loadLanguage();
 	mainwindow_ = new MainWindow();
 	mainwindow_->show();
 	mainwindow_->update();

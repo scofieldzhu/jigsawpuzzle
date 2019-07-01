@@ -28,7 +28,6 @@ void ClientView::createControls()
 	mainlayout->setSpacing(0);
 
 	wpview_ = new GameView(nullptr, this);
-	wpview_->setBackgroundBrush(QColor(230, 200, 167));
 	mainlayout->addWidget(wpview_);
 
 	setLayout(mainlayout);
