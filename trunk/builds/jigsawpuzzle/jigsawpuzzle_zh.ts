@@ -15,7 +15,7 @@
         <translation>下一个</translation>
     </message>
     <message>
-        <location filename="../../src/ui/controlpanel.cpp" line="46"/>
+        <location filename="../../src/ui/controlpanel.cpp" line="48"/>
         <source>Show Origin Image</source>
         <translation>显示原图</translation>
     </message>
@@ -23,6 +23,11 @@
         <location filename="../../src/ui/mainwindow.cpp" line="17"/>
         <source>ChenChen-JigsawPuzzle</source>
         <translation>辰辰拼图</translation>
+    </message>
+    <message>
+        <location filename="../../src/logic/sliceimagepane.cpp" line="100"/>
+        <source>Congratulations!</source>
+        <translation>恭喜过关！</translation>
     </message>
 </context>
 </TS>

@@ -12,16 +12,21 @@ CreateTime: 2019-6-24 19:08
 #include <QPixmap>
 #include "common.h"
 
+class QGraphicsTextItem;
 class JPGame
 {
 public:
 	void start();
 	void pause();
 	void shuffle();
+	void stop();
 	GameState state()const { return state_; }
 	void setOperatingImagePane(SliceImagePane* pane);
 	SliceImagePane* operatingImagePane();
 	void showOriginImage(bool toggled);
+	void showText(const QString& text);
+	void hideText();
+	bool checkFinishFlag()const;
 	JPGame(QPixmap& srcimg, uint32_t rows, uint32_t cols);
 	~JPGame();
 
@@ -32,6 +37,7 @@ private:
 	QPixmap srcimage_;
 	uint32_t kGridRows_, kGridCols_;
 	QList<SliceImagePane*> sliceimagepanes_;
+	QGraphicsTextItem* textitem_ = nullptr;
 };
 
 #endif

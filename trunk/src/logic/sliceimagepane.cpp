@@ -94,6 +94,10 @@ void SliceImagePane::mousePressEvent(QGraphicsSceneMouseEvent* event)
 		if(opimagepane){
 			swap(*opimagepane);
 			scene()->update();
-		}		
+		}	
+		if(GetActiveGame()->checkFinishFlag()){
+			GetActiveGame()->stop();
+			GetActiveGame()->showText(QObject::tr("Congratulations!"));
+		}
 	}
 }
