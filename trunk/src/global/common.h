@@ -22,4 +22,10 @@ enum GameState
 	kPausedState
 };
 
+enum EventType{
+	kStartGameBtnClicked,
+	kHangUpGameBtnClicked,
+	kShowOriginImageBtnClicked,
+};
+
 #endif

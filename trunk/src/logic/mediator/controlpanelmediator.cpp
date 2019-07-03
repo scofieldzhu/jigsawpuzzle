@@ -28,8 +28,8 @@ ControlPanelMediator::~ControlPanelMediator()
 void ControlPanelMediator::subscribeEvents()
 {
 	connect(ui_->startgametbtn, SIGNAL(released()), this, SLOT(handleStartGameBtnClicked()));
-	connect(ui_->nextgamebtn, SIGNAL(released()), this, SLOT(handleNextGameBtnClicked()));
-	connect(ui_->showoriginimgbtn, SIGNAL(toggled(bool)), this, SLOT(handleShowOriginImgBtnClicked(bool)));
+	connect(ui_->giveupbtn, SIGNAL(released()), this, SLOT(handleGiveUpBtnClicked()));
+	connect(ui_->hintbtn, SIGNAL(released()), this, SLOT(handleHitBtnClicked()));
 }
 
 void ControlPanelMediator::unsubscribe()
@@ -45,14 +45,14 @@ void ControlPanelMediator::handleStartGameBtnClicked()
 	}	
 }
 
-void ControlPanelMediator::handleNextGameBtnClicked()
+void ControlPanelMediator::handleGiveUpBtnClicked()
 {
 	if(GetActiveGame())
-		GetActiveGame()->shuffle();
+		GetActiveGame()->stop();
 }
 
-void ControlPanelMediator::handleShowOriginImgBtnClicked(bool chk)
+void ControlPanelMediator::handleHitBtnClicked()
 {
 	if(GetActiveGame())
-		GetActiveGame()->showOriginImage(chk);
+		GetActiveGame()->showOriginImage(true);
 }

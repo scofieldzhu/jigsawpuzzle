@@ -11,6 +11,8 @@ CreateTime: 2019-6-18 22:04
 
 #include <QWidget>
 
+class QLabel;
+class QComboBox;
 class QPushButton;
 class ControlPanelMediator;
 class ControlPanel : public QWidget
@@ -20,8 +22,14 @@ public:
 	ControlPanel(QWidget* parent, int32_t fixedwidth);
 	~ControlPanel();
 	QPushButton* startgametbtn = nullptr;
-	QPushButton* nextgamebtn = nullptr;
-	QPushButton* showoriginimgbtn = nullptr;
+	QPushButton* giveupbtn = nullptr;
+	QPushButton* hintbtn = nullptr;
+	QLabel* originimglabel = nullptr;
+	QComboBox* originimgcb = nullptr;
+	QLabel* difficultylabel = nullptr;
+	QComboBox* difficultycb = nullptr;
+	QLabel* timelabel = nullptr;
+	QLabel* timevallabel = nullptr;
 	ControlPanelMediator* mediator = nullptr;
 
 private:

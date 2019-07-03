@@ -10,6 +10,7 @@ CreateTime: 2019-6-18 21:00
 #include <QBoxLayout>
 #include "clientview.h"
 #include "controlpanel.h"
+#include "mainwindowmediator.h"
 
 MainWindow::MainWindow()
 	:QWidget(nullptr, Qt::WindowFlags())
@@ -17,6 +18,8 @@ MainWindow::MainWindow()
 	setWindowTitle(QObject::tr("ChenChen-JigsawPuzzle"));
 	setGeometry(100, 100, 1260, 680);
 	createControls();
+	mediator_ = new MainWindowMediator(this);
+	mediator_->subscribeEvents();
 }
 
 MainWindow::~MainWindow()

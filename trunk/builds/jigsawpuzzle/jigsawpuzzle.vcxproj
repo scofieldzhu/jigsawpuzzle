@@ -131,6 +131,7 @@
     <ClCompile Include="..\..\src\global\uiglo.cpp" />
     <ClCompile Include="..\..\src\logic\jpgame.cpp" />
     <ClCompile Include="..\..\src\logic\mediator\controlpanelmediator.cpp" />
+    <ClCompile Include="..\..\src\logic\mediator\mainwindowmediator.cpp" />
     <ClCompile Include="..\..\src\logic\sliceimagepane.cpp" />
     <ClCompile Include="..\..\src\logic\gamescene.cpp" />
     <ClCompile Include="..\..\src\ui\clientview.cpp" />
@@ -164,7 +165,16 @@
     <ClInclude Include="..\..\src\global\common.h" />
     <ClInclude Include="..\..\src\global\glo.h" />
     <ClInclude Include="..\..\src\global\uiglo.h" />
+    <ClInclude Include="..\..\src\logic\gamebuilder.h" />
+    <ClInclude Include="..\..\src\logic\gameconfig.h" />
+    <ClInclude Include="..\..\src\logic\gamestate.h" />
+    <ClInclude Include="..\..\src\logic\hangupstate.h" />
     <ClInclude Include="..\..\src\logic\jpgame.h" />
+    <QtMoc Include="..\..\src\logic\mediator\mainwindowmediator.h">
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;.;.\..\..\3rd\ratel-sdk\include\kernel;.\..\..\3rd\ratel-sdk\include\basic;.\..\..\src;.\..\..\src\logic\mediator;.\..\..\src\logic;.\..\..\src\ui;.\..\..\src\app;.\..\..\src\global</IncludePath>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;.;.\..\..\src;.\..\..\src\logic\mediator;.\..\..\src\logic;.\..\..\src\ui;.\..\..\src\app;.\..\..\src\global</IncludePath>
+    </QtMoc>
+    <ClInclude Include="..\..\src\logic\playingstate.h" />
     <ClInclude Include="..\..\src\logic\sliceimagepane.h" />
     <ClInclude Include="..\..\src\logic\uimediator.hxx" />
     <QtMoc Include="..\..\src\ui\clientview.h">

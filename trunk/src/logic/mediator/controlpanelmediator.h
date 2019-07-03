@@ -12,7 +12,6 @@ CreateTime: 2019-6-20 21:17
 #include <QObject>
 #include "uimediator.hxx"
 
-class JPGame;
 class ControlPanel;
 class ControlPanelMediator : public QObject, public UIMediator<ControlPanel>
 {
@@ -25,8 +24,8 @@ public:
 
 private slots:
 	void handleStartGameBtnClicked();
-	void handleNextGameBtnClicked();
-	void handleShowOriginImgBtnClicked(bool);
+	void handleGiveUpBtnClicked();
+	void handleHitBtnClicked();
 };
 
 #endif

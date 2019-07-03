@@ -92,6 +92,9 @@
     <ClCompile Include="..\..\src\logic\sliceimagepane.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\logic\mediator\mainwindowmediator.cpp">
+      <Filter>logic\mediator</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="..\..\src\ui\mainwindow.h">
@@ -111,6 +114,9 @@
     </QtMoc>
     <QtMoc Include="..\..\src\logic\gamescene.h">
       <Filter>logic</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\logic\mediator\mainwindowmediator.h">
+      <Filter>logic\mediator</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +139,21 @@
       <Filter>global</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\logic\sliceimagepane.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\logic\gamebuilder.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\logic\gameconfig.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\logic\gamestate.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\logic\hangupstate.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\logic\playingstate.h">
       <Filter>logic</Filter>
     </ClInclude>
   </ItemGroup>

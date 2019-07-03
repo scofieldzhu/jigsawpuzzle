@@ -13,12 +13,14 @@ CreateTime: 2019-6-18 21:00
 
 class ClientView;
 class ControlPanel;
+class MainWindowMediator;
 class MainWindow : public QWidget
 {
 	Q_OBJECT
 public:
 	ClientView* clientView() { return clientview_; }
 	ControlPanel* ctrlPanel() { return ctrlpanel_; }
+	MainWindowMediator* mediator() { return mediator_; }
 	MainWindow();
 	~MainWindow();	
 
@@ -26,6 +28,7 @@ private:
 	void createControls();
 	ClientView* clientview_ = nullptr;
 	ControlPanel* ctrlpanel_ = nullptr;
+	MainWindowMediator* mediator_ = nullptr;
 };
 
 #endif

@@ -11,6 +11,7 @@ CreateTime: 2019-6-19 21:07
 #include <QApplication>
 #include <QTranslator>
 #include "mainwindow.h"
+#include "mainwindowmediator.h"
 USING_RATEL
 
 static AppSession* st_AppInst = nullptr;
@@ -48,6 +49,9 @@ bool AppSession::onEnter()
 	loadStyleSheets();
 	loadLanguage();
 	mainwindow_ = new MainWindow();
+// 	mainwindow_->show();
+// 	mainwindow_->update();
+	mainwindow_->mediator()->initAppUI();
 	mainwindow_->show();
 	mainwindow_->update();
 	return true;
