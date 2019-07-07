@@ -10,8 +10,9 @@ CreateTime: 2019-7-3 21:26
 #include <QComboBox>
 #include "mainwindow.h"
 #include "controlpanel.h"
-#include "clientview.h"
+#include "gamescene.h"
 #include "gameview.h"
+#include "uiglo.h"
 
 MainWindowMediator::MainWindowMediator(MainWindow* ui)
 	:QObject(ui),
@@ -33,11 +34,5 @@ void MainWindowMediator::unsubscribe()
 void MainWindowMediator::initAppUI()
 {
 	QPixmap originimg(ui_->ctrlPanel()->originimgcb->currentText());
-	originimg.save("xx.jpg");
-	QBrush bkgbrush(originimg);
-	GameView* gview = ui_->clientView()->gameView();
-	gview->setBackgroundBrush(bkgbrush);	
-	gview->setCacheMode(QGraphicsView::CacheBackground);
-	gview->invalidateScene();
-	gview->update();
+    GetGameScene()->setBackgroundImage(originimg);
 }

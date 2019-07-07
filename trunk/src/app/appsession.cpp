@@ -49,8 +49,8 @@ bool AppSession::onEnter()
 	loadStyleSheets();
 	loadLanguage();
 	mainwindow_ = new MainWindow();
-// 	mainwindow_->show();
-// 	mainwindow_->update();
+ 	mainwindow_->show();
+ 	mainwindow_->update();
 	mainwindow_->mediator()->initAppUI();
 	mainwindow_->show();
 	mainwindow_->update();

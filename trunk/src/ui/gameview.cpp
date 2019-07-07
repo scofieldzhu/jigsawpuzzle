@@ -19,16 +19,6 @@ GameView::GameView(GameScene* scene, QWidget* parent)
 GameView::~GameView()
 {}
 
-void GameView::drawBackground(QPainter *painter, const QRectF &rect)
-{
-	QGraphicsView::drawBackground(painter, rect);
-}
-
-void GameView::drawForeground(QPainter *painter, const QRectF &rect)
-{
-	QGraphicsView::drawForeground(painter, rect);
-}
-
 GameScene* GameView::localScene()
 {
 	return qobject_cast<GameScene*>(scene());

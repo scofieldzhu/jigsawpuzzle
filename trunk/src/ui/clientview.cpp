@@ -11,6 +11,7 @@ CreateTime: 2019-6-20 20:10
 #include <QStyleOption>
 #include <QPainter>
 #include "gameview.h"
+#include "gamescene.h"
 
 ClientView::ClientView(QWidget* parent /*= Q_NULLPTR*/)
 	:QWidget(parent)
@@ -26,8 +27,9 @@ void ClientView::createControls()
 	QHBoxLayout* mainlayout = new QHBoxLayout();
 	mainlayout->setContentsMargins(4, 4, 4, 4);
 	mainlayout->setSpacing(0);
-
-	wpview_ = new GameView(nullptr, this);
+    
+    GameScene* gs = new GameScene(0, 0, width(), height(), this);
+	wpview_ = new GameView(gs, this);
 	mainlayout->addWidget(wpview_);
 
 	setLayout(mainlayout);

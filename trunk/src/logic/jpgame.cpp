@@ -35,12 +35,14 @@ std::vector<int32_t> JPGame::generateRandomNums(uint32_t cnt, int32_t min)
 
 void JPGame::initGameResource()
 {	
-	GameScene* scene = GetGameScene();
-	QSizeF scenesize = scene->sceneRect().size();
-	QPixmap bestfitimg = srcimage_.scaled(scenesize.width(), scenesize.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-	scene->setBackgroundImage(bestfitimg);	
-	uint32_t kSubImgWidth = bestfitimg.width() / kGridCols_;
-	uint32_t kSubImgHeight = bestfitimg.height() / kGridRows_;			
+    GameView* gview = GetGameView();
+    GameScene* gscene = gview->localScene();    
+    gscene->setSceneRect({0.0, 0.0, gview->width() * 1.0, gview->height() * 1.0});    
+	QSizeF scenesize = gscene->sceneRect().size();
+	QPixmap gameimg = srcimage_.scaled(scenesize.width(), scenesize.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    gscene->setGameImage(gameimg);
+	uint32_t kSubImgWidth = gameimg.width() / kGridCols_;
+	uint32_t kSubImgHeight = gameimg.height() / kGridRows_;			
 	auto randomnums = generateRandomNums(kGridCols_ * kGridRows_, 0);
 	int32_t rnumindex = 0;
 	for(int32_t i = 0; i < kGridRows_; ++i){
@@ -49,12 +51,12 @@ void JPGame::initGameResource()
 			int32_t imgseqx = imgseq / kGridCols_;
 			int32_t imgseqy = imgseq - imgseqx * kGridCols_;
 			const QPoint kImgSeqPos(imgseqx, imgseqy);
-			QPixmap img = bestfitimg.copy(kImgSeqPos.y() * kSubImgWidth, kImgSeqPos.x() * kSubImgHeight, kSubImgWidth, kSubImgHeight);			
+			QPixmap img = gameimg.copy(kImgSeqPos.y() * kSubImgWidth, kImgSeqPos.x() * kSubImgHeight, kSubImgWidth, kSubImgHeight);			
 			const QPoint kDestImgSeqPos(i, j);
 			SliceImagePane* imgpane = new SliceImagePane(img, kDestImgSeqPos);
-			scene->addItem(imgpane);			
+			gscene->addItem(imgpane);			
 			imgpane->setGridPos(kImgSeqPos);		
-			QPointF scenepos = scene->sceneRect().topLeft();			
+			QPointF scenepos = gscene->sceneRect().topLeft();			
 			scenepos.rx() += (kDestImgSeqPos.y() + 0.5) * kSubImgWidth;
 			scenepos.ry() += (kDestImgSeqPos.x() + 0.5) * kSubImgHeight;
 			imgpane->setPos(scenepos);
@@ -64,7 +66,7 @@ void JPGame::initGameResource()
 
 	if(textitem_ == nullptr){
 		textitem_ = new QGraphicsTextItem(nullptr);
-		scene->addItem(textitem_);
+		gscene->addItem(textitem_);
 		textitem_->setDefaultTextColor(Qt::red);
 		QFont ft(QStringLiteral("Î¢ÈíÑÅºÚ"));
 		ft.setPixelSize(30);
@@ -77,13 +79,9 @@ void JPGame::initGameResource()
 }
 
 void JPGame::start()
-{
-	GameView* wp = GetGameView();	
-	double width = wp->width();
-	double height = wp->height();
-	GameScene* ws = new GameScene(-width / 2.0, -height / 2.0, width, height, nullptr);	
-	wp->setScene(ws);		
+{	
 	initGameResource();
+    GameView* wp = GetGameView();	
 	wp->show();
 	wp->update();
 	state_ = kPlayingState;
@@ -99,9 +97,9 @@ void JPGame::shuffle()
 	if(sliceimagepanes_.empty())
 		return;
 	GameScene* scene = GetGameScene();
-	QPixmap& bestfitimg = scene->backgroundImage();
-	const uint32_t kSubImgWidth = bestfitimg.width() / kGridCols_;
-	const uint32_t kSubImgHeight = bestfitimg.height() / kGridRows_;
+	QPixmap& gameimg = scene->gameImage();
+	const uint32_t kSubImgWidth = gameimg.width() / kGridCols_;
+	const uint32_t kSubImgHeight = gameimg.height() / kGridRows_;
 	auto randomnums = generateRandomNums(kGridCols_ * kGridRows_, 0);
 	int32_t rnumindex = 0;	
 	for(SliceImagePane* pane : sliceimagepanes_){
@@ -109,7 +107,7 @@ void JPGame::shuffle()
 		int32_t imgseqx = imgseq / kGridCols_;
 		int32_t imgseqy = imgseq - imgseqx * kGridCols_;
 		const QPoint kImgSeqPos(imgseqx, imgseqy);
-		QPixmap img = scene->backgroundImage().copy(kImgSeqPos.y() * kSubImgWidth, kImgSeqPos.x() * kSubImgHeight, kSubImgWidth, kSubImgHeight);
+		QPixmap img = gameimg.copy(kImgSeqPos.y() * kSubImgWidth, kImgSeqPos.x() * kSubImgHeight, kSubImgWidth, kSubImgHeight);
 		pane->setImage(img);
 		pane->setGridPos({imgseqx, imgseqy});		
 	}

@@ -18,10 +18,7 @@ class GameView : public QGraphicsView
 public:
 	GameScene* localScene();
 	GameView(GameScene* scene, QWidget* parent = nullptr);
-	~GameView();
-
-	virtual void drawBackground(QPainter *painter, const QRectF &rect);
-	virtual void drawForeground(QPainter *painter, const QRectF &rect);
+	~GameView();	
 };
 
 #endif

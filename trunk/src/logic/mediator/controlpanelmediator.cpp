@@ -8,7 +8,7 @@ CreateTime: 2019-6-20 21:17
 =========================================================================*/
 #include "controlpanelmediator.h"
 #include <QPushButton>
-#include <QMessageBox>
+#include <QComboBox>
 #include "controlpanel.h"
 #include "uiglo.h"
 #include "mainwindow.h"
@@ -38,9 +38,9 @@ void ControlPanelMediator::unsubscribe()
 
 void ControlPanelMediator::handleStartGameBtnClicked()
 {
-	QPixmap bkgimg("111.jpg");
-	if(!bkgimg.isNull()){
-		JPGame* newgame = new JPGame(bkgimg, 3, 3);
+    QPixmap originimg(ui_->originimgcb->currentText());
+	if(!originimg.isNull()){
+		JPGame* newgame = new JPGame(originimg, 3, 3);
 		newgame->start();
 	}	
 }
