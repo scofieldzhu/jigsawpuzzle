@@ -37,7 +37,9 @@ void JPGame::initGameResource()
 {	
     GameView* gview = GetGameView();
     GameScene* gscene = gview->localScene();    
-    gscene->setSceneRect({0.0, 0.0, gview->width() * 1.0, gview->height() * 1.0});    
+    double vwidth = gview->width();
+    double vheight = gview->height();
+    gscene->setSceneRect({-vwidth / 2.0, -vheight / 2.0, vwidth, vheight});    
 	QSizeF scenesize = gscene->sceneRect().size();
 	QPixmap gameimg = srcimage_.scaled(scenesize.width(), scenesize.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
     gscene->setGameImage(gameimg);

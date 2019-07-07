@@ -13,6 +13,7 @@ CreateTime: 2019-6-20 21:17
 #include "uiglo.h"
 #include "mainwindow.h"
 #include "jpgame.h"
+#include "gamescene.h"
 
 ControlPanelMediator::ControlPanelMediator(ControlPanel* ui)
 	:QObject(ui),
@@ -27,6 +28,7 @@ ControlPanelMediator::~ControlPanelMediator()
 
 void ControlPanelMediator::subscribeEvents()
 {
+    connect(ui_->originimgcb, SIGNAL(currentTextChanged(const QString&)), this, SLOT(handleOriginImageCurrentTextChanged(const QString&)));
 	connect(ui_->startgametbtn, SIGNAL(released()), this, SLOT(handleStartGameBtnClicked()));
 	connect(ui_->giveupbtn, SIGNAL(released()), this, SLOT(handleGiveUpBtnClicked()));
 	connect(ui_->hintbtn, SIGNAL(released()), this, SLOT(handleHitBtnClicked()));
@@ -38,17 +40,43 @@ void ControlPanelMediator::unsubscribe()
 
 void ControlPanelMediator::handleStartGameBtnClicked()
 {
+    if(GetActiveGame()){
+        GetActiveGame()->stop();
+        delete GetActiveGame();
+    }
     QPixmap originimg(ui_->originimgcb->currentText());
 	if(!originimg.isNull()){
-		JPGame* newgame = new JPGame(originimg, 3, 3);
+        int index = ui_->difficultycb->currentIndex();
+        QSize dim;
+        if(index == 0){
+            dim = {3, 3};
+        } else if(index == 1){
+            dim = {4, 4};
+        } else{
+            dim = {5, 5};
+        }
+		JPGame* newgame = new JPGame(originimg, dim.width(), dim.height());
 		newgame->start();
+        ui_->startgametbtn->setEnabled(false);
+        ui_->giveupbtn->setEnabled(true);
+        ui_->hintbtn->setEnabled(true);
 	}	
 }
 
 void ControlPanelMediator::handleGiveUpBtnClicked()
 {
-	if(GetActiveGame())
-		GetActiveGame()->stop();
+    if(GetActiveGame()){
+        GetActiveGame()->stop();
+        ui_->startgametbtn->setEnabled(true);
+    }
+}
+
+void ControlPanelMediator::handleOriginImageCurrentTextChanged(const QString&)
+{
+    handleGiveUpBtnClicked();
+    QPixmap originimg(ui_->originimgcb->currentText());
+    GetGameScene()->setBackgroundImage(originimg);
+    GetGameScene()->update();
 }
 
 void ControlPanelMediator::handleHitBtnClicked()

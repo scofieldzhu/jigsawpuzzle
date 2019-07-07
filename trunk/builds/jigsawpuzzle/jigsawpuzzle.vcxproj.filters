@@ -50,10 +50,10 @@
     <ResourceCompile Include="jigsawpuzzle.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\jigsawpuzzle.licenseheader" />
     <None Include="jigsawpuzzle_zh.ts">
       <Filter>Translation Files</Filter>
     </None>
+    <None Include="jigsawpuzzle.licenseheader" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\app\main.cpp">
@@ -154,6 +154,12 @@
       <Filter>logic</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\logic\playingstate.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\logic\xsignal.hxx">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\logic\glosignals.h">
       <Filter>logic</Filter>
     </ClInclude>
   </ItemGroup>

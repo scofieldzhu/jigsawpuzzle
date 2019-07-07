@@ -26,6 +26,7 @@ private slots:
 	void handleStartGameBtnClicked();
 	void handleGiveUpBtnClicked();
 	void handleHitBtnClicked();
+    void handleOriginImageCurrentTextChanged(const QString&);
 };
 
 #endif

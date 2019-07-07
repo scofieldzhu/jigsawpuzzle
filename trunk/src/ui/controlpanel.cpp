@@ -42,8 +42,9 @@ void ControlPanel::createControls()
 	originimglabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 	originimgcb = new QComboBox();
 	originimgcb->addItem("111.jpg");
-	originimgcb->addItem("IMG2");
-	originimgcb->addItem("IMG3");
+	originimgcb->addItem("222.jpg");
+	originimgcb->addItem("333.jpg");
+    originimgcb->addItem("444.jpg");
 	row1layout->addWidget(originimglabel);
 	row1layout->addSpacerItem(new QSpacerItem(10, 0, QSizePolicy::Fixed, QSizePolicy::Ignored));
 	row1layout->addWidget(originimgcb);
