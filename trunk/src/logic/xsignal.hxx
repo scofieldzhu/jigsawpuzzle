@@ -17,10 +17,10 @@ struct XSignal
 {
     typedef EvtCls MyEvtCls;
     typedef XSignal<EvtCls> Self;
-    typedef boost::signals2::connection BoostSig2Con;
-    typedef boost::signals2::signal<void(const EvtCls&)> BoostSig2;
-    typedef typename BoostSig2::slot_type BoostSig2Slot;
-    static Self& Instance()
+    typedef boost::signals2::connection SigCon;
+    typedef boost::signals2::signal<void(const EvtCls&)> BSig2Type;
+    typedef typename BSig2Type::slot_type SigSlot;
+    static Self& Inst()
     {
         static Self s;
         return s;
@@ -30,11 +30,11 @@ struct XSignal
         kBack,
         kFront,
     };
-    BoostSig2Con connect(const BoostSig2Slot& subscriber, PosType postype = kBack)
+    SigCon connect(const SigSlot& subscriber, PosType postype = kBack)
     {
         return sigsource_.connect(subscriber, (boost::signals2::connect_position)postype);
     }
-    BoostSig2Con connect(const BoostSig2Slot& subscriber, int group, PosType postype = kBack)
+    SigCon connect(const SigSlot& subscriber, int group, PosType postype = kBack)
     {
         return sigsource_.connect(group, subscriber, (boost::signals2::connect_position)postype);
     }         
@@ -51,7 +51,7 @@ struct XSignal
         return sigsource_.empty();
     }
 private:
-    BoostSig2 sigsource_;
+    BSig2Type sigsource_;
 };
 
 #endif

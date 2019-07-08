@@ -18,7 +18,7 @@ public:
     int gridrows;
     int gridcols;
     int watchimageseconds;
-    
+    int hintcount;    
     GameConfig();
     ~GameConfig();
 };

@@ -13,6 +13,7 @@ CreateTime: 2019-6-21 22:16
 #include "uiglo.h"
 #include "gamescene.h"
 #include "jpgame.h"
+#include "glosignals.h"
 
 SliceImagePane::SliceImagePane(QPixmap& slice, const QPoint& destgridpos)
 	:image_(slice),
@@ -34,6 +35,7 @@ void SliceImagePane::swap(SliceImagePane& pane)
 	setGridPos(pane.currentGridPos());
 	pane.setGridPos(curpos);
 	update();
+    SliceImageSwappedSignal::Inst().trigger(SliceImageSwappedEvent());
 }
 
 QRectF SliceImagePane::boundingRect() const
@@ -91,13 +93,9 @@ void SliceImagePane::mousePressEvent(QGraphicsSceneMouseEvent* event)
 			return;
 		}
 		SliceImagePane* opimagepane = GetActiveGame()->operatingImagePane();
-		if(opimagepane){
-			swap(*opimagepane);
-			scene()->update();
-		}	
-		if(GetActiveGame()->checkFinishFlag()){
-			GetActiveGame()->stop();
-			GetActiveGame()->showText(QObject::tr("Congratulations!"));
-		}
+        if(opimagepane){
+            swap(*opimagepane);
+            GetGameScene()->update();
+        }
 	}
 }

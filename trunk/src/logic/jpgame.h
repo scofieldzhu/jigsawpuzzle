@@ -11,6 +11,7 @@ CreateTime: 2019-6-24 19:08
 
 #include <QPixmap>
 #include "common.h"
+#include "glosignals.h"
 
 class QGraphicsTextItem;
 class JPGame
@@ -19,8 +20,9 @@ public:
 	void start();
 	void pause();
 	void shuffle();
-	void stop();
+	void stop(GameStoppedReason reason);
 	GameState state()const { return state_; }
+    bool isStarted()const{ return state_ != kStoppedState; }
 	void setOperatingImagePane(SliceImagePane* pane);
 	SliceImagePane* operatingImagePane();
 	void showOriginImage(bool toggled);
@@ -31,13 +33,15 @@ public:
 	~JPGame();
 
 private:
+    void handleSliceImageSwappedSignal(const SliceImageSwappedEvent&);
 	std::vector<int32_t> generateRandomNums(uint32_t cnt, int32_t min);
-	void initGameResource();
+	void generateResource();
 	GameState state_ = kStoppedState;
 	QPixmap srcimage_;
 	uint32_t kGridRows_, kGridCols_;
 	QList<SliceImagePane*> sliceimagepanes_;
 	QGraphicsTextItem* textitem_ = nullptr;
+    SliceImageSwappedSignal::SigCon imageswappedconn_;
 };
 
 #endif

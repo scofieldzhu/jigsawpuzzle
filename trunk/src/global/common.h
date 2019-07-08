@@ -22,6 +22,12 @@ enum GameState
 	kPausedState
 };
 
+enum GameStoppedReason
+{
+    kNormalStopped,
+    kForceStopped
+};
+
 enum EventType{
 	kStartGameBtnClicked,
 	kHangUpGameBtnClicked,

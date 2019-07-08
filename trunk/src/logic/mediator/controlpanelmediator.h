@@ -11,6 +11,7 @@ CreateTime: 2019-6-20 21:17
 
 #include <QObject>
 #include "uimediator.hxx"
+#include "glosignals.h"
 
 class ControlPanel;
 class ControlPanelMediator : public QObject, public UIMediator<ControlPanel>
@@ -27,6 +28,14 @@ private slots:
 	void handleGiveUpBtnClicked();
 	void handleHitBtnClicked();
     void handleOriginImageCurrentTextChanged(const QString&);
+
+private:
+    void handleGameStartedSignal(const GameStartedEvent&);
+    void handleGameStoppedSignal(const GameStoppedEvent&);
+    void handleGameHintTimeOutSignal(const GameHintTimeOutEvent&);
+    GameStartedSignal::SigCon startedconn_;
+    GameStoppedSignal::SigCon stoppedconn_;
+    GameHintTimeOutSignal::SigCon hinttimeoutconn_;
 };
 
 #endif

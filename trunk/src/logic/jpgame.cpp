@@ -11,6 +11,7 @@ CreateTime: 2019-6-24 19:08
 #include "gamescene.h"
 #include "gameview.h"
 #include "sliceimagepane.h"
+#include "glosignals.h"
 
 JPGame::JPGame(QPixmap& srcimg, uint32_t rows, uint32_t cols)
 	:srcimage_(srcimg),
@@ -33,7 +34,7 @@ std::vector<int32_t> JPGame::generateRandomNums(uint32_t cnt, int32_t min)
 	return resultnums;
 }
 
-void JPGame::initGameResource()
+void JPGame::generateResource()
 {	
     GameView* gview = GetGameView();
     GameScene* gscene = gview->localScene();    
@@ -82,11 +83,13 @@ void JPGame::initGameResource()
 
 void JPGame::start()
 {	
-	initGameResource();
+	generateResource();
     GameView* wp = GetGameView();	
 	wp->show();
 	wp->update();
 	state_ = kPlayingState;
+    imageswappedconn_ = SliceImageSwappedSignal::Inst().connect(boost::bind(&JPGame::handleSliceImageSwappedSignal, this, _1));
+    GameStartedSignal::Inst().trigger(GameStartedEvent(*this));
 }
 
 void JPGame::pause()
@@ -116,18 +119,24 @@ void JPGame::shuffle()
 	scene->update();
 }
 
-void JPGame::stop()
+void JPGame::stop(GameStoppedReason reason)
 {
-	GameScene* scene = GetGameScene();
-	for(auto pane : sliceimagepanes_)
-		scene->removeItem(pane);
-	sliceimagepanes_.clear();
-	state_ = kStoppedState;
+    if(state_ != GameState::kStoppedState){
+        GameScene* scene = GetGameScene();
+        for(auto pane : sliceimagepanes_){
+            scene->removeItem(pane);
+            rtdelete(pane); //free memory
+        }
+        sliceimagepanes_.clear();
+        state_ = kStoppedState;
+        imageswappedconn_.disconnect();
+        GameStoppedSignal::Inst().trigger(GameStoppedEvent(*this, reason));
+    }	
 }
 
 void JPGame::setOperatingImagePane(SliceImagePane* pane)
 {
-	for(SliceImagePane* p : sliceimagepanes_)
+	for(SliceImagePane* p : sliceimagepanes_) //exclusive operation
 		p->setOperating(p == pane);
 	GetGameScene()->update();
 }
@@ -165,4 +174,12 @@ bool JPGame::checkFinishFlag() const
 			return false;
 	}
 	return true;
+}
+
+void JPGame::handleSliceImageSwappedSignal(const SliceImageSwappedEvent&)
+{
+    if(checkFinishFlag()){
+        stop(kNormalStopped);
+        showText(QObject::tr("Congratulations!"));
+    }
 }

@@ -29,21 +29,24 @@ ControlPanelMediator::~ControlPanelMediator()
 void ControlPanelMediator::subscribeEvents()
 {
     connect(ui_->originimgcb, SIGNAL(currentTextChanged(const QString&)), this, SLOT(handleOriginImageCurrentTextChanged(const QString&)));
-	connect(ui_->startgametbtn, SIGNAL(released()), this, SLOT(handleStartGameBtnClicked()));
-	connect(ui_->giveupbtn, SIGNAL(released()), this, SLOT(handleGiveUpBtnClicked()));
+	connect(ui_->startgametbtn, SIGNAL(released()), this, SLOT(handleStartGameBtnClicked()));    
+	connect(ui_->giveupbtn, SIGNAL(released()), this, SLOT(handleGiveUpBtnClicked()));    
 	connect(ui_->hintbtn, SIGNAL(released()), this, SLOT(handleHitBtnClicked()));
+    startedconn_ = GameStartedSignal::Inst().connect(boost::bind(&ControlPanelMediator::handleGameStartedSignal, this, _1));
+    stoppedconn_ = GameStoppedSignal::Inst().connect(boost::bind(&ControlPanelMediator::handleGameStoppedSignal, this, _1));
+    hinttimeoutconn_ = GameHintTimeOutSignal::Inst().connect(boost::bind(&ControlPanelMediator::handleGameHintTimeOutSignal, this, _1));    
 }
 
 void ControlPanelMediator::unsubscribe()
 {
+    startedconn_.disconnect();
+    stoppedconn_.disconnect();
+    hinttimeoutconn_.disconnect();
 }
 
 void ControlPanelMediator::handleStartGameBtnClicked()
 {
-    if(GetActiveGame()){
-        GetActiveGame()->stop();
-        delete GetActiveGame();
-    }
+    Q_ASSERT(GetActiveGame() == nullptr);    
     QPixmap originimg(ui_->originimgcb->currentText());
 	if(!originimg.isNull()){
         int index = ui_->difficultycb->currentIndex();
@@ -56,18 +59,16 @@ void ControlPanelMediator::handleStartGameBtnClicked()
             dim = {5, 5};
         }
 		JPGame* newgame = new JPGame(originimg, dim.width(), dim.height());
-		newgame->start();
-        ui_->startgametbtn->setEnabled(false);
-        ui_->giveupbtn->setEnabled(true);
-        ui_->hintbtn->setEnabled(true);
+		newgame->start();        
 	}	
 }
 
 void ControlPanelMediator::handleGiveUpBtnClicked()
 {
-    if(GetActiveGame()){
-        GetActiveGame()->stop();
-        ui_->startgametbtn->setEnabled(true);
+    JPGame* game = GetActiveGame();
+    if(game && game->isStarted()){
+        game->stop(kForceStopped);
+        delete game;
     }
 }
 
@@ -77,6 +78,25 @@ void ControlPanelMediator::handleOriginImageCurrentTextChanged(const QString&)
     QPixmap originimg(ui_->originimgcb->currentText());
     GetGameScene()->setBackgroundImage(originimg);
     GetGameScene()->update();
+}
+
+void ControlPanelMediator::handleGameStartedSignal(const GameStartedEvent& event)
+{
+    ui_->startgametbtn->setEnabled(false);
+    ui_->giveupbtn->setEnabled(true);
+    ui_->hintbtn->setEnabled(true);
+}
+
+void ControlPanelMediator::handleGameStoppedSignal(const GameStoppedEvent&)
+{
+    ui_->startgametbtn->setEnabled(true);
+    ui_->giveupbtn->setEnabled(false);
+    ui_->hintbtn->setEnabled(false);
+}
+
+void ControlPanelMediator::handleGameHintTimeOutSignal(const GameHintTimeOutEvent&)
+{
+    ui_->giveupbtn->setEnabled(false);
 }
 
 void ControlPanelMediator::handleHitBtnClicked()

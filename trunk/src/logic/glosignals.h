@@ -11,15 +11,41 @@ Creator: scofieldzhu
 #define __glosignals_h__
 
 #include "xsignal.hxx"
+#include "common.h"
 
-struct GameStoppedEvent
+class JPGame;
+struct GameNotifyEvent
 {
-    enum Reason{
-        kNormal,
-        kForce
-    };
-    Reason r;
+    JPGame* game;
+    GameNotifyEvent(JPGame& g)
+        :game(&g){}
+};
+
+struct GameStoppedEvent : public GameNotifyEvent
+{    
+    GameStoppedEvent(JPGame& g, GameStoppedReason r)
+        :GameNotifyEvent(g),
+        reason(r){}    
+    GameStoppedReason reason;
 };
 typedef XSignal<GameStoppedEvent> GameStoppedSignal;
+
+struct GameStartedEvent : public GameNotifyEvent
+{
+    GameStartedEvent(JPGame& g)
+        :GameNotifyEvent(g){}
+};
+typedef XSignal<GameStartedEvent> GameStartedSignal;
+
+struct GameHintTimeOutEvent : public GameNotifyEvent
+{
+    GameHintTimeOutEvent(JPGame& g)
+        :GameNotifyEvent(g){}
+};
+typedef XSignal<GameHintTimeOutEvent> GameHintTimeOutSignal;
+
+struct SliceImageSwappedEvent{};
+typedef XSignal<SliceImageSwappedEvent> SliceImageSwappedSignal;
+
 
 #endif
