@@ -58,7 +58,11 @@ void ControlPanelMediator::handleStartGameBtnClicked()
         } else{
             dim = {5, 5};
         }
-		JPGame* newgame = new JPGame(originimg, dim.width(), dim.height());
+        GameConfig conf;
+        conf.originimage = originimg;
+        conf.gridrows = dim.height();
+        conf.gridcols = dim.width();        
+		JPGame* newgame = new JPGame(conf);
 		newgame->start();        
 	}	
 }
@@ -66,10 +70,8 @@ void ControlPanelMediator::handleStartGameBtnClicked()
 void ControlPanelMediator::handleGiveUpBtnClicked()
 {
     JPGame* game = GetActiveGame();
-    if(game && game->isStarted()){
-        game->stop(kForceStopped);
-        delete game;
-    }
+    if(game && game->isStarted())
+        game->stop(kForceStopped);        
 }
 
 void ControlPanelMediator::handleOriginImageCurrentTextChanged(const QString&)
@@ -87,11 +89,14 @@ void ControlPanelMediator::handleGameStartedSignal(const GameStartedEvent& event
     ui_->hintbtn->setEnabled(true);
 }
 
-void ControlPanelMediator::handleGameStoppedSignal(const GameStoppedEvent&)
+void ControlPanelMediator::handleGameStoppedSignal(const GameStoppedEvent& event)
 {
     ui_->startgametbtn->setEnabled(true);
     ui_->giveupbtn->setEnabled(false);
     ui_->hintbtn->setEnabled(false);
+    delete event.game; //destroy current active game
+    if(event.reason == kNormalStopped)
+        GetGameScene()->showNotice(QObject::tr("Congratulations!"));
 }
 
 void ControlPanelMediator::handleGameHintTimeOutSignal(const GameHintTimeOutEvent&)
@@ -102,5 +107,5 @@ void ControlPanelMediator::handleGameHintTimeOutSignal(const GameHintTimeOutEven
 void ControlPanelMediator::handleHitBtnClicked()
 {
 	if(GetActiveGame())
-		GetActiveGame()->showOriginImage(true);
+		GetActiveGame()->showGameImage(true);
 }

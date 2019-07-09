@@ -33,9 +33,9 @@ private:
     void handleGameStartedSignal(const GameStartedEvent&);
     void handleGameStoppedSignal(const GameStoppedEvent&);
     void handleGameHintTimeOutSignal(const GameHintTimeOutEvent&);
-    GameStartedSignal::SigCon startedconn_;
-    GameStoppedSignal::SigCon stoppedconn_;
-    GameHintTimeOutSignal::SigCon hinttimeoutconn_;
+    SignalCon startedconn_;
+    SignalCon stoppedconn_;
+    SignalCon hinttimeoutconn_;
 };
 
 #endif

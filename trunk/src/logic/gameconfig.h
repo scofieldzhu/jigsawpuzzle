@@ -11,16 +11,13 @@ CreateTime: 2019-7-3 19:16
 
 #include <QPixmap>
 
-class GameConfig
+struct GameConfig
 {
-public:
-    QPixmap originimage;
-    int gridrows;
-    int gridcols;
-    int watchimageseconds;
-    int hintcount;    
-    GameConfig();
-    ~GameConfig();
+    QPixmap originimage; //origin image file for game, no any data modified
+    int gridrows = 3; //jigsaw puzzle grid row count
+    int gridcols = 3; //jigsaw puzzle grid column count
+    int displayhinttime = 3; //time cost of each hint 
+    int hintcount = 1; // max permitted hint count       
 };
 
 #endif

@@ -12,12 +12,13 @@ Creator: scofieldzhu
 
 #include <boost/signals2.hpp>
 
+typedef boost::signals2::connection SignalCon;
+
 template <typename EvtCls>
 struct XSignal
 {
     typedef EvtCls MyEvtCls;
-    typedef XSignal<EvtCls> Self;
-    typedef boost::signals2::connection SigCon;
+    typedef XSignal<EvtCls> Self;    
     typedef boost::signals2::signal<void(const EvtCls&)> BSig2Type;
     typedef typename BSig2Type::slot_type SigSlot;
     static Self& Inst()
@@ -30,11 +31,11 @@ struct XSignal
         kBack,
         kFront,
     };
-    SigCon connect(const SigSlot& subscriber, PosType postype = kBack)
+    SignalCon connect(const SigSlot& subscriber, PosType postype = kBack)
     {
         return sigsource_.connect(subscriber, (boost::signals2::connect_position)postype);
     }
-    SigCon connect(const SigSlot& subscriber, int group, PosType postype = kBack)
+    SignalCon connect(const SigSlot& subscriber, int group, PosType postype = kBack)
     {
         return sigsource_.connect(group, subscriber, (boost::signals2::connect_position)postype);
     }         

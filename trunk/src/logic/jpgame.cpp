@@ -13,10 +13,8 @@ CreateTime: 2019-6-24 19:08
 #include "sliceimagepane.h"
 #include "glosignals.h"
 
-JPGame::JPGame(QPixmap& srcimg, uint32_t rows, uint32_t cols)
-	:srcimage_(srcimg),
-	kGridRows_(rows),
-	kGridCols_(cols)
+JPGame::JPGame(const GameConfig& conf)
+	:config_(conf)
 {
 	SetActiveGame(this);
 }
@@ -42,19 +40,18 @@ void JPGame::generateResource()
     double vheight = gview->height();
     gscene->setSceneRect({-vwidth / 2.0, -vheight / 2.0, vwidth, vheight});    
 	QSizeF scenesize = gscene->sceneRect().size();
-	QPixmap gameimg = srcimage_.scaled(scenesize.width(), scenesize.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-    gscene->setGameImage(gameimg);
-	uint32_t kSubImgWidth = gameimg.width() / kGridCols_;
-	uint32_t kSubImgHeight = gameimg.height() / kGridRows_;			
-	auto randomnums = generateRandomNums(kGridCols_ * kGridRows_, 0);
+	curgameimage_ = config_.originimage.scaled(scenesize.width(), scenesize.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+	uint32_t kSubImgWidth = curgameimage_.width() / config_.gridcols;
+	uint32_t kSubImgHeight = curgameimage_.height() / config_.gridrows;			
+	auto randomnums = generateRandomNums(config_.gridrows * config_.gridcols, 0);
 	int32_t rnumindex = 0;
-	for(int32_t i = 0; i < kGridRows_; ++i){
-		for(int32_t j = 0; j < kGridCols_; ++j){			
+	for(int32_t i = 0; i < config_.gridrows; ++i){
+		for(int32_t j = 0; j < config_.gridcols; ++j){			
 			int32_t imgseq = randomnums[rnumindex++];
-			int32_t imgseqx = imgseq / kGridCols_;
-			int32_t imgseqy = imgseq - imgseqx * kGridCols_;
+			int32_t imgseqx = imgseq / config_.gridcols;
+			int32_t imgseqy = imgseq - imgseqx * config_.gridcols;
 			const QPoint kImgSeqPos(imgseqx, imgseqy);
-			QPixmap img = gameimg.copy(kImgSeqPos.y() * kSubImgWidth, kImgSeqPos.x() * kSubImgHeight, kSubImgWidth, kSubImgHeight);			
+			QPixmap img = curgameimage_.copy(kImgSeqPos.y() * kSubImgWidth, kImgSeqPos.x() * kSubImgHeight, kSubImgWidth, kSubImgHeight);			
 			const QPoint kDestImgSeqPos(i, j);
 			SliceImagePane* imgpane = new SliceImagePane(img, kDestImgSeqPos);
 			gscene->addItem(imgpane);			
@@ -65,19 +62,6 @@ void JPGame::generateResource()
 			imgpane->setPos(scenepos);
 			sliceimagepanes_.push_back(imgpane);
 		}
-	}
-
-	if(textitem_ == nullptr){
-		textitem_ = new QGraphicsTextItem(nullptr);
-		gscene->addItem(textitem_);
-		textitem_->setDefaultTextColor(Qt::red);
-		QFont ft(QStringLiteral("Î¢ÈíÑÅºÚ"));
-		ft.setPixelSize(30);
-		ft.setStyle(QFont::StyleNormal);
-		ft.setBold(true);
-		textitem_->setFont(ft);
-		textitem_->setPos({-100.0, -100.0});
-		textitem_->setVisible(false);
 	}
 }
 
@@ -102,17 +86,16 @@ void JPGame::shuffle()
 	if(sliceimagepanes_.empty())
 		return;
 	GameScene* scene = GetGameScene();
-	QPixmap& gameimg = scene->gameImage();
-	const uint32_t kSubImgWidth = gameimg.width() / kGridCols_;
-	const uint32_t kSubImgHeight = gameimg.height() / kGridRows_;
-	auto randomnums = generateRandomNums(kGridCols_ * kGridRows_, 0);
+	const uint32_t kSubImgWidth = curgameimage_.width() / config_.gridcols;
+	const uint32_t kSubImgHeight = curgameimage_.height() / config_.gridrows;
+	auto randomnums = generateRandomNums(config_.gridrows * config_.gridcols, 0);
 	int32_t rnumindex = 0;	
 	for(SliceImagePane* pane : sliceimagepanes_){
 		int32_t imgseq = randomnums[rnumindex++];
-		int32_t imgseqx = imgseq / kGridCols_;
-		int32_t imgseqy = imgseq - imgseqx * kGridCols_;
+		int32_t imgseqx = imgseq / config_.gridcols;
+		int32_t imgseqy = imgseq - imgseqx * config_.gridcols;
 		const QPoint kImgSeqPos(imgseqx, imgseqy);
-		QPixmap img = gameimg.copy(kImgSeqPos.y() * kSubImgWidth, kImgSeqPos.x() * kSubImgHeight, kSubImgWidth, kSubImgHeight);
+		QPixmap img = curgameimage_.copy(kImgSeqPos.y() * kSubImgWidth, kImgSeqPos.x() * kSubImgHeight, kSubImgWidth, kSubImgHeight);
 		pane->setImage(img);
 		pane->setGridPos({imgseqx, imgseqy});		
 	}
@@ -147,24 +130,10 @@ SliceImagePane* JPGame::operatingImagePane()
 	return it == sliceimagepanes_.end() ? nullptr : *it;
 }
 
-void JPGame::showOriginImage(bool toggled)
+void JPGame::showGameImage(bool toggled)
 {
 	for(auto pane : sliceimagepanes_)
 		pane->setVisible(!toggled);
-}
-
-void JPGame::showText(const QString& text)
-{
-	if(textitem_){
-		textitem_->setPlainText(text);
-		textitem_->setVisible(true);
-	}
-}
-
-void JPGame::hideText()
-{
-	if(textitem_)
-		textitem_->setVisible(false);
 }
 
 bool JPGame::checkFinishFlag() const
@@ -178,8 +147,6 @@ bool JPGame::checkFinishFlag() const
 
 void JPGame::handleSliceImageSwappedSignal(const SliceImageSwappedEvent&)
 {
-    if(checkFinishFlag()){
+    if(checkFinishFlag())
         stop(kNormalStopped);
-        showText(QObject::tr("Congratulations!"));
-    }
 }
