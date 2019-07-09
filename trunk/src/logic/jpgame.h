@@ -10,13 +10,14 @@ CreateTime: 2019-6-24 19:08
 #define __jpgame_h__
 
 #include <QPixmap>
-#include "common.h"
 #include "glosignals.h"
 #include "gameconfig.h"
 
+class QTimer;
 class QGraphicsTextItem;
-class JPGame
+class JPGame : public QObject
 {
+    Q_OBJECT
 public:
 	void start();
 	void pause();
@@ -27,9 +28,13 @@ public:
 	void setOperatingImagePane(SliceImagePane* pane);
 	SliceImagePane* operatingImagePane();
 	void showGameImage(bool toggled);	
+    void hintOnce();
 	bool checkFinishFlag()const;
 	JPGame(const GameConfig& conf);
 	~JPGame();
+
+private slots:
+    void handleTimeOut();
 
 private:
     void handleSliceImageSwappedSignal(const SliceImageSwappedEvent&);
@@ -40,6 +45,14 @@ private:
     SignalCon imageswappedconn_;
     GameConfig config_;
     QPixmap curgameimage_;
+    QTimer* timer_;
+    enum TimerType
+    {
+        kStartUp,
+        kHint
+    };
+    int currentremainsecs_ = 0;
+    TimerType currenttimertype_ = kStartUp;
 };
 
 #endif

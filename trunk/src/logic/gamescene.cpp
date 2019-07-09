@@ -49,14 +49,16 @@ void GameScene::createNoticeBoard()
 }
 
 void GameScene::showNotice(const QString& text)
-{
+{    
     noticeboard_->setPlainText(text);
     noticeboard_->setVisible(true);
+    update();
 }
 
 void GameScene::hideNotice()
 {
     noticeboard_->setVisible(false);
+    update();
 }
 
 void GameScene::drawBackground(QPainter *painter, const QRectF &rect)

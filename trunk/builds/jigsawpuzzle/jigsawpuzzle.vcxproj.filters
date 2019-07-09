@@ -118,6 +118,9 @@
     <QtMoc Include="..\..\src\logic\mediator\mainwindowmediator.h">
       <Filter>logic\mediator</Filter>
     </QtMoc>
+    <QtMoc Include="..\..\src\logic\jpgame.h">
+      <Filter>logic</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\logic\uimediator.hxx">
@@ -131,9 +134,6 @@
     </ClInclude>
     <ClInclude Include="..\..\src\global\uiglo.h">
       <Filter>global</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\logic\jpgame.h">
-      <Filter>logic</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\global\common.h">
       <Filter>global</Filter>

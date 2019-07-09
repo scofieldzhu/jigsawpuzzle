@@ -14,9 +14,10 @@ CreateTime: 2019-7-3 19:16
 struct GameConfig
 {
     QPixmap originimage; //origin image file for game, no any data modified
+    int startupseconds = 3; //cost time of startup process in seconds
     int gridrows = 3; //jigsaw puzzle grid row count
     int gridcols = 3; //jigsaw puzzle grid column count
-    int displayhinttime = 3; //time cost of each hint 
+    int displayhintseconds = 3; //time cost of each hint in seconds 
     int hintcount = 1; // max permitted hint count       
 };
 

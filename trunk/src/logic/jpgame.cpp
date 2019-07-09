@@ -7,6 +7,7 @@ Module: jpgame.cpp
 CreateTime: 2019-6-24 19:08
 =========================================================================*/
 #include "jpgame.h"
+#include <QTimer>
 #include "uiglo.h"
 #include "gamescene.h"
 #include "gameview.h"
@@ -14,9 +15,12 @@ CreateTime: 2019-6-24 19:08
 #include "glosignals.h"
 
 JPGame::JPGame(const GameConfig& conf)
-	:config_(conf)
+	:QObject(nullptr),
+    config_(conf),
+    timer_(new QTimer(this))
 {
-	SetActiveGame(this);
+	SetActiveGame(this);        
+    connect(timer_, SIGNAL(timeout()), this, SLOT(handleTimeOut()));
 }
 
 JPGame::~JPGame()
@@ -67,13 +71,27 @@ void JPGame::generateResource()
 
 void JPGame::start()
 {	
-	generateResource();
-    GameView* wp = GetGameView();	
-	wp->show();
-	wp->update();
-	state_ = kPlayingState;
+    timer_->start(1000);
+    currenttimertype_ = kStartUp;
+    currentremainsecs_ = config_.startupseconds;	    
+    state_ = kPlayingState;
     imageswappedconn_ = SliceImageSwappedSignal::Inst().connect(boost::bind(&JPGame::handleSliceImageSwappedSignal, this, _1));
     GameStartedSignal::Inst().trigger(GameStartedEvent(*this));
+}
+
+void JPGame::handleTimeOut()
+{
+    if(currenttimertype_ == kStartUp){
+        --currentremainsecs_;
+        GetGameScene()->showNotice(QString::number(currentremainsecs_));
+        if(currentremainsecs_ <= 0){ //record game cost time start
+            GetGameScene()->hideNotice();
+            generateResource();
+            timer_->stop();            
+        }
+    }else if(currenttimertype_ == kHint){
+
+    }
 }
 
 void JPGame::pause()
@@ -134,6 +152,11 @@ void JPGame::showGameImage(bool toggled)
 {
 	for(auto pane : sliceimagepanes_)
 		pane->setVisible(!toggled);
+}
+
+void JPGame::hintOnce()
+{
+
 }
 
 bool JPGame::checkFinishFlag() const

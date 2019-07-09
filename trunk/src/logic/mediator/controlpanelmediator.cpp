@@ -60,6 +60,7 @@ void ControlPanelMediator::handleStartGameBtnClicked()
         }
         GameConfig conf;
         conf.originimage = originimg;
+        conf.startupseconds = 6;
         conf.gridrows = dim.height();
         conf.gridcols = dim.width();        
 		JPGame* newgame = new JPGame(conf);
