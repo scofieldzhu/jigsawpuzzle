@@ -62,7 +62,8 @@ void ControlPanelMediator::handleStartGameBtnClicked()
         conf.originimage = originimg;
         conf.startupseconds = 6;
         conf.gridrows = dim.height();
-        conf.gridcols = dim.width();        
+        conf.gridcols = dim.width();    
+        conf.hintcount = 2;
 		JPGame* newgame = new JPGame(conf);
 		newgame->start();        
 	}	
@@ -100,13 +101,17 @@ void ControlPanelMediator::handleGameStoppedSignal(const GameStoppedEvent& event
         GetGameScene()->showNotice(QObject::tr("Congratulations!"));
 }
 
-void ControlPanelMediator::handleGameHintTimeOutSignal(const GameHintTimeOutEvent&)
+void ControlPanelMediator::handleGameHintTimeOutSignal(const GameHintTimeOutEvent& event)
 {
-    ui_->giveupbtn->setEnabled(false);
+    ui_->giveupbtn->setEnabled(true);
+    ui_->hintbtn->setEnabled(!event.islastone);
 }
 
 void ControlPanelMediator::handleHitBtnClicked()
 {
-	if(GetActiveGame())
-		GetActiveGame()->showGameImage(true);
+    if(GetActiveGame()){
+        ui_->giveupbtn->setEnabled(false);
+        ui_->hintbtn->setEnabled(false);
+        GetActiveGame()->hintOnce();
+    }
 }

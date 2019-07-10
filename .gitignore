@@ -55,6 +55,7 @@ trunk/builds/x64/
 trunk/builds/jigsawpuzzle/GeneratedFiles/
 trunk/builds/jigsawpuzzle/x64/
 trunk/builds/.vs/
+trunk/publish/
 
 
 *.pdb

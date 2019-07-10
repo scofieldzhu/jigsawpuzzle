@@ -27,7 +27,7 @@ public:
     bool isStarted()const{ return state_ != kStoppedState; }
 	void setOperatingImagePane(SliceImagePane* pane);
 	SliceImagePane* operatingImagePane();
-	void showGameImage(bool toggled);	
+	void showSliceImagePanes(bool visible);	
     void hintOnce();
 	bool checkFinishFlag()const;
 	JPGame(const GameConfig& conf);
@@ -37,6 +37,7 @@ private slots:
     void handleTimeOut();
 
 private:
+    void loadGame();
     void handleSliceImageSwappedSignal(const SliceImageSwappedEvent&);
 	std::vector<int32_t> generateRandomNums(uint32_t cnt, int32_t min);
 	void generateResource();
@@ -48,11 +49,13 @@ private:
     QTimer* timer_;
     enum TimerType
     {
+        kNone,
         kStartUp,
         kHint
     };
-    int currentremainsecs_ = 0;
-    TimerType currenttimertype_ = kStartUp;
+    int32_t currentremainsecs_ = 0;
+    TimerType currenttimertype_ = kNone;
+    int32_t remainhintcount_ = 0;
 };
 
 #endif

@@ -74,9 +74,6 @@ void JPGame::start()
     timer_->start(1000);
     currenttimertype_ = kStartUp;
     currentremainsecs_ = config_.startupseconds;	    
-    state_ = kPlayingState;
-    imageswappedconn_ = SliceImageSwappedSignal::Inst().connect(boost::bind(&JPGame::handleSliceImageSwappedSignal, this, _1));
-    GameStartedSignal::Inst().trigger(GameStartedEvent(*this));
 }
 
 void JPGame::handleTimeOut()
@@ -86,12 +83,28 @@ void JPGame::handleTimeOut()
         GetGameScene()->showNotice(QString::number(currentremainsecs_));
         if(currentremainsecs_ <= 0){ //record game cost time start
             GetGameScene()->hideNotice();
-            generateResource();
-            timer_->stop();            
+            remainhintcount_ = config_.hintcount;
+            timer_->stop();
+            state_ = kPlayingState;
+            loadGame();            
         }
     }else if(currenttimertype_ == kHint){
-
+        --currentremainsecs_;
+        GetGameScene()->showNotice(QString::number(currentremainsecs_));
+        if(currentremainsecs_ <= 0){ 
+            GetGameScene()->hideNotice();
+            showSliceImagePanes(true);            
+            timer_->stop();
+            GameHintTimeOutSignal::Inst().trigger(GameHintTimeOutEvent(*this, remainhintcount_ == 0));
+        }
     }
+}
+
+void JPGame::loadGame()
+{
+    generateResource();    
+    imageswappedconn_ = SliceImageSwappedSignal::Inst().connect(boost::bind(&JPGame::handleSliceImageSwappedSignal, this, _1));
+    GameStartedSignal::Inst().trigger(GameStartedEvent(*this));
 }
 
 void JPGame::pause()
@@ -129,6 +142,8 @@ void JPGame::stop(GameStoppedReason reason)
             rtdelete(pane); //free memory
         }
         sliceimagepanes_.clear();
+        timer_->stop();
+        currenttimertype_ = kNone;
         state_ = kStoppedState;
         imageswappedconn_.disconnect();
         GameStoppedSignal::Inst().trigger(GameStoppedEvent(*this, reason));
@@ -148,15 +163,21 @@ SliceImagePane* JPGame::operatingImagePane()
 	return it == sliceimagepanes_.end() ? nullptr : *it;
 }
 
-void JPGame::showGameImage(bool toggled)
+void JPGame::showSliceImagePanes(bool visible)
 {
 	for(auto pane : sliceimagepanes_)
-		pane->setVisible(!toggled);
+		pane->setVisible(visible);
 }
 
 void JPGame::hintOnce()
-{
-
+{    
+    if(remainhintcount_ > 0){
+        showSliceImagePanes(false);
+        currenttimertype_ = kHint;
+        timer_->start(1000);
+        currentremainsecs_ = config_.displayhintseconds;
+        --remainhintcount_;        
+    }    
 }
 
 bool JPGame::checkFinishFlag() const

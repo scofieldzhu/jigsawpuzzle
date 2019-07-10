@@ -39,8 +39,10 @@ typedef XSignal<GameStartedEvent> GameStartedSignal;
 
 struct GameHintTimeOutEvent : public GameNotifyEvent
 {
-    GameHintTimeOutEvent(JPGame& g)
-        :GameNotifyEvent(g){}
+    GameHintTimeOutEvent(JPGame& g, bool lastone)
+        :GameNotifyEvent(g),
+        islastone(lastone){}
+    bool islastone = false;
 };
 typedef XSignal<GameHintTimeOutEvent> GameHintTimeOutSignal;
 
