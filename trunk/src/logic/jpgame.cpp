@@ -17,10 +17,12 @@ CreateTime: 2019-6-24 19:08
 JPGame::JPGame(const GameConfig& conf)
 	:QObject(nullptr),
     config_(conf),
-    timer_(new QTimer(this))
+    timer_(new QTimer(this)),
+    clocktimer_(new QTimer(this))
 {
 	SetActiveGame(this);        
     connect(timer_, SIGNAL(timeout()), this, SLOT(handleTimeOut()));
+    connect(clocktimer_, SIGNAL(timeout()), this, SLOT(handleClockTimeout()));
 }
 
 JPGame::~JPGame()
@@ -85,7 +87,7 @@ void JPGame::handleTimeOut()
             GetGameScene()->hideNotice();
             remainhintcount_ = config_.hintcount;
             timer_->stop();
-            state_ = kPlayingState;
+            state_ = kPlayingState;            
             loadGame();            
         }
     }else if(currenttimertype_ == kHint){
@@ -100,11 +102,19 @@ void JPGame::handleTimeOut()
     }
 }
 
+void JPGame::handleClockTimeout()
+{
+    GameClockUpdateEvent event(*this, (::GetTickCount() - starttickcount_) / 1000);
+    GameClockUpdateSignal::Inst().trigger(event);
+}
+
 void JPGame::loadGame()
 {
     generateResource();    
     imageswappedconn_ = SliceImageSwappedSignal::Inst().connect(boost::bind(&JPGame::handleSliceImageSwappedSignal, this, _1));
     GameStartedSignal::Inst().trigger(GameStartedEvent(*this));
+    clocktimer_->start(300);
+    starttickcount_ = ::GetTickCount();    
 }
 
 void JPGame::pause()

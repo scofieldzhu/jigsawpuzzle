@@ -9,6 +9,7 @@ CreateTime: 2019-6-20 21:17
 #include "controlpanelmediator.h"
 #include <QPushButton>
 #include <QComboBox>
+#include <QLabel>
 #include "controlpanel.h"
 #include "uiglo.h"
 #include "mainwindow.h"
@@ -35,6 +36,7 @@ void ControlPanelMediator::subscribeEvents()
     startedconn_ = GameStartedSignal::Inst().connect(boost::bind(&ControlPanelMediator::handleGameStartedSignal, this, _1));
     stoppedconn_ = GameStoppedSignal::Inst().connect(boost::bind(&ControlPanelMediator::handleGameStoppedSignal, this, _1));
     hinttimeoutconn_ = GameHintTimeOutSignal::Inst().connect(boost::bind(&ControlPanelMediator::handleGameHintTimeOutSignal, this, _1));    
+    updateclockconn_ = GameClockUpdateSignal::Inst().connect(boost::bind(&ControlPanelMediator::handleUpdateClockSignal, this, _1));    
 }
 
 void ControlPanelMediator::unsubscribe()
@@ -42,6 +44,7 @@ void ControlPanelMediator::unsubscribe()
     startedconn_.disconnect();
     stoppedconn_.disconnect();
     hinttimeoutconn_.disconnect();
+    updateclockconn_.disconnect();
 }
 
 void ControlPanelMediator::handleStartGameBtnClicked()
@@ -105,6 +108,13 @@ void ControlPanelMediator::handleGameHintTimeOutSignal(const GameHintTimeOutEven
 {
     ui_->giveupbtn->setEnabled(true);
     ui_->hintbtn->setEnabled(!event.islastone);
+}
+
+void ControlPanelMediator::handleUpdateClockSignal(const GameClockUpdateEvent& event)
+{
+    int32_t m = event.costsecs / 60;
+    int32_t s = event.costsecs - m * 60;
+    ui_->timevallabel->setText(QString("00:%1:%2").arg(m, 2, 10, QChar('0')).arg(s, 2, 10, QChar('0')));
 }
 
 void ControlPanelMediator::handleHitBtnClicked()

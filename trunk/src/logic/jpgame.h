@@ -35,6 +35,7 @@ public:
 
 private slots:
     void handleTimeOut();
+    void handleClockTimeout();
 
 private:
     void loadGame();
@@ -56,6 +57,9 @@ private:
     int32_t currentremainsecs_ = 0;
     TimerType currenttimertype_ = kNone;
     int32_t remainhintcount_ = 0;
+    QTimer* clocktimer_;
+    uint32_t starttickcount_ = 0;
+    SignalCon updateclockconn_;
 };
 
 #endif

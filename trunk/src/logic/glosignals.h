@@ -49,5 +49,14 @@ typedef XSignal<GameHintTimeOutEvent> GameHintTimeOutSignal;
 struct SliceImageSwappedEvent{};
 typedef XSignal<SliceImageSwappedEvent> SliceImageSwappedSignal;
 
+struct GameClockUpdateEvent : public GameNotifyEvent
+{
+    GameClockUpdateEvent(JPGame& g, uint32_t time)
+        :GameNotifyEvent(g),
+        costsecs(time){}
+    uint32_t costsecs;
+};
+typedef XSignal<GameClockUpdateEvent> GameClockUpdateSignal;
+
 
 #endif
