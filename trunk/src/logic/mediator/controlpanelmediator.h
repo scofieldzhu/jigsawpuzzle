@@ -18,6 +18,7 @@ class ControlPanelMediator : public QObject, public UIMediator<ControlPanel>
 {
 	Q_OBJECT
 public:
+    void initAppUI();
 	void subscribeEvents();
 	void unsubscribe();
 	ControlPanelMediator(ControlPanel* ui);
@@ -30,6 +31,7 @@ private slots:
     void handleOriginImageCurrentTextChanged(const QString&);
 
 private:
+    void collectImageFiles();
     void handleGameStartedSignal(const GameStartedEvent&);
     void handleGameStoppedSignal(const GameStoppedEvent&);
     void handleGameHintTimeOutSignal(const GameHintTimeOutEvent&);

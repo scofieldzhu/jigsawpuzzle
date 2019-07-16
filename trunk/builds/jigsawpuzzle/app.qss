@@ -5,3 +5,24 @@ ClientView{
 ControlPanel {
 	background:red;
 }
+
+QPushButton{
+	border-image: url(res/image/btn-normal.png) 10 10 10 10;
+	border: 10px transparent;
+}
+
+QPushButton:pressed{
+	border-image: url(res/image/btn-click.png) 10 10 10 10;
+	border: 10px transparent;
+}
+
+QPushButton:hover{
+	border-image: url(res/image/btn-hover.png) 10 10 10 10;
+	border: 10px transparent;
+}
+
+/*QComboBox{
+	border-image: url(res/image/combobox.png) 10 10 10 10;
+	border: 10px transparent;
+
+}*/

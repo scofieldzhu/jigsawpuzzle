@@ -12,6 +12,8 @@ CreateTime: 2019-6-19 21:07
 #include <QTranslator>
 #include "mainwindow.h"
 #include "mainwindowmediator.h"
+#include "appconfparser.h"
+#include "path.h"
 USING_RATEL
 
 static AppSession* st_AppInst = nullptr;
@@ -25,6 +27,14 @@ AppSession::AppSession(QApplication& a)
 
 AppSession::~AppSession()
 {}
+
+bool AppSession::loadConfigs()
+{
+    AppConfParser parser;
+    if(!parser.load("conf/appconf.xml", appconf_))
+        return false;
+    return true;
+}
 
 void AppSession::loadStyleSheets()
 {
@@ -46,6 +56,8 @@ void AppSession::loadLanguage()
 
 bool AppSession::onEnter()
 {
+    if(!loadConfigs())
+        return false;
 	loadStyleSheets();
 	loadLanguage();
 	mainwindow_ = new MainWindow();

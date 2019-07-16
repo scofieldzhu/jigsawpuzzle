@@ -10,6 +10,7 @@ CreateTime: 2019-6-19 21:07
 #define __appsession_h__
 
 #include "session.h"
+#include "appconf.h"
 
 class MainWindow;
 class QApplication;
@@ -21,12 +22,14 @@ public:
 	~AppSession();
 
 private:
+    bool loadConfigs();
 	void loadStyleSheets();
 	void loadLanguage();
 	bool onEnter();
 	bool onLeave();
 	QApplication& app_;
 	MainWindow* mainwindow_ = nullptr;
+    AppConf appconf_;
 };
 
 AppSession* GetAppSession();

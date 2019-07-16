@@ -95,6 +95,9 @@
     <ClCompile Include="..\..\src\logic\mediator\mainwindowmediator.cpp">
       <Filter>logic\mediator</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\logic\appconfparser.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="..\..\src\ui\mainwindow.h">
@@ -160,6 +163,12 @@
       <Filter>logic</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\logic\glosignals.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\logic\appconf.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\logic\appconfparser.h">
       <Filter>logic</Filter>
     </ClInclude>
   </ItemGroup>

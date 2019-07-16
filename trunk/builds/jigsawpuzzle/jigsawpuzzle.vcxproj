@@ -55,7 +55,7 @@
     <ClCompile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;./;../../3rd/boost170;../../3rd/ratel-sdk/include/kernel;../../3rd/ratel-sdk/include/basic;../../src/;../../src/logic/mediator;../../src/logic;../../src/ui;../../src/app;../../src/global;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;./;../../3rd/boost170;../../3rd/pugixml/include;../../3rd/ratel-sdk/include/kernel;../../3rd/ratel-sdk/include/filesys;../../3rd/ratel-sdk/include/basic;../../src/;../../src/logic/mediator;../../src/logic;../../src/ui;../../src/app;../../src/global;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -64,14 +64,14 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <OutputFile>$(OutDir)\$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalLibraryDirectories>$(QTDIR)\lib;../../3rd/ratel-sdk/bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;../../3rd/ratel-sdk/bin;../../3rd/pugixml/bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;ratel.basic-x64-d.lib;ratel.kernel-x64-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;ratel.basic-x64-d.lib;ratel.kernel-x64-d.lib;ratel.filesys-x64-d.lib;pugixml-x64-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <QtMoc>
       <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
       <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
-      <IncludePath>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;./;../../3rd/boost170;../../3rd/ratel-sdk/include/kernel;../../3rd/ratel-sdk/include/basic;../../src/;../../src/logic/mediator;../../src/logic;../../src/ui;../../src/app;../../src/global;%(AdditionalIncludeDirectories)</IncludePath>
+      <IncludePath>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;./;../../3rd/boost170;../../3rd/pugixml/include;../../3rd/ratel-sdk/include/kernel;../../3rd/ratel-sdk/include/filesys;../../3rd/ratel-sdk/include/basic;../../src/;../../src/logic/mediator;../../src/logic;../../src/ui;../../src/app;../../src/global;%(AdditionalIncludeDirectories)</IncludePath>
       <Define>UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</Define>
     </QtMoc>
     <QtUic>
@@ -87,7 +87,7 @@
     <ClCompile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;./;../../3rd/boost170;../../3rd/ratel-sdk/include/kernel;../../3rd/ratel-sdk/include/basic;../../src/;../../src/logic/mediator;../../src/logic;../../src/ui;../../src/app;../../src/global;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;./;../../3rd/boost170;../../3rd/pugixml/include;../../3rd/ratel-sdk/include/kernel;../../3rd/ratel-sdk/include/filesys;../../3rd/ratel-sdk/include/basic;../../src/;../../src/logic/mediator;../../src/logic;../../src/ui;../../src/app;../../src/global;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat />
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
@@ -97,12 +97,12 @@
       <OutputFile>$(OutDir)\$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;../../3rd/ratel-sdk/bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalDependencies>qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;ratel.basic-x64.lib;ratel.kernel-x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;ratel.basic-x64.lib;ratel.kernel-x64.lib;ratel.filesys-x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <QtMoc>
       <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
       <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
-      <IncludePath>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;./;../../3rd/boost170;../../3rd/ratel-sdk/include/kernel;../../3rd/ratel-sdk/include/basic;../../src/;../../src/logic/mediator;../../src/logic;../../src/ui;../../src/app;../../src/global;%(AdditionalIncludeDirectories)</IncludePath>
+      <IncludePath>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;./;../../3rd/boost170;../../3rd/pugixml/include;../../3rd/ratel-sdk/include/kernel;../../3rd/ratel-sdk/include/filesys;../../3rd/ratel-sdk/include/basic;../../src/;../../src/logic/mediator;../../src/logic;../../src/ui;../../src/app;../../src/global;%(AdditionalIncludeDirectories)</IncludePath>
       <Define>UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</Define>
     </QtMoc>
     <QtUic>
@@ -129,6 +129,7 @@
     <ClCompile Include="..\..\src\app\main.cpp" />
     <ClCompile Include="..\..\src\global\glo.cpp" />
     <ClCompile Include="..\..\src\global\uiglo.cpp" />
+    <ClCompile Include="..\..\src\logic\appconfparser.cpp" />
     <ClCompile Include="..\..\src\logic\jpgame.cpp" />
     <ClCompile Include="..\..\src\logic\mediator\controlpanelmediator.cpp" />
     <ClCompile Include="..\..\src\logic\mediator\mainwindowmediator.cpp" />
@@ -150,6 +151,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\app\appsession.h" />
+    <ClInclude Include="..\..\src\logic\appconf.h" />
+    <ClInclude Include="..\..\src\logic\appconfparser.h" />
     <ClInclude Include="..\..\src\logic\glosignals.h" />
     <ClInclude Include="..\..\src\logic\xsignal.hxx" />
     <QtMoc Include="..\..\src\logic\gamescene.h">

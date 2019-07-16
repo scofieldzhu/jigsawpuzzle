@@ -15,6 +15,9 @@ CreateTime: 2019-6-20 21:17
 #include "mainwindow.h"
 #include "jpgame.h"
 #include "gamescene.h"
+#include "path.h"
+#include "dirwalker.h"
+USING_RATEL
 
 ControlPanelMediator::ControlPanelMediator(ControlPanel* ui)
 	:QObject(ui),
@@ -25,6 +28,11 @@ ControlPanelMediator::ControlPanelMediator(ControlPanel* ui)
 ControlPanelMediator::~ControlPanelMediator()
 {
 	unsubscribe();
+}
+
+void ControlPanelMediator::initAppUI()
+{
+    collectImageFiles();
 }
 
 void ControlPanelMediator::subscribeEvents()
@@ -85,6 +93,24 @@ void ControlPanelMediator::handleOriginImageCurrentTextChanged(const QString&)
     QPixmap originimg(ui_->originimgcb->currentText());
     GetGameScene()->setBackgroundImage(originimg);
     GetGameScene()->update();
+}
+
+void ControlPanelMediator::collectImageFiles()
+{
+    ui_->originimgcb->clear();
+    const Path imgfolder = "conf/gameimages";
+    if(!imgfolder.exists())
+        return;
+    std::vector<Path> imgfiles;
+    auto meetfunc = [&imgfiles](const Path& path)->void{
+        RString exts = path.extension().rstring();
+        exts.upper();
+        if(exts == "JPG" || exts == "JPEG" || exts == "BMP" || exts == "PNG")
+            imgfiles.push_back(path.filename());
+    };
+    DirWalker(imgfolder).walk(meetfunc);    
+    for(auto f : imgfiles)
+        ui_->originimgcb->addItem(QString::fromUtf8(f.cstr()));
 }
 
 void ControlPanelMediator::handleGameStartedSignal(const GameStartedEvent& event)

@@ -10,6 +10,7 @@ CreateTime: 2019-7-3 21:26
 #include <QComboBox>
 #include "mainwindow.h"
 #include "controlpanel.h"
+#include "controlpanelmediator.h"
 #include "gamescene.h"
 #include "gameview.h"
 #include "uiglo.h"
@@ -33,6 +34,7 @@ void MainWindowMediator::unsubscribe()
 
 void MainWindowMediator::initAppUI()
 {
+    ui_->ctrlPanel()->mediator->initAppUI();
 	QPixmap originimg(ui_->ctrlPanel()->originimgcb->currentText());
     GetGameScene()->setBackgroundImage(originimg);
 }

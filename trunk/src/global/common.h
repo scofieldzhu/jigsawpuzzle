@@ -10,6 +10,7 @@ CreateTime: 2019-6-24 21:08
 #define __common_h__
 
 #include "kernelpublic.h"
+#include "filesyspublic.h"
 
 class QPixmap;
 class SliceImagePane;
