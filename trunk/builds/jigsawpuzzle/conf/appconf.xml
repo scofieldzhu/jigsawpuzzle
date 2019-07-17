@@ -1,4 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AppConf>
 	<GameImageFolder>conf/gameimages</GameImageFolder>
+	<GameImageFileExts>JPG|JPEG|PNG|BMP</GameImageFileExts>
+	<GameLevels>
+		<Level>
+			<Description>Simple</Description>
+			<GridRows>3</GridRows>
+			<GridCols>3</GridCols>
+			<StartSeconds>3</StartSeconds>
+			<HintCount>1</HintCount>
+			<HintSeconds>5</HintSeconds>
+		</Level>
+		<Level>
+			<Description>General</Description>
+			<GridRows>4</GridRows>
+			<GridCols>4</GridCols>
+			<StartSeconds>3</StartSeconds>
+			<HintCount>2</HintCount>
+			<HintSeconds>5</HintSeconds>
+		</Level>
+		<Level>
+			<Description>Difficulty</Description>
+			<GridRows>5</GridRows>
+			<GridCols>5</GridCols>
+			<StartSeconds>3</StartSeconds>
+			<HintCount>3</HintCount>
+			<HintSeconds>5</HintSeconds>
+		</Level>
+	</GameLevels>
 </AppConf>

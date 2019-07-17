@@ -17,6 +17,15 @@ namespace
 {
     const char* kAppConfTag = "AppConf";
     const char* kGameImageFolderTag = "GameImageFolder";
+    const char* kGameImageFileExtsTag = "GameImageFileExts";
+    const char* kGameLevelsTag = "GameLevels";
+    const char* kLevelTag = "Level";
+    const char* kDescriptionTag = "Description";
+    const char* kGridRowsTag = "GridRows";
+    const char* kGridColsTag = "GridCols";
+    const char* kStartSecondsTag = "StartSeconds";
+    const char* kHintCountTag = "HintCount";
+    const char* kHintSecondsTag = "HintSeconds";
 }
 
 AppConfParser::AppConfParser()
@@ -36,6 +45,54 @@ bool AppConfParser::parseDoc()
     if(gifnode.empty())
         return false;    
     refappconf_->gameimagefolder = gifnode.child_value();
+    xml_node gifenode = rootnode_.child(kGameImageFileExtsTag);
+    if(gifenode.empty())
+        return false;
+    RString rawexts = gifenode.child_value();
+    refappconf_->gameimagefileexts = rawexts.split('|');
+    return parseGameLevels();
+}
+
+bool AppConfParser::parseGameLevels()
+{
+    xml_node glsnode = rootnode_.child(kGameLevelsTag);
+    if(glsnode.empty())
+        return false;
+    for(xml_node lnode = glsnode.child(kLevelTag); !lnode.empty(); lnode = lnode.next_sibling()){
+        if(!parseGameLevel(lnode))
+            return false;
+    }
+    return !refappconf_->gamelevels.empty();
+}
+
+bool AppConfParser::parseGameLevel(xml_node& levelnode)
+{
+    GameLevel newlevel;
+    xml_node descnode = levelnode.child(kDescriptionTag);
+    if(descnode.empty())
+        return false;
+    newlevel.description = descnode.child_value();
+    xml_node grnode = levelnode.child(kGridRowsTag);
+    if(grnode.empty())
+        return false;
+    newlevel.gridrows = RString(grnode.child_value()).toUInt32();
+    xml_node gcnode = levelnode.child(kGridColsTag);
+    if(gcnode.empty())
+        return false;
+    newlevel.gridcols = RString(gcnode.child_value()).toUInt32();
+    xml_node ssnode = levelnode.child(kStartSecondsTag);
+    if(ssnode.empty())
+        return false;
+    newlevel.startseconds = RString(ssnode.child_value()).toUInt32();
+    xml_node hcnode = levelnode.child(kHintCountTag);
+    if(hcnode.empty())
+        return false;
+    newlevel.hintcount = RString(hcnode.child_value()).toUInt32();
+    xml_node hsnode = levelnode.child(kHintSecondsTag);
+    if(hsnode.empty())
+        return false;
+    newlevel.hintseconds = RString(hsnode.child_value()).toUInt32();
+    refappconf_->gamelevels.push_back(newlevel);
     return true;
 }
 

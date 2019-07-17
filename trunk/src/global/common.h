@@ -35,4 +35,7 @@ enum EventType{
 	kShowOriginImageBtnClicked,
 };
 
+using RString = RATEL::RString;
+using RStrings = RATEL::RStrings;
+
 #endif

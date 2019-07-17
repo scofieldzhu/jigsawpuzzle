@@ -13,6 +13,8 @@ CreateTime: 2019-6-20 21:34
 
 class AppSession;
 AppSession* GetTheAppSession();
+struct AppConf;
+const AppConf& GetAppConf();
 class JPGame;
 void SetActiveGame(JPGame* game);
 JPGame* GetActiveGame();

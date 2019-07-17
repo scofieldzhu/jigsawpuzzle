@@ -23,6 +23,8 @@ public:
 
 private:
     bool parseDoc();
+    bool parseGameLevels();
+    bool parseGameLevel(pugi::xml_node& levelnode);
     pugi::xml_document doc_;
     pugi::xml_node rootnode_;
     AppConf* refappconf_ = nullptr;

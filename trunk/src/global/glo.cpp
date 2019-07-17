@@ -14,6 +14,11 @@ AppSession* GetTheAppSession()
 	return GetAppSession();
 }
 
+const AppConf& GetAppConf()
+{
+    return GetAppSession()->conf();
+}
+
 JPGame* g_ActiveGame = nullptr;
 
 void SetActiveGame(JPGame* game)
