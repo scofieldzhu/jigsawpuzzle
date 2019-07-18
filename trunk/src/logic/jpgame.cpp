@@ -47,15 +47,15 @@ void JPGame::generateResource()
     gscene->setSceneRect({-vwidth / 2.0, -vheight / 2.0, vwidth, vheight});    
 	QSizeF scenesize = gscene->sceneRect().size();
 	curgameimage_ = config_.originimage.scaled(scenesize.width(), scenesize.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-	uint32_t kSubImgWidth = curgameimage_.width() / config_.gridcols;
-	uint32_t kSubImgHeight = curgameimage_.height() / config_.gridrows;			
-	auto randomnums = generateRandomNums(config_.gridrows * config_.gridcols, 0);
+	uint32_t kSubImgWidth = curgameimage_.width() / config_.level.gridcols;
+	uint32_t kSubImgHeight = curgameimage_.height() / config_.level.gridrows;			
+	auto randomnums = generateRandomNums(config_.level.gridrows * config_.level.gridcols, 0);
 	int32_t rnumindex = 0;
-	for(int32_t i = 0; i < config_.gridrows; ++i){
-		for(int32_t j = 0; j < config_.gridcols; ++j){			
+	for(int32_t i = 0; i < config_.level.gridrows; ++i){
+		for(int32_t j = 0; j < config_.level.gridcols; ++j){			
 			int32_t imgseq = randomnums[rnumindex++];
-			int32_t imgseqx = imgseq / config_.gridcols;
-			int32_t imgseqy = imgseq - imgseqx * config_.gridcols;
+			int32_t imgseqx = imgseq / config_.level.gridcols;
+			int32_t imgseqy = imgseq - imgseqx * config_.level.gridcols;
 			const QPoint kImgSeqPos(imgseqx, imgseqy);
 			QPixmap img = curgameimage_.copy(kImgSeqPos.y() * kSubImgWidth, kImgSeqPos.x() * kSubImgHeight, kSubImgWidth, kSubImgHeight);			
 			const QPoint kDestImgSeqPos(i, j);
@@ -75,7 +75,7 @@ void JPGame::start()
 {	
     timer_->start(1000);
     currenttimertype_ = kStartUp;
-    currentremainsecs_ = config_.startupseconds;	    
+    currentremainsecs_ = config_.level.startseconds;	    
 }
 
 void JPGame::handleTimeOut()
@@ -85,7 +85,7 @@ void JPGame::handleTimeOut()
         GetGameScene()->showNotice(QString::number(currentremainsecs_));
         if(currentremainsecs_ <= 0){ //record game cost time start
             GetGameScene()->hideNotice();
-            remainhintcount_ = config_.hintcount;
+            remainhintcount_ = config_.level.hintcount;
             timer_->stop();
             state_ = kPlayingState;            
             loadGame();            
@@ -127,14 +127,14 @@ void JPGame::shuffle()
 	if(sliceimagepanes_.empty())
 		return;
 	GameScene* scene = GetGameScene();
-	const uint32_t kSubImgWidth = curgameimage_.width() / config_.gridcols;
-	const uint32_t kSubImgHeight = curgameimage_.height() / config_.gridrows;
-	auto randomnums = generateRandomNums(config_.gridrows * config_.gridcols, 0);
+	const uint32_t kSubImgWidth = curgameimage_.width() / config_.level.gridcols;
+	const uint32_t kSubImgHeight = curgameimage_.height() / config_.level.gridrows;
+	auto randomnums = generateRandomNums(config_.level.gridrows * config_.level.gridcols, 0);
 	int32_t rnumindex = 0;	
 	for(SliceImagePane* pane : sliceimagepanes_){
 		int32_t imgseq = randomnums[rnumindex++];
-		int32_t imgseqx = imgseq / config_.gridcols;
-		int32_t imgseqy = imgseq - imgseqx * config_.gridcols;
+		int32_t imgseqx = imgseq / config_.level.gridcols;
+		int32_t imgseqy = imgseq - imgseqx * config_.level.gridcols;
 		const QPoint kImgSeqPos(imgseqx, imgseqy);
 		QPixmap img = curgameimage_.copy(kImgSeqPos.y() * kSubImgWidth, kImgSeqPos.x() * kSubImgHeight, kSubImgWidth, kSubImgHeight);
 		pane->setImage(img);
@@ -185,7 +185,7 @@ void JPGame::hintOnce()
         showSliceImagePanes(false);
         currenttimertype_ = kHint;
         timer_->start(1000);
-        currentremainsecs_ = config_.displayhintseconds;
+        currentremainsecs_ = config_.level.hintseconds;
         --remainhintcount_;        
     }    
 }

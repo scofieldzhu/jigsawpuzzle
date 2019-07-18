@@ -14,6 +14,8 @@ CreateTime: 2019-6-18 22:04
 #include <QLabel>
 #include <QComboBox>
 #include "controlpanelmediator.h"
+#include "uiglo.h"
+#include "appconf.h"
 
 ControlPanel::ControlPanel(QWidget* parent, int32_t fixedwidth)
 	:QWidget(parent)
@@ -54,9 +56,10 @@ void ControlPanel::createControls()
 	difficultylabel->setText(QObject::tr("Difficulty"));
 	difficultylabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 	difficultycb = new QComboBox();
-	difficultycb->addItem("3x3");
-	difficultycb->addItem("4x4");
-	difficultycb->addItem("5x5");
+    const AppConf& appconf = GetAppConf();
+    for(auto level : appconf.gamelevels)
+        difficultycb->addItem(QString::fromUtf8(level.name.cstr()));	
+    difficultycb->setCurrentIndex(0);
 	row2layout->addWidget(difficultylabel);
 	row2layout->addSpacerItem(new QSpacerItem(10, 0, QSizePolicy::Fixed, QSizePolicy::Ignored));
 	row2layout->addWidget(difficultycb);
@@ -104,7 +107,7 @@ void ControlPanel::createControls()
 	setLayout(mainlayout);
 }
 
-void ControlPanel::paintEvent(QPaintEvent *)
+void ControlPanel::paintEvent(QPaintEvent*)
 {
 	QStyleOption opt;
 	opt.init(this);

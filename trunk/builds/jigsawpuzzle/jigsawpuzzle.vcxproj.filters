@@ -98,6 +98,9 @@
     <ClCompile Include="..\..\src\logic\appconfparser.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\global\applogger.cpp">
+      <Filter>global</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="..\..\src\ui\mainwindow.h">
@@ -169,6 +172,12 @@
       <Filter>logic</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\logic\appconfparser.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\global\applogger.h">
+      <Filter>global</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\logic\gamelevel.h">
       <Filter>logic</Filter>
     </ClInclude>
   </ItemGroup>

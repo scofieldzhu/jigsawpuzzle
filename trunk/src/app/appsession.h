@@ -17,6 +17,7 @@ class QApplication;
 class AppSession : public RATEL::Session
 {
 public:
+    const AppConf& conf()const { return appconf_; }
 	MainWindow* mainWindow() { return mainwindow_; }
 	AppSession(QApplication& a);
 	~AppSession();

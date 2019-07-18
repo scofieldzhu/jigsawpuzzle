@@ -20,7 +20,7 @@ namespace
     const char* kGameImageFileExtsTag = "GameImageFileExts";
     const char* kGameLevelsTag = "GameLevels";
     const char* kLevelTag = "Level";
-    const char* kDescriptionTag = "Description";
+    const char* kNameTag = "Name";
     const char* kGridRowsTag = "GridRows";
     const char* kGridColsTag = "GridCols";
     const char* kStartSecondsTag = "StartSeconds";
@@ -68,10 +68,10 @@ bool AppConfParser::parseGameLevels()
 bool AppConfParser::parseGameLevel(xml_node& levelnode)
 {
     GameLevel newlevel;
-    xml_node descnode = levelnode.child(kDescriptionTag);
-    if(descnode.empty())
+    xml_node namenode = levelnode.child(kNameTag);
+    if(namenode.empty())
         return false;
-    newlevel.description = descnode.child_value();
+    newlevel.name = namenode.child_value();
     xml_node grnode = levelnode.child(kGridRowsTag);
     if(grnode.empty())
         return false;

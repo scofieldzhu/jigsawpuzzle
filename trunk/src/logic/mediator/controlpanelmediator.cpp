@@ -17,7 +17,11 @@ CreateTime: 2019-6-20 21:17
 #include "gamescene.h"
 #include "path.h"
 #include "dirwalker.h"
+#include "appconf.h"
 USING_RATEL
+
+#define ENABLE_IMG_CHANGE_SIGNAL() connect(ui_->originimgcb, SIGNAL(currentTextChanged(const QString&)), this, SLOT(handleOriginImageCurrentTextChanged(const QString&)))
+#define DISABLE_IMG_CHANGE_SIGNAL() disconnect(ui_->originimgcb, SIGNAL(currentTextChanged(const QString&)), this, SLOT(handleOriginImageCurrentTextChanged(const QString&)))
 
 ControlPanelMediator::ControlPanelMediator(ControlPanel* ui)
 	:QObject(ui),
@@ -32,12 +36,16 @@ ControlPanelMediator::~ControlPanelMediator()
 
 void ControlPanelMediator::initAppUI()
 {
+    DISABLE_IMG_CHANGE_SIGNAL();
     collectImageFiles();
+    ENABLE_IMG_CHANGE_SIGNAL();
+    ui_->originimgcb->setCurrentIndex(-1);
+    ui_->originimgcb->setCurrentIndex(0);  //force trigger refresh background 
 }
 
 void ControlPanelMediator::subscribeEvents()
 {
-    connect(ui_->originimgcb, SIGNAL(currentTextChanged(const QString&)), this, SLOT(handleOriginImageCurrentTextChanged(const QString&)));
+    ENABLE_IMG_CHANGE_SIGNAL();
 	connect(ui_->startgametbtn, SIGNAL(released()), this, SLOT(handleStartGameBtnClicked()));    
 	connect(ui_->giveupbtn, SIGNAL(released()), this, SLOT(handleGiveUpBtnClicked()));    
 	connect(ui_->hintbtn, SIGNAL(released()), this, SLOT(handleHitBtnClicked()));
@@ -58,26 +66,18 @@ void ControlPanelMediator::unsubscribe()
 void ControlPanelMediator::handleStartGameBtnClicked()
 {
     Q_ASSERT(GetActiveGame() == nullptr);    
-    QPixmap originimg(ui_->originimgcb->currentText());
-	if(!originimg.isNull()){
-        int index = ui_->difficultycb->currentIndex();
-        QSize dim;
-        if(index == 0){
-            dim = {3, 3};
-        } else if(index == 1){
-            dim = {4, 4};
-        } else{
-            dim = {5, 5};
+    Path imgfolder = GetAppConf().gameimagefolder;
+    Path selimgfilepath = imgfolder.join(ui_->originimgcb->currentText().toUtf8().data());
+    if(selimgfilepath.exists()){
+        QPixmap originimg(selimgfilepath.cstr());
+        if(!originimg.isNull()){
+            GameConfig conf;
+            conf.originimage = originimg;
+            GetAppConf().getLevel(ui_->difficultycb->currentText().toUtf8().data(), conf.level);
+            JPGame* newgame = new JPGame(conf);
+            newgame->start();
         }
-        GameConfig conf;
-        conf.originimage = originimg;
-        conf.startupseconds = 6;
-        conf.gridrows = dim.height();
-        conf.gridcols = dim.width();    
-        conf.hintcount = 2;
-		JPGame* newgame = new JPGame(conf);
-		newgame->start();        
-	}	
+    }
 }
 
 void ControlPanelMediator::handleGiveUpBtnClicked()
@@ -90,22 +90,25 @@ void ControlPanelMediator::handleGiveUpBtnClicked()
 void ControlPanelMediator::handleOriginImageCurrentTextChanged(const QString&)
 {
     handleGiveUpBtnClicked();
-    QPixmap originimg(ui_->originimgcb->currentText());
-    GetGameScene()->setBackgroundImage(originimg);
-    GetGameScene()->update();
+    Path imgfolder = GetAppConf().gameimagefolder;
+    Path selimgfilepath = imgfolder.join(ui_->originimgcb->currentText().toUtf8().data());
+    if(selimgfilepath.exists()){
+        QPixmap originimg(selimgfilepath.cstr());
+        GetGameScene()->setBackgroundImage(originimg);
+        GetGameScene()->update();
+    }
 }
 
 void ControlPanelMediator::collectImageFiles()
 {
     ui_->originimgcb->clear();
-    const Path imgfolder = "conf/gameimages";
+    const Path imgfolder = GetAppConf().gameimagefolder;
     if(!imgfolder.exists())
         return;
     std::vector<Path> imgfiles;
     auto meetfunc = [&imgfiles](const Path& path)->void{
-        RString exts = path.extension().rstring();
-        exts.upper();
-        if(exts == "JPG" || exts == "JPEG" || exts == "BMP" || exts == "PNG")
+        RString ext = path.extension().rstring().upper();
+        if(GetAppConf().isValidImageFileExt(ext))
             imgfiles.push_back(path.filename());
     };
     DirWalker(imgfolder).walk(meetfunc);    

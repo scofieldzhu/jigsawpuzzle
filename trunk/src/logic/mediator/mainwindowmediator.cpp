@@ -34,7 +34,5 @@ void MainWindowMediator::unsubscribe()
 
 void MainWindowMediator::initAppUI()
 {
-    ui_->ctrlPanel()->mediator->initAppUI();
-	QPixmap originimg(ui_->ctrlPanel()->originimgcb->currentText());
-    GetGameScene()->setBackgroundImage(originimg);
+    ui_->ctrlPanel()->mediator->initAppUI();	
 }

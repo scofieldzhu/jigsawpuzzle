@@ -10,21 +10,20 @@ Creator: scofieldzhu
 #ifndef __appconf_h__
 #define __appconf_h__
 
-#include "common.h"
-
-struct GameLevel
-{
-    RString description = "no";
-    uint32_t gridrows = 3;
-    uint32_t gridcols = 3;
-    uint32_t startseconds = 2;
-    uint32_t hintcount = 1;
-    uint32_t hintseconds = 2;
-};
+#include "gamelevel.h"
 
 struct AppConf
 {
     bool isValidImageFileExt(const RString& ext)const { return std::find(gameimagefileexts.begin(), gameimagefileexts.end(), ext) != gameimagefileexts.end(); }
+    bool getLevel(const RString& name, GameLevel& reslevel)const
+    {
+        auto it = std::find_if(gamelevels.begin(), gamelevels.end(), [&name](const GameLevel& level){return name == level.name;});
+        if(it != gamelevels.end()){
+            reslevel = *it;
+            return true;
+        }
+        return false;
+    }
     RString gameimagefolder;
     RStrings gameimagefileexts;
     std::vector<GameLevel> gamelevels;

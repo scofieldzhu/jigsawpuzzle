@@ -60,12 +60,12 @@ bool AppSession::onEnter()
         return false;
 	loadStyleSheets();
 	loadLanguage();
-	mainwindow_ = new MainWindow();
+	mainwindow_ = new MainWindow();    
+ 	mainwindow_->show();
+ 	mainwindow_->update();	
+    mainwindow_->mediator()->initAppUI();
  	mainwindow_->show();
  	mainwindow_->update();
-	mainwindow_->mediator()->initAppUI();
-	mainwindow_->show();
-	mainwindow_->update();
 	return true;
 }
 
