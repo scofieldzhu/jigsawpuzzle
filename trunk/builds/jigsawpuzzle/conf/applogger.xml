@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Loggers>    
+    <Logger ClsName = "Logger">            
+        <name>App</name>                        
+        <Appenders>
+            <Appender ClsName = "FileAppender">    
+                <Filter ClsName = "LevelFilter">
+                    <lower_bound_level>InfoLevel</lower_bound_level>                    
+                </Filter>            
+                <Formatter ClsName = "StandardFormatter"/>
+                <file_path>jigsawpuzzle.log.txt</file_path>
+                <flush_frequence>1</flush_frequence>
+            </Appender>
+        </Appenders>      
+    </Logger> 
+</Loggers>

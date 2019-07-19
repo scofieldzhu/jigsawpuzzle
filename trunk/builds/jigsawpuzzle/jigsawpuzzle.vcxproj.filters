@@ -147,19 +147,7 @@
     <ClInclude Include="..\..\src\logic\sliceimagepane.h">
       <Filter>logic</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\logic\gamebuilder.h">
-      <Filter>logic</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\logic\gameconfig.h">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\logic\gamestate.h">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\logic\hangupstate.h">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\logic\playingstate.h">
       <Filter>logic</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\logic\xsignal.hxx">

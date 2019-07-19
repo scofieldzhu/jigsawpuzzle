@@ -66,7 +66,7 @@
       <OutputFile>$(OutDir)\$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;../../3rd/ratel-sdk/bin;../../3rd/sflogger/bin;../../3rd/pugixml/bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;ratel.basic-x64-d.lib;ratel.kernel-x64-d.lib;ratel.filesys-x64-d.lib;pugixml-x64-d.lib;sflogger.core-v140-x64-d.lib;sflogger.xmlconf-v140-x64-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;ratel.basic-x64-d.lib;ratel.kernel-x64-d.lib;ratel.filesys-x64-d.lib;pugixml-x64-d.lib;sflogger.core-v150-x64-d.lib;sflogger.xmlconf-v150-x64-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <QtMoc>
       <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
@@ -97,7 +97,7 @@
       <OutputFile>$(OutDir)\$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;../../3rd/ratel-sdk/bin;../../3rd/sflogger/bin;../../3rd/pugixml/bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalDependencies>qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;ratel.basic-x64.lib;ratel.kernel-x64.lib;ratel.filesys-x64.lib;pugixml-x64.lib;sflogger.core-v140-x64.lib;sflogger.xmlconf-v140-x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;ratel.basic-x64.lib;ratel.kernel-x64.lib;ratel.filesys-x64.lib;pugixml-x64.lib;sflogger.core-v150-x64.lib;sflogger.xmlconf-v150-x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <QtMoc>
       <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
@@ -173,10 +173,7 @@
     <ClInclude Include="..\..\src\global\common.h" />
     <ClInclude Include="..\..\src\global\glo.h" />
     <ClInclude Include="..\..\src\global\uiglo.h" />
-    <ClInclude Include="..\..\src\logic\gamebuilder.h" />
     <ClInclude Include="..\..\src\logic\gameconfig.h" />
-    <ClInclude Include="..\..\src\logic\gamestate.h" />
-    <ClInclude Include="..\..\src\logic\hangupstate.h" />
     <QtMoc Include="..\..\src\logic\jpgame.h">
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;.;.\..\..\3rd\boost170;.\..\..\3rd\ratel-sdk\include\kernel;.\..\..\3rd\ratel-sdk\include\basic;.\..\..\src;.\..\..\src\logic\mediator;.\..\..\src\logic;.\..\..\src\ui;.\..\..\src\app;.\..\..\src\global</IncludePath>
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;.;.\..\..\src;.\..\..\src\logic\mediator;.\..\..\src\logic;.\..\..\src\ui;.\..\..\src\app;.\..\..\src\global</IncludePath>
@@ -185,7 +182,6 @@
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;.;.\..\..\3rd\ratel-sdk\include\kernel;.\..\..\3rd\ratel-sdk\include\basic;.\..\..\src;.\..\..\src\logic\mediator;.\..\..\src\logic;.\..\..\src\ui;.\..\..\src\app;.\..\..\src\global</IncludePath>
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;.;.\..\..\src;.\..\..\src\logic\mediator;.\..\..\src\logic;.\..\..\src\ui;.\..\..\src\app;.\..\..\src\global</IncludePath>
     </QtMoc>
-    <ClInclude Include="..\..\src\logic\playingstate.h" />
     <ClInclude Include="..\..\src\logic\sliceimagepane.h" />
     <ClInclude Include="..\..\src\logic\uimediator.hxx" />
     <QtMoc Include="..\..\src\ui\clientview.h">

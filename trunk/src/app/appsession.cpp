@@ -14,6 +14,7 @@ CreateTime: 2019-6-19 21:07
 #include "mainwindowmediator.h"
 #include "appconfparser.h"
 #include "path.h"
+#include "applogger.h"
 USING_RATEL
 
 static AppSession* st_AppInst = nullptr;
@@ -38,7 +39,7 @@ bool AppSession::loadConfigs()
 
 void AppSession::loadStyleSheets()
 {
-	QFile f("app.qss");
+	QFile f("conf/app.qss");
 	if(f.open(QIODevice::ReadOnly)){
 		QString qss = f.readAll();
 		app_.setStyleSheet(qss);
@@ -48,16 +49,16 @@ void AppSession::loadStyleSheets()
 void AppSession::loadLanguage()
 {
 	QTranslator* zhtranslator = new QTranslator();
-	if(zhtranslator->load("jigsawpuzzle_zh.qm")){
-		app_.installTranslator(zhtranslator);
-	}
-	
+	if(zhtranslator->load("conf/language/jigsawpuzzle_zh.qm"))
+		app_.installTranslator(zhtranslator);	
 }
 
 bool AppSession::onEnter()
 {
-    if(!loadConfigs())
+    if(!loadConfigs()){
+        slog_err(applogger) << "load configs failed!" << endl;
         return false;
+    }
 	loadStyleSheets();
 	loadLanguage();
 	mainwindow_ = new MainWindow();    

@@ -8,6 +8,7 @@ CreateTime: 2019-6-24 19:08
 =========================================================================*/
 #include "jpgame.h"
 #include <QTimer>
+#include <random>
 #include "uiglo.h"
 #include "gamescene.h"
 #include "gameview.h"
@@ -34,7 +35,7 @@ std::vector<int32_t> JPGame::generateRandomNums(uint32_t cnt, int32_t min)
 {
 	std::vector<int32_t> resultnums(cnt, 0);
 	std::generate(resultnums.begin(), resultnums.end(), [n = min]() mutable { return n++; });
-	std::random_shuffle(resultnums.begin(), resultnums.end());
+    std::shuffle(resultnums.begin(), resultnums.end(), std::random_device());
 	return resultnums;
 }
 
