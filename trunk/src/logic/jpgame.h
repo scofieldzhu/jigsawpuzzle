@@ -44,7 +44,7 @@ private:
 	void generateResource();
 	GameState state_ = kStoppedState;
 	QList<SliceImagePane*> sliceimagepanes_;
-    SignalCon imageswappedconn_;
+    RATEL::SignalCon imageswappedconn_;
     GameConfig config_;
     QPixmap curgameimage_;
     QTimer* timer_;
@@ -59,7 +59,7 @@ private:
     int32_t remainhintcount_ = 0;
     QTimer* clocktimer_;
     uint32_t starttickcount_ = 0;
-    SignalCon updateclockconn_;
+    RATEL::SignalCon updateclockconn_;
 };
 
 #endif

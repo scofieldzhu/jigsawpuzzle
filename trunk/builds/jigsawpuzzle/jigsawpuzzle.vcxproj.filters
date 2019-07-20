@@ -129,9 +129,6 @@
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\logic\uimediator.hxx">
-      <Filter>logic</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\app\appsession.h">
       <Filter>logic</Filter>
     </ClInclude>
@@ -148,9 +145,6 @@
       <Filter>logic</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\logic\gameconfig.h">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\logic\xsignal.hxx">
       <Filter>logic</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\logic\glosignals.h">

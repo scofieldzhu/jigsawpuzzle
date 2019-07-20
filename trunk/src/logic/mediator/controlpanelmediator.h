@@ -14,7 +14,7 @@ CreateTime: 2019-6-20 21:17
 #include "glosignals.h"
 
 class ControlPanel;
-class ControlPanelMediator : public QObject, public UIMediator<ControlPanel>
+class ControlPanelMediator : public QObject, public RATEL::UIMediator<ControlPanel>
 {
 	Q_OBJECT
 public:
@@ -36,10 +36,10 @@ private:
     void handleGameStoppedSignal(const GameStoppedEvent&);
     void handleGameHintTimeOutSignal(const GameHintTimeOutEvent&);
     void handleUpdateClockSignal(const GameClockUpdateEvent&);
-    SignalCon startedconn_;
-    SignalCon stoppedconn_;
-    SignalCon hinttimeoutconn_;
-    SignalCon updateclockconn_;
+    RATEL::SignalCon startedconn_;
+    RATEL::SignalCon stoppedconn_;
+    RATEL::SignalCon hinttimeoutconn_;
+    RATEL::SignalCon updateclockconn_;
 };
 
 #endif

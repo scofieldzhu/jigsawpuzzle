@@ -1,13 +1,18 @@
 /*=======================================================================
-JigsawPuzzle is a kind of simple jigsaw puzzle game.
+Ratel is a application framework, which provides some convenient librarys
+for for those c++ developers pursuing fast-developement.
 Copyright (c) scofieldzhu. All rights reserved.
 
-Project: jigsawpuzzle
+Project: ratel.kernel
 Module: uimediator.h
 CreateTime: 2019-6-18 22:04
 =========================================================================*/
 #ifndef __uimediator_hxx__
 #define __uimediator_hxx__
+
+#include "kernelpublic.h"
+
+RATEL_NAMESPACE_BEGIN
 
 template <class UI>
 class UIMediator
@@ -24,5 +29,7 @@ public:
 protected:
 	UI* ui_;
 };
+
+RATEL_NAMESPACE_END
 
 #endif

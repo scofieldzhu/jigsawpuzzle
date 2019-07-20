@@ -28,14 +28,14 @@ struct GameStoppedEvent : public GameNotifyEvent
         reason(r){}    
     GameStoppedReason reason;
 };
-typedef XSignal<GameStoppedEvent> GameStoppedSignal;
+typedef RATEL::XSignal<GameStoppedEvent> GameStoppedSignal;
 
 struct GameStartedEvent : public GameNotifyEvent
 {
     GameStartedEvent(JPGame& g)
         :GameNotifyEvent(g){}
 };
-typedef XSignal<GameStartedEvent> GameStartedSignal;
+typedef RATEL::XSignal<GameStartedEvent> GameStartedSignal;
 
 struct GameHintTimeOutEvent : public GameNotifyEvent
 {
@@ -44,10 +44,10 @@ struct GameHintTimeOutEvent : public GameNotifyEvent
         islastone(lastone){}
     bool islastone = false;
 };
-typedef XSignal<GameHintTimeOutEvent> GameHintTimeOutSignal;
+typedef RATEL::XSignal<GameHintTimeOutEvent> GameHintTimeOutSignal;
 
 struct SliceImageSwappedEvent{};
-typedef XSignal<SliceImageSwappedEvent> SliceImageSwappedSignal;
+typedef RATEL::XSignal<SliceImageSwappedEvent> SliceImageSwappedSignal;
 
 struct GameClockUpdateEvent : public GameNotifyEvent
 {
@@ -56,7 +56,7 @@ struct GameClockUpdateEvent : public GameNotifyEvent
         costsecs(time){}
     uint32_t costsecs;
 };
-typedef XSignal<GameClockUpdateEvent> GameClockUpdateSignal;
+typedef RATEL::XSignal<GameClockUpdateEvent> GameClockUpdateSignal;
 
 
 #endif

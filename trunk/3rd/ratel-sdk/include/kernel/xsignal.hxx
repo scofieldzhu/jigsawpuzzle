@@ -1,16 +1,19 @@
 /*=======================================================================
-JigsawPuzzle is a kind of simple jigsaw puzzle game.
-Copyright (c) scofieldzhu. All rights reserved.	
+Ratel is a application framework, which provides some convenient librarys
+for for those c++ developers pursuing fast-developement.
+Copyright (c) scofieldzhu. All rights reserved.
 
-Project: jigsawpuzzle 
+Project: ratel.kernel
 Module: xsignal.hxx 
 CreateTime: 2019-7-7 21:11
-Creator: scofieldzhu
 =======================================================================*/
 #ifndef __xsignal_hxx__
 #define __xsignal_hxx__
 
+#include "kernelpublic.h"
 #include <boost/signals2.hpp>
+
+RATEL_NAMESPACE_BEGIN
 
 typedef boost::signals2::connection SignalCon;
 
@@ -54,6 +57,8 @@ struct XSignal
 private:
     BSig2Type sigsource_;
 };
+
+RATEL_NAMESPACE_END
 
 #endif
 

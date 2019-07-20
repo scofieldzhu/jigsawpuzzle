@@ -13,7 +13,7 @@ CreateTime: 2019-7-3 21:26
 #include "uimediator.hxx"
 
 class MainWindow;
-class MainWindowMediator : public QObject, public UIMediator<MainWindow>
+class MainWindowMediator : public QObject, public RATEL::UIMediator<MainWindow>
 {
 	Q_OBJECT
 public:

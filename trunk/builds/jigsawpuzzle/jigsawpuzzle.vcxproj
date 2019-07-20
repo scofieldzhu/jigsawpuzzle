@@ -157,7 +157,6 @@
     <ClInclude Include="..\..\src\logic\appconfparser.h" />
     <ClInclude Include="..\..\src\logic\gamelevel.h" />
     <ClInclude Include="..\..\src\logic\glosignals.h" />
-    <ClInclude Include="..\..\src\logic\xsignal.hxx" />
     <QtMoc Include="..\..\src\logic\gamescene.h">
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;.;.\..\..\3rd\ratel-sdk\include\kernel;.\..\..\3rd\ratel-sdk\include\basic;.\..\..\src;.\..\..\src\logic\mediator;.\..\..\src\logic;.\..\..\src\ui;.\..\..\src\app;.\..\..\src\global</IncludePath>
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;.;.\..\..\src;.\..\..\src\logic\mediator;.\..\..\src\logic;.\..\..\src\ui;.\..\..\src\app;.\..\..\src\global</IncludePath>
@@ -183,7 +182,6 @@
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;.;.\..\..\src;.\..\..\src\logic\mediator;.\..\..\src\logic;.\..\..\src\ui;.\..\..\src\app;.\..\..\src\global</IncludePath>
     </QtMoc>
     <ClInclude Include="..\..\src\logic\sliceimagepane.h" />
-    <ClInclude Include="..\..\src\logic\uimediator.hxx" />
     <QtMoc Include="..\..\src\ui\clientview.h">
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;.;.\..\..\3rd\ratel-sdk\include\kernel;.\..\..\3rd\ratel-sdk\include\basic;.\..\..\src;.\..\..\src\logic\mediator;.\..\..\src\logic;.\..\..\src\ui;.\..\..\src\app;.\..\..\src\global</IncludePath>
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;.;.\..\..\src;.\..\..\src\logic\mediator;.\..\..\src\logic;.\..\..\src\ui;.\..\..\src\app;.\..\..\src\global</IncludePath>
