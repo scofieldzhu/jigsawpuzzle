@@ -10,6 +10,7 @@ CreateTime: 2019-6-18 22:04
 #define __controlpanel_h__
 
 #include <QWidget>
+#include "ui_controlpanel.h"
 
 class QLabel;
 class QComboBox;
@@ -19,6 +20,7 @@ class ControlPanel : public QWidget
 {
 	Q_OBJECT
 public:
+    Ui::CtrlPanelUI ui;
 	ControlPanel(QWidget* parent, int32_t fixedwidth);
 	~ControlPanel();
 	QPushButton* startgametbtn = nullptr;

@@ -163,4 +163,9 @@
       <Filter>logic</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="controlpanel.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+  </ItemGroup>
 </Project>

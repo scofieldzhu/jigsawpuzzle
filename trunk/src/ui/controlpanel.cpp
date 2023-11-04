@@ -20,8 +20,9 @@ CreateTime: 2019-6-18 22:04
 ControlPanel::ControlPanel(QWidget* parent, int32_t fixedwidth)
 	:QWidget(parent)
 {
-	setFixedWidth(fixedwidth);
-	createControls();
+    ui.setupUi(this);
+// 	setFixedWidth(fixedwidth);
+// 	createControls();
 	mediator = new ControlPanelMediator(this);
 	mediator->subscribeEvents();
 }
@@ -70,7 +71,8 @@ void ControlPanel::createControls()
 	cmdbtnlayout->setSpacing(10);
 
 	startgametbtn = new QPushButton();
-	startgametbtn->setFixedSize(200, 80);
+	//startgametbtn->setFixedSize(200, 80);
+    startgametbtn->setFixedSize(112, 48);
 	startgametbtn->setText(QObject::tr("Start Game"));
 	cmdbtnlayout->addWidget(startgametbtn);
 

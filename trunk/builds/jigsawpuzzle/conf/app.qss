@@ -7,8 +7,8 @@ ControlPanel {
 }
 
 QPushButton{
-	border-image: url(res/image/btn-normal.png) 10 10 10 10;
-	border: 10px transparent;
+	border-image: url(res/image/start-play-btn-normal.png) 0 0 0 0;
+/*	border: 10px transparent;*/
 }
 
 QPushButton:pressed{

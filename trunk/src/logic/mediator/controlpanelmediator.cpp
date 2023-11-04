@@ -20,8 +20,8 @@ CreateTime: 2019-6-20 21:17
 #include "appconf.h"
 USING_RATEL
 
-#define ENABLE_IMG_CHANGE_SIGNAL() connect(ui_->originimgcb, SIGNAL(currentTextChanged(const QString&)), this, SLOT(handleOriginImageCurrentTextChanged(const QString&)))
-#define DISABLE_IMG_CHANGE_SIGNAL() disconnect(ui_->originimgcb, SIGNAL(currentTextChanged(const QString&)), this, SLOT(handleOriginImageCurrentTextChanged(const QString&)))
+#define ENABLE_IMG_CHANGE_SIGNAL() connect(ui_->ui.imgcb, SIGNAL(currentTextChanged(const QString&)), this, SLOT(handleOriginImageCurrentTextChanged(const QString&)))
+#define DISABLE_IMG_CHANGE_SIGNAL() disconnect(ui_->ui.imgcb, SIGNAL(currentTextChanged(const QString&)), this, SLOT(handleOriginImageCurrentTextChanged(const QString&)))
 
 ControlPanelMediator::ControlPanelMediator(ControlPanel* ui)
 	:QObject(ui),
@@ -39,16 +39,16 @@ void ControlPanelMediator::initAppUI()
     DISABLE_IMG_CHANGE_SIGNAL();
     collectImageFiles();
     ENABLE_IMG_CHANGE_SIGNAL();
-    ui_->originimgcb->setCurrentIndex(-1);
-    ui_->originimgcb->setCurrentIndex(0);  //force trigger refresh background 
+    ui_->ui.imgcb->setCurrentIndex(-1);
+    ui_->ui.imgcb->setCurrentIndex(0);  //force trigger refresh background 
 }
 
 void ControlPanelMediator::subscribeEvents()
 {
     ENABLE_IMG_CHANGE_SIGNAL();
-	connect(ui_->startgametbtn, SIGNAL(released()), this, SLOT(handleStartGameBtnClicked()));    
-	connect(ui_->giveupbtn, SIGNAL(released()), this, SLOT(handleGiveUpBtnClicked()));    
-	connect(ui_->hintbtn, SIGNAL(released()), this, SLOT(handleHitBtnClicked()));
+	connect(ui_->ui.playbtn, SIGNAL(released()), this, SLOT(handleStartGameBtnClicked()));    
+	connect(ui_->ui.quitbtn, SIGNAL(released()), this, SLOT(handleGiveUpBtnClicked()));    
+	connect(ui_->ui.tipbtn, SIGNAL(released()), this, SLOT(handleHitBtnClicked()));
     startedconn_ = GameStartedSignal::Inst().connect(boost::bind(&ControlPanelMediator::handleGameStartedSignal, this, _1));
     stoppedconn_ = GameStoppedSignal::Inst().connect(boost::bind(&ControlPanelMediator::handleGameStoppedSignal, this, _1));
     hinttimeoutconn_ = GameHintTimeOutSignal::Inst().connect(boost::bind(&ControlPanelMediator::handleGameHintTimeOutSignal, this, _1));    
@@ -67,13 +67,13 @@ void ControlPanelMediator::handleStartGameBtnClicked()
 {
     Q_ASSERT(GetActiveGame() == nullptr);    
     Path imgfolder = GetAppConf().gameimagefolder;
-    Path selimgfilepath = imgfolder.join(ui_->originimgcb->currentText().toUtf8().data());
+    Path selimgfilepath = imgfolder.join(ui_->ui.imgcb->currentText().toUtf8().data());
     if(selimgfilepath.exists()){
         QPixmap originimg(selimgfilepath.cstr());
         if(!originimg.isNull()){
             GameConfig conf;
             conf.originimage = originimg;
-            GetAppConf().getLevel(ui_->difficultycb->currentText().toUtf8().data(), conf.level);
+            GetAppConf().getLevel(ui_->ui.levelcb->currentText().toUtf8().data(), conf.level);
             JPGame* newgame = new JPGame(conf);
             newgame->start();
         }
@@ -91,7 +91,7 @@ void ControlPanelMediator::handleOriginImageCurrentTextChanged(const QString&)
 {
     handleGiveUpBtnClicked();
     Path imgfolder = GetAppConf().gameimagefolder;
-    Path selimgfilepath = imgfolder.join(ui_->originimgcb->currentText().toUtf8().data());
+    Path selimgfilepath = imgfolder.join(ui_->ui.imgcb->currentText().toUtf8().data());
     if(selimgfilepath.exists()){
         QPixmap originimg(selimgfilepath.cstr());
         GetGameScene()->setBackgroundImage(originimg);
@@ -101,7 +101,7 @@ void ControlPanelMediator::handleOriginImageCurrentTextChanged(const QString&)
 
 void ControlPanelMediator::collectImageFiles()
 {
-    ui_->originimgcb->clear();
+    ui_->ui.imgcb->clear();
     const Path imgfolder = GetAppConf().gameimagefolder;
     if(!imgfolder.exists())
         return;
@@ -113,21 +113,21 @@ void ControlPanelMediator::collectImageFiles()
     };
     DirWalker(imgfolder).walk(meetfunc);    
     for(auto f : imgfiles)
-        ui_->originimgcb->addItem(QString::fromUtf8(f.cstr()));
+        ui_->ui.imgcb->addItem(QString::fromUtf8(f.cstr()));
 }
 
 void ControlPanelMediator::handleGameStartedSignal(const GameStartedEvent& event)
 {
-    ui_->startgametbtn->setEnabled(false);
-    ui_->giveupbtn->setEnabled(true);
-    ui_->hintbtn->setEnabled(true);
+    ui_->ui.playbtn->setEnabled(false);
+    ui_->ui.quitbtn->setEnabled(true);
+    ui_->ui.tipbtn->setEnabled(true);
 }
 
 void ControlPanelMediator::handleGameStoppedSignal(const GameStoppedEvent& event)
 {
-    ui_->startgametbtn->setEnabled(true);
-    ui_->giveupbtn->setEnabled(false);
-    ui_->hintbtn->setEnabled(false);
+    ui_->ui.playbtn->setEnabled(true);
+    ui_->ui.quitbtn->setEnabled(false);
+    ui_->ui.tipbtn->setEnabled(false);
     delete event.game; //destroy current active game
     if(event.reason == kNormalStopped)
         GetGameScene()->showNotice(QObject::tr("Congratulations!"));
@@ -135,22 +135,22 @@ void ControlPanelMediator::handleGameStoppedSignal(const GameStoppedEvent& event
 
 void ControlPanelMediator::handleGameHintTimeOutSignal(const GameHintTimeOutEvent& event)
 {
-    ui_->giveupbtn->setEnabled(true);
-    ui_->hintbtn->setEnabled(!event.islastone);
+    ui_->ui.quitbtn->setEnabled(true);
+    ui_->ui.tipbtn->setEnabled(!event.islastone);
 }
 
 void ControlPanelMediator::handleUpdateClockSignal(const GameClockUpdateEvent& event)
 {
     int32_t m = event.costsecs / 60;
     int32_t s = event.costsecs - m * 60;
-    ui_->timevallabel->setText(QString("00:%1:%2").arg(m, 2, 10, QChar('0')).arg(s, 2, 10, QChar('0')));
+    ui_->ui.resultlabel->setText(QString("00:%1:%2").arg(m, 2, 10, QChar('0')).arg(s, 2, 10, QChar('0')));
 }
 
 void ControlPanelMediator::handleHitBtnClicked()
 {
     if(GetActiveGame()){
-        ui_->giveupbtn->setEnabled(false);
-        ui_->hintbtn->setEnabled(false);
+        ui_->ui.quitbtn->setEnabled(false);
+        ui_->ui.tipbtn->setEnabled(false);
         GetActiveGame()->hintOnce();
     }
 }
