@@ -54,8 +54,8 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;./;../../3rd/boost170;../../3rd/sflogger/include;../../3rd/sflogger/include/xmlconf;../../3rd/pugixml/include;../../3rd/ratel-sdk/include/kernel;../../3rd/ratel-sdk/include/filesys;../../3rd/ratel-sdk/include/basic;../../src/;../../src/logic/mediator;../../src/logic;../../src/ui;../../src/app;../../src/global;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_CORE_LIB;QT_GUI_LIB;QT_UITOOLS_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);./;../../3rd/boost170;../../3rd/sflogger/include;../../3rd/sflogger/include/xmlconf;../../3rd/pugixml/include;../../3rd/ratel-sdk/include/kernel;../../3rd/ratel-sdk/include/filesys;../../3rd/ratel-sdk/include/basic;../../src/;../../src/logic/mediator;../../src/logic;../../src/ui;../../src/app;../../src/global;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtUiTools;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -66,13 +66,13 @@
       <OutputFile>$(OutDir)\$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;../../3rd/ratel-sdk/bin;../../3rd/sflogger/bin;../../3rd/pugixml/bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;ratel.basic-x64-d.lib;ratel.kernel-x64-d.lib;ratel.filesys-x64-d.lib;pugixml-x64-d.lib;sflogger.core-v150-x64-d.lib;sflogger.xmlconf-v150-x64-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>qtmaind.lib;ratel.basic-x64-d.lib;ratel.kernel-x64-d.lib;ratel.filesys-x64-d.lib;pugixml-x64-d.lib;sflogger.core-v150-x64-d.lib;sflogger.xmlconf-v150-x64-d.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5UiToolsd.lib;Qt5Widgetsd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <QtMoc>
       <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
       <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
-      <IncludePath>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;./;../../3rd/boost170;../../3rd/sflogger/include;../../3rd/sflogger/include/xmlconf;../../3rd/pugixml/include;../../3rd/ratel-sdk/include/kernel;../../3rd/ratel-sdk/include/filesys;../../3rd/ratel-sdk/include/basic;../../src/;../../src/logic/mediator;../../src/logic;../../src/ui;../../src/app;../../src/global;%(AdditionalIncludeDirectories)</IncludePath>
-      <Define>UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</Define>
+      <IncludePath>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);.;.\..\..\3rd\boost170;.\..\..\3rd\sflogger\include;.\..\..\3rd\sflogger\include\xmlconf;.\..\..\3rd\pugixml\include;.\..\..\3rd\ratel-sdk\include\kernel;.\..\..\3rd\ratel-sdk\include\filesys;.\..\..\3rd\ratel-sdk\include\basic;.\..\..\src;.\..\..\src\logic\mediator;.\..\..\src\logic;.\..\..\src\ui;.\..\..\src\app;.\..\..\src\global;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtUiTools;$(QTDIR)\include\QtWidgets</IncludePath>
+      <Define>UNICODE;WIN32;WIN64;QT_CORE_LIB;QT_GUI_LIB;QT_UITOOLS_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</Define>
     </QtMoc>
     <QtUic>
       <ExecutionDescription>Uic'ing %(Identity)...</ExecutionDescription>
@@ -86,8 +86,8 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;./;../../3rd/boost170;../../3rd/sflogger/include;../../3rd/sflogger/include/xmlconf;../../3rd/pugixml/include;../../3rd/ratel-sdk/include/kernel;../../3rd/ratel-sdk/include/filesys;../../3rd/ratel-sdk/include/basic;../../src/;../../src/logic/mediator;../../src/logic;../../src/ui;../../src/app;../../src/global;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_UITOOLS_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);./;../../3rd/boost170;../../3rd/sflogger/include;../../3rd/sflogger/include/xmlconf;../../3rd/pugixml/include;../../3rd/ratel-sdk/include/kernel;../../3rd/ratel-sdk/include/filesys;../../3rd/ratel-sdk/include/basic;../../src/;../../src/logic/mediator;../../src/logic;../../src/ui;../../src/app;../../src/global;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtUiTools;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat />
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
@@ -97,13 +97,13 @@
       <OutputFile>$(OutDir)\$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;../../3rd/ratel-sdk/bin;../../3rd/sflogger/bin;../../3rd/pugixml/bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalDependencies>qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;ratel.basic-x64.lib;ratel.kernel-x64.lib;ratel.filesys-x64.lib;pugixml-x64.lib;sflogger.core-v150-x64.lib;sflogger.xmlconf-v150-x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>qtmain.lib;ratel.basic-x64.lib;ratel.kernel-x64.lib;ratel.filesys-x64.lib;pugixml-x64.lib;sflogger.core-v150-x64.lib;sflogger.xmlconf-v150-x64.lib;Qt5Core.lib;Qt5Gui.lib;Qt5UiTools.lib;Qt5Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <QtMoc>
       <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
       <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
-      <IncludePath>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;./;../../3rd/boost170;../../3rd/sflogger/include;../../3rd/sflogger/include/xmlconf;../../3rd/pugixml/include;../../3rd/ratel-sdk/include/kernel;../../3rd/ratel-sdk/include/filesys;../../3rd/ratel-sdk/include/basic;../../src/;../../src/logic/mediator;../../src/logic;../../src/ui;../../src/app;../../src/global;%(AdditionalIncludeDirectories)</IncludePath>
-      <Define>UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</Define>
+      <IncludePath>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);.;.\..\..\3rd\boost170;.\..\..\3rd\sflogger\include;.\..\..\3rd\sflogger\include\xmlconf;.\..\..\3rd\pugixml\include;.\..\..\3rd\ratel-sdk\include\kernel;.\..\..\3rd\ratel-sdk\include\filesys;.\..\..\3rd\ratel-sdk\include\basic;.\..\..\src;.\..\..\src\logic\mediator;.\..\..\src\logic;.\..\..\src\ui;.\..\..\src\app;.\..\..\src\global;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtUiTools;$(QTDIR)\include\QtWidgets</IncludePath>
+      <Define>UNICODE;WIN32;WIN64;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_UITOOLS_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</Define>
     </QtMoc>
     <QtUic>
       <ExecutionDescription>Uic'ing %(Identity)...</ExecutionDescription>
@@ -136,19 +136,18 @@
     <ClCompile Include="..\..\src\logic\mediator\mainwindowmediator.cpp" />
     <ClCompile Include="..\..\src\logic\sliceimagepane.cpp" />
     <ClCompile Include="..\..\src\logic\gamescene.cpp" />
+    <ClCompile Include="..\..\src\ui\animatesplash.cpp" />
     <ClCompile Include="..\..\src\ui\clientview.cpp" />
     <ClCompile Include="..\..\src\ui\controlpanel.cpp" />
     <ClCompile Include="..\..\src\ui\mainwindow.cpp" />
     <ClCompile Include="..\..\src\ui\gameview.cpp" />
+    <ClCompile Include="..\..\src\ui\movielabel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="..\..\src\ui\mainwindow.h" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="..\..\src\ui\controlpanel.h">
-      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;.;.\..\..\src;.\..\..\src\logic;.\..\..\src\ui;.\..\..\src\app;.\..\..\src\global</IncludePath>
-      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;.;.\..\..\src;.\..\..\src\logic;.\..\..\src\ui;.\..\..\src\app;.\..\..\src\global</IncludePath>
-    </QtMoc>
+    <QtMoc Include="..\..\src\ui\controlpanel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\app\appsession.h" />
@@ -157,35 +156,19 @@
     <ClInclude Include="..\..\src\logic\appconfparser.h" />
     <ClInclude Include="..\..\src\logic\gamelevel.h" />
     <ClInclude Include="..\..\src\logic\glosignals.h" />
-    <QtMoc Include="..\..\src\logic\gamescene.h">
-      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;.;.\..\..\3rd\ratel-sdk\include\kernel;.\..\..\3rd\ratel-sdk\include\basic;.\..\..\src;.\..\..\src\logic\mediator;.\..\..\src\logic;.\..\..\src\ui;.\..\..\src\app;.\..\..\src\global</IncludePath>
-      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;.;.\..\..\src;.\..\..\src\logic\mediator;.\..\..\src\logic;.\..\..\src\ui;.\..\..\src\app;.\..\..\src\global</IncludePath>
-    </QtMoc>
-    <QtMoc Include="..\..\src\ui\gameview.h">
-      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;.;.\..\..\3rd\ratel-sdk\include\kernel;.\..\..\3rd\ratel-sdk\include\basic;.\..\..\src;.\..\..\src\logic\mediator;.\..\..\src\logic;.\..\..\src\ui;.\..\..\src\app;.\..\..\src\global</IncludePath>
-      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;.;.\..\..\src;.\..\..\src\logic\mediator;.\..\..\src\logic;.\..\..\src\ui;.\..\..\src\app;.\..\..\src\global</IncludePath>
-    </QtMoc>
-    <QtMoc Include="..\..\src\logic\mediator\controlpanelmediator.h">
-      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;.;.\..\..\3rd\ratel-sdk\include\kernel;.\..\..\3rd\ratel-sdk\include\basic;.\..\..\src;.\..\..\src\logic\mediator;.\..\..\src\logic;.\..\..\src\ui;.\..\..\src\app;.\..\..\src\global</IncludePath>
-      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;.;.\..\..\src;.\..\..\src\logic\mediator;.\..\..\src\logic;.\..\..\src\ui;.\..\..\src\app;.\..\..\src\global</IncludePath>
-    </QtMoc>
+    <QtMoc Include="..\..\src\ui\animatesplash.h" />
+    <QtMoc Include="..\..\src\ui\movielabel.h" />
+    <QtMoc Include="..\..\src\logic\gamescene.h" />
+    <QtMoc Include="..\..\src\ui\gameview.h" />
+    <QtMoc Include="..\..\src\logic\mediator\controlpanelmediator.h" />
     <ClInclude Include="..\..\src\global\common.h" />
     <ClInclude Include="..\..\src\global\glo.h" />
     <ClInclude Include="..\..\src\global\uiglo.h" />
     <ClInclude Include="..\..\src\logic\gameconfig.h" />
-    <QtMoc Include="..\..\src\logic\jpgame.h">
-      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;.;.\..\..\3rd\boost170;.\..\..\3rd\ratel-sdk\include\kernel;.\..\..\3rd\ratel-sdk\include\basic;.\..\..\src;.\..\..\src\logic\mediator;.\..\..\src\logic;.\..\..\src\ui;.\..\..\src\app;.\..\..\src\global</IncludePath>
-      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;.;.\..\..\src;.\..\..\src\logic\mediator;.\..\..\src\logic;.\..\..\src\ui;.\..\..\src\app;.\..\..\src\global</IncludePath>
-    </QtMoc>
-    <QtMoc Include="..\..\src\logic\mediator\mainwindowmediator.h">
-      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;.;.\..\..\3rd\ratel-sdk\include\kernel;.\..\..\3rd\ratel-sdk\include\basic;.\..\..\src;.\..\..\src\logic\mediator;.\..\..\src\logic;.\..\..\src\ui;.\..\..\src\app;.\..\..\src\global</IncludePath>
-      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;.;.\..\..\src;.\..\..\src\logic\mediator;.\..\..\src\logic;.\..\..\src\ui;.\..\..\src\app;.\..\..\src\global</IncludePath>
-    </QtMoc>
+    <QtMoc Include="..\..\src\logic\jpgame.h" />
+    <QtMoc Include="..\..\src\logic\mediator\mainwindowmediator.h" />
     <ClInclude Include="..\..\src\logic\sliceimagepane.h" />
-    <QtMoc Include="..\..\src\ui\clientview.h">
-      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;.;.\..\..\3rd\ratel-sdk\include\kernel;.\..\..\3rd\ratel-sdk\include\basic;.\..\..\src;.\..\..\src\logic\mediator;.\..\..\src\logic;.\..\..\src\ui;.\..\..\src\app;.\..\..\src\global</IncludePath>
-      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;.;.\..\..\src;.\..\..\src\logic\mediator;.\..\..\src\logic;.\..\..\src\ui;.\..\..\src\app;.\..\..\src\global</IncludePath>
-    </QtMoc>
+    <QtMoc Include="..\..\src\ui\clientview.h" />
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="controlpanel.ui" />
@@ -198,7 +181,7 @@
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties MocDir=".\GeneratedFiles\$(ConfigurationName)" UicDir=".\GeneratedFiles" RccDir=".\GeneratedFiles" lupdateOptions="" lupdateOnBuild="0" lreleaseOptions="" Qt5Version_x0020_x64="msvc2015_64" MocOptions="" />
+      <UserProperties MocDir=".\GeneratedFiles\$(ConfigurationName)" UicDir=".\GeneratedFiles" RccDir=".\GeneratedFiles" lupdateOptions="" lupdateOnBuild="0" lreleaseOptions="" Qt5Version_x0020_x64="5.12.12_msvc2017_64" MocOptions="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

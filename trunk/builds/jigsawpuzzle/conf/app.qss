@@ -7,18 +7,28 @@ ControlPanel {
 }
 
 QPushButton{
-	border-image: url(res/image/start-play-btn-normal.png) 0 0 0 0;
+	border-image: url(res/image/btn-normal.png) 22 22 22 22;
+	border-radius: 22px;
+/*	border-width: 1px;
+	border-color: red;*/
 /*	border: 10px transparent;*/
 }
 
 QPushButton:pressed{
-	border-image: url(res/image/btn-click.png) 10 10 10 10;
-	border: 10px transparent;
+	border-image: url(res/image/btn-click.png) 22 22 22 22;
+	border-radius: 22px;
+	border-color: red;
 }
 
 QPushButton:hover{
-	border-image: url(res/image/btn-hover.png) 10 10 10 10;
-	border: 10px transparent;
+	border-image: url(res/image/btn-hover.png) 22 22 22 22;
+	border-radius: 22px;
+}
+
+
+QPushButton:disabled{
+	border-image: url(res/image/btn-disable.png) 22 22 22 22;
+	border-radius: 22px;
 }
 
 /*QComboBox{

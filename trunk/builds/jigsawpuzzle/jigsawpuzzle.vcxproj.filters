@@ -101,6 +101,12 @@
     <ClCompile Include="..\..\src\global\applogger.cpp">
       <Filter>global</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\ui\animatesplash.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ui\movielabel.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="..\..\src\ui\mainwindow.h">
@@ -126,6 +132,12 @@
     </QtMoc>
     <QtMoc Include="..\..\src\logic\jpgame.h">
       <Filter>logic</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\ui\movielabel.h">
+      <Filter>ui</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\ui\animatesplash.h">
+      <Filter>ui</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>

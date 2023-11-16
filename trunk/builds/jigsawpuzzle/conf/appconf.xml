@@ -7,7 +7,7 @@
 			<Name>简单</Name>
 			<GridRows>3</GridRows>
 			<GridCols>3</GridCols>
-			<StartSeconds>3</StartSeconds>
+			<StartSeconds>6</StartSeconds>
 			<HintCount>1</HintCount>
 			<HintSeconds>5</HintSeconds>
 		</Level>
@@ -15,7 +15,7 @@
 			<Name>一般</Name>
 			<GridRows>4</GridRows>
 			<GridCols>4</GridCols>
-			<StartSeconds>3</StartSeconds>
+			<StartSeconds>6</StartSeconds>
 			<HintCount>2</HintCount>
 			<HintSeconds>5</HintSeconds>
 		</Level>
@@ -23,7 +23,7 @@
 			<Name>困难</Name>
 			<GridRows>5</GridRows>
 			<GridCols>5</GridCols>
-			<StartSeconds>3</StartSeconds>
+			<StartSeconds>6</StartSeconds>
 			<HintCount>3</HintCount>
 			<HintSeconds>5</HintSeconds>
 		</Level>

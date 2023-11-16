@@ -50,6 +50,8 @@ void GameScene::createNoticeBoard()
 
 void GameScene::showNotice(const QString& text)
 {    
+    QFont f("Î¢ÈíÑÅºÚ", 50, 50);
+    noticeboard_->setFont(f);
     noticeboard_->setPlainText(text);
     noticeboard_->setVisible(true);
     update();

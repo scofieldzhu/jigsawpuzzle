@@ -63,8 +63,12 @@ void ControlPanelMediator::unsubscribe()
     updateclockconn_.disconnect();
 }
 
+#include "animatesplash.h"
+
 void ControlPanelMediator::handleStartGameBtnClicked()
 {
+    PlayAnimation("res/image/duck-dance.gif");
+    /*
     Q_ASSERT(GetActiveGame() == nullptr);    
     Path imgfolder = GetAppConf().gameimagefolder;
     Path selimgfilepath = imgfolder.join(ui_->ui.imgcb->currentText().toUtf8().data());
@@ -78,6 +82,7 @@ void ControlPanelMediator::handleStartGameBtnClicked()
             newgame->start();
         }
     }
+    */
 }
 
 void ControlPanelMediator::handleGiveUpBtnClicked()
