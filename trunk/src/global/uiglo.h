@@ -9,7 +9,6 @@ CreateTime: 2019-6-20 21:39
 #ifndef __uiglo_h__
 #define __uiglo_h__
 
-#include <QString>
 #include "glo.h"
 
 class MainWindow;
@@ -20,8 +19,5 @@ class GameView;
 GameView* GetGameView();
 class GameScene;
 GameScene* GetGameScene();
-
-void PlayAnimation(const QString& gif_path);
-void StopPlayAnimation();
 
 #endif

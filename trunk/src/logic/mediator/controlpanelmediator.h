@@ -13,6 +13,7 @@ CreateTime: 2019-6-20 21:17
 #include "uimediator.hxx"
 #include "glosignals.h"
 
+class AnimateSplash;
 class ControlPanel;
 class ControlPanelMediator : public QObject, public RATEL::UIMediator<ControlPanel>
 {
@@ -29,6 +30,7 @@ private slots:
 	void handleGiveUpBtnClicked();
 	void handleHitBtnClicked();
     void handleOriginImageCurrentTextChanged(const QString&);
+    void frameChangedSlot(int);
 
 private:
     void collectImageFiles();
@@ -40,6 +42,7 @@ private:
     RATEL::SignalCon stoppedconn_;
     RATEL::SignalCon hinttimeoutconn_;
     RATEL::SignalCon updateclockconn_;
+    AnimateSplash* animation_player_ = nullptr;
 };
 
 #endif

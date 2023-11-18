@@ -18,6 +18,8 @@ CreateTime: 2019-6-20 21:17
 #include "path.h"
 #include "dirwalker.h"
 #include "appconf.h"
+#include "animatesplash.h"
+#include "applogger.h"
 USING_RATEL
 
 #define ENABLE_IMG_CHANGE_SIGNAL() connect(ui_->ui.imgcb, SIGNAL(currentTextChanged(const QString&)), this, SLOT(handleOriginImageCurrentTextChanged(const QString&)))
@@ -26,7 +28,7 @@ USING_RATEL
 ControlPanelMediator::ControlPanelMediator(ControlPanel* ui)
 	:QObject(ui),
 	MediatorSelf(ui)
-{
+{    
 }
 
 ControlPanelMediator::~ControlPanelMediator()
@@ -63,12 +65,14 @@ void ControlPanelMediator::unsubscribe()
     updateclockconn_.disconnect();
 }
 
-#include "animatesplash.h"
-
 void ControlPanelMediator::handleStartGameBtnClicked()
 {
-    PlayAnimation("res/image/duck-dance.gif");
-    /*
+    //if(animation_player_ == nullptr){
+    //    animation_player_ = new AnimateSplash("res/image/duck-dance.gif", GetMainWindow());
+    //    connect(animation_player_, SIGNAL(frameChanged(int)), this, SLOT(frameChangedSlot(int)));
+    //}
+    //animation_player_->start();
+    
     Q_ASSERT(GetActiveGame() == nullptr);    
     Path imgfolder = GetAppConf().gameimagefolder;
     Path selimgfilepath = imgfolder.join(ui_->ui.imgcb->currentText().toUtf8().data());
@@ -81,8 +85,7 @@ void ControlPanelMediator::handleStartGameBtnClicked()
             JPGame* newgame = new JPGame(conf);
             newgame->start();
         }
-    }
-    */
+    }    
 }
 
 void ControlPanelMediator::handleGiveUpBtnClicked()
@@ -101,6 +104,13 @@ void ControlPanelMediator::handleOriginImageCurrentTextChanged(const QString&)
         QPixmap originimg(selimgfilepath.cstr());
         GetGameScene()->setBackgroundImage(originimg);
         GetGameScene()->update();
+    }
+}
+
+void ControlPanelMediator::frameChangedSlot(int frame_number)
+{
+    if(animation_player_->frameCount() == frame_number + 1){
+        animation_player_->stop();
     }
 }
 
