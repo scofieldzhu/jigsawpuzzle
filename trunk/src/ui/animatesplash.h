@@ -30,6 +30,7 @@ signals:
     void frameChanged(int);
 
 private:
+    void grayImage(QImage& image, float scale);
     void paintEvent(QPaintEvent *event);
     QMovie* gif_player_;
     MovieLabel* animation_label_;  

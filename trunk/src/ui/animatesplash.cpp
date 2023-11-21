@@ -43,7 +43,9 @@ void AnimateSplash::start()
         slog_err(applogger) << "Animation is playing already!" << endl;
         return;
     }
-    bkg_img_ = QApplication::primaryScreen()->grabWindow(GetMainWindow()->winId());
+    QImage origin = QApplication::primaryScreen()->grabWindow(GetMainWindow()->winId()).toImage();
+    grayImage(origin, 0.5);
+    bkg_img_ = QPixmap::fromImage(origin);
     setGeometry({0, 0, GetMainWindow()->width(), GetMainWindow()->height()});
     show();
     gif_player_->start();    
@@ -71,6 +73,23 @@ int AnimateSplash::currentFrameNumber() const
 int AnimateSplash::frameCount() const
 {
     return gif_player_->frameCount();
+}
+
+void AnimateSplash::grayImage(QImage& image, float scale)
+{
+    int channel = 0;
+    if(image.depth() == 24 || image.depth() == 32)
+        channel = image.depth() / 8;
+    if(channel){
+        for(auto r = 0; r < image.height(); ++r){
+            uchar* row_data = image.scanLine(r);
+            for(auto c = 0; c < image.width(); ++c){
+                row_data[channel * c] *= scale;
+                row_data[channel * c + 1] *= scale;
+                row_data[channel * c + 2] *= scale;
+            }
+        }
+    }
 }
 
 void AnimateSplash::paintEvent(QPaintEvent *event)
