@@ -14,6 +14,9 @@ CreateTime: 2019-6-24 19:08
 #include "gameview.h"
 #include "sliceimagepane.h"
 #include "glosignals.h"
+#include "animatesplash.h"
+#include "mainwindow.h"
+#include "applogger.h"
 
 JPGame::JPGame(const GameConfig& conf)
 	:QObject(nullptr),
@@ -73,19 +76,34 @@ void JPGame::generateResource()
 }
 
 void JPGame::start()
-{	
+{
+    showSliceImagePanes(false);
+    GetMainWindow()->update();
+    GetMainWindow()->show();
+    
+    if(animation_player_ == nullptr){
+        const QString& gif_path = "res/image/count-down-3s.gif";
+        animation_player_ = new AnimateSplash(gif_path, GetMainWindow());
+        if(!animation_player_->isValid()){
+            slog_err(applogger) << "Invalid animation image file:" << gif_path.toLocal8Bit().toStdString().c_str() << endl;
+            delete animation_player_;
+            return;
+        }
+    }
+    animation_player_->start();
     timer_->start(1000);
     currenttimertype_ = kStartUp;
-    currentremainsecs_ = config_.level.startseconds;	    
+    currentremainsecs_ = 3;/*config_.level.startseconds*/;
 }
 
 void JPGame::handleTimeOut()
 {
     if(currenttimertype_ == kStartUp){
         --currentremainsecs_;
-        GetGameScene()->showNotice(QString::number(currentremainsecs_));
+        //GetGameScene()->showNotice(QString::number(currentremainsecs_));
         if(currentremainsecs_ <= 0){ //record game cost time start
-            GetGameScene()->hideNotice();
+            //GetGameScene()->hideNotice();
+            animation_player_->stop();
             remainhintcount_ = config_.level.hintcount;
             timer_->stop();
             state_ = kPlayingState;            

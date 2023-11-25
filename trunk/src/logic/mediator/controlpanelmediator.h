@@ -30,7 +30,6 @@ private slots:
 	void handleGiveUpBtnClicked();
 	void handleHitBtnClicked();
     void handleOriginImageCurrentTextChanged(const QString&);
-    void frameChangedSlot(int);
 
 private:
     void collectImageFiles();
@@ -41,8 +40,7 @@ private:
     RATEL::SignalCon startedconn_;
     RATEL::SignalCon stoppedconn_;
     RATEL::SignalCon hinttimeoutconn_;
-    RATEL::SignalCon updateclockconn_;
-    AnimateSplash* animation_player_ = nullptr;
+    RATEL::SignalCon updateclockconn_;    
 };
 
 #endif

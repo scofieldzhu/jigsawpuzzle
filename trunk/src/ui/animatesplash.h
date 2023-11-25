@@ -17,7 +17,8 @@ class AnimateSplash : public QWidget
 {
     Q_OBJECT;
 public:
-    void start();
+    bool isValid()const;
+    void start(unsigned int request_play_secs = 0);
     void stop();
     bool started()const;
     int currentFrameNumber()const;
@@ -35,6 +36,7 @@ private:
     QMovie* gif_player_;
     MovieLabel* animation_label_;  
     QPixmap bkg_img_;
+    unsigned int request_play_secs_ = 0;
 };
 
 #endif

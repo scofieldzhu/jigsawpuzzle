@@ -15,6 +15,7 @@ CreateTime: 2019-6-24 19:08
 
 class QTimer;
 class QGraphicsTextItem;
+class AnimateSplash;
 class JPGame : public QObject
 {
     Q_OBJECT
@@ -60,6 +61,7 @@ private:
     QTimer* clocktimer_;
     uint32_t starttickcount_ = 0;
     RATEL::SignalCon updateclockconn_;
+    AnimateSplash* animation_player_ = nullptr;
 };
 
 #endif

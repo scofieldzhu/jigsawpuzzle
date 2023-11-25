@@ -37,7 +37,12 @@ AnimateSplash::AnimateSplash(const QString& gif_fn, QWidget* parent)
 AnimateSplash::~AnimateSplash()
 {}
 
-void AnimateSplash::start()
+bool AnimateSplash::isValid() const
+{
+    return gif_player_->isValid();
+}
+
+void AnimateSplash::start(unsigned int request_play_secs)
 {
     if(started()){
         slog_err(applogger) << "Animation is playing already!" << endl;
