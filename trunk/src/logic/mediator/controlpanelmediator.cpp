@@ -111,10 +111,10 @@ void ControlPanelMediator::handleOriginImageCurrentTextChanged(const QString&)
 
 void ControlPanelMediator::handleTimerOut()
 {
-    if(success_player_->started()){
+    if(success_player_ && success_player_->started()){
         success_player_->stop();
         success_sound_player_->stop();
-    }else if(fail_player_->started()){
+    }else if(fail_player_ && fail_player_->started()){
         fail_player_->stop();
         cry_sound_player_->stop();
     }
