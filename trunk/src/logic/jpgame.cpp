@@ -220,6 +220,7 @@ bool JPGame::checkFinishFlag() const
 
 void JPGame::handleSliceImageSwappedSignal(const SliceImageSwappedEvent&)
 {
-    if(checkFinishFlag())
+    if(checkFinishFlag()){
         stop(kNormalStopped);
+    }        
 }

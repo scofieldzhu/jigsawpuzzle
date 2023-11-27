@@ -13,6 +13,8 @@ CreateTime: 2019-6-20 21:17
 #include "uimediator.hxx"
 #include "glosignals.h"
 
+class QSound;
+class QTimer;
 class AnimateSplash;
 class ControlPanel;
 class ControlPanelMediator : public QObject, public RATEL::UIMediator<ControlPanel>
@@ -30,6 +32,7 @@ private slots:
 	void handleGiveUpBtnClicked();
 	void handleHitBtnClicked();
     void handleOriginImageCurrentTextChanged(const QString&);
+    void handleTimerOut();
 
 private:
     void collectImageFiles();
@@ -41,6 +44,11 @@ private:
     RATEL::SignalCon stoppedconn_;
     RATEL::SignalCon hinttimeoutconn_;
     RATEL::SignalCon updateclockconn_;    
+    QTimer* animation_play_timer_ = nullptr;
+    AnimateSplash* success_player_ = nullptr;
+    QSound* success_sound_player_ = nullptr;
+    AnimateSplash* fail_player_ = nullptr;
+    QSound* cry_sound_player_ = nullptr;
 };
 
 #endif

@@ -55,7 +55,7 @@
     <ClCompile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_CORE_LIB;QT_GUI_LIB;QT_UITOOLS_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);./;../../3rd/boost170;../../3rd/sflogger/include;../../3rd/sflogger/include/xmlconf;../../3rd/pugixml/include;../../3rd/ratel-sdk/include/kernel;../../3rd/ratel-sdk/include/filesys;../../3rd/ratel-sdk/include/basic;../../src/;../../src/logic/mediator;../../src/logic;../../src/ui;../../src/app;../../src/global;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtUiTools;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);./;../../3rd/boost170;../../3rd/sflogger/include;../../3rd/sflogger/include/xmlconf;../../3rd/pugixml/include;../../3rd/ratel-sdk/include/kernel;../../3rd/ratel-sdk/include/filesys;../../3rd/ratel-sdk/include/basic;../../src/;../../src/logic/mediator;../../src/logic;../../src/ui;../../src/app;../../src/global;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtUiTools;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtMultimedia;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -66,7 +66,7 @@
       <OutputFile>$(OutDir)\$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;../../3rd/ratel-sdk/bin;../../3rd/sflogger/bin;../../3rd/pugixml/bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>qtmaind.lib;ratel.basic-x64-d.lib;ratel.kernel-x64-d.lib;ratel.filesys-x64-d.lib;pugixml-x64-d.lib;sflogger.core-v150-x64-d.lib;sflogger.xmlconf-v150-x64-d.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5UiToolsd.lib;Qt5Widgetsd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>qtmaind.lib;ratel.basic-x64-d.lib;ratel.kernel-x64-d.lib;ratel.filesys-x64-d.lib;pugixml-x64-d.lib;sflogger.core-v150-x64-d.lib;sflogger.xmlconf-v150-x64-d.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5UiToolsd.lib;Qt5Widgetsd.lib;Qt5Multimediad.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <QtMoc>
       <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>

@@ -10,6 +10,8 @@ CreateTime: 2019-6-20 21:17
 #include <QPushButton>
 #include <QComboBox>
 #include <QLabel>
+#include <QTimer>
+#include <QSound>
 #include "controlpanel.h"
 #include "uiglo.h"
 #include "mainwindow.h"
@@ -19,6 +21,7 @@ CreateTime: 2019-6-20 21:17
 #include "dirwalker.h"
 #include "appconf.h"
 #include "applogger.h"
+#include "animatesplash.h"
 USING_RATEL
 
 #define ENABLE_IMG_CHANGE_SIGNAL() connect(ui_->ui.imgcb, SIGNAL(currentTextChanged(const QString&)), this, SLOT(handleOriginImageCurrentTextChanged(const QString&)))
@@ -28,6 +31,12 @@ ControlPanelMediator::ControlPanelMediator(ControlPanel* ui)
 	:QObject(ui),
 	MediatorSelf(ui)
 {    
+    animation_play_timer_ = new QTimer(this);
+    animation_play_timer_->setSingleShot(true);
+    animation_play_timer_->setInterval(4000);
+    connect(animation_play_timer_, SIGNAL(timeout()), this, SLOT(handleTimerOut()));
+    success_sound_player_ = new QSound("res/sound/congratulations.wav");
+    cry_sound_player_ = new QSound("res/sound/cry.wav");
 }
 
 ControlPanelMediator::~ControlPanelMediator()
@@ -100,6 +109,17 @@ void ControlPanelMediator::handleOriginImageCurrentTextChanged(const QString&)
     }
 }
 
+void ControlPanelMediator::handleTimerOut()
+{
+    if(success_player_->started()){
+        success_player_->stop();
+        success_sound_player_->stop();
+    }else if(fail_player_->started()){
+        fail_player_->stop();
+        cry_sound_player_->stop();
+    }
+}
+
 void ControlPanelMediator::collectImageFiles()
 {
     ui_->ui.imgcb->clear();
@@ -130,8 +150,27 @@ void ControlPanelMediator::handleGameStoppedSignal(const GameStoppedEvent& event
     ui_->ui.quitbtn->setEnabled(false);
     ui_->ui.tipbtn->setEnabled(false);
     delete event.game; //destroy current active game
-    if(event.reason == kNormalStopped)
-        GetGameScene()->showNotice(QObject::tr("Congratulations!"));
+    if(event.reason == kNormalStopped){
+        if(success_player_ == nullptr)
+            success_player_ = new AnimateSplash("res/image/clap.gif", GetMainWindow());            
+        if(success_player_->isValid()){
+            animation_play_timer_->start(); 
+            success_player_->start();
+            success_sound_player_->play();
+        }else{
+            GetGameScene()->showNotice(QObject::tr("Congratulations!"));
+        }
+    }else if(event.reason == kForceStopped){
+        if(fail_player_ == nullptr)
+            fail_player_ = new AnimateSplash("res/image/fail.gif", GetMainWindow());
+        if(fail_player_->isValid()){
+            animation_play_timer_->start();
+            fail_player_->start();
+            cry_sound_player_->play();
+        } else{
+            GetGameScene()->showNotice(QObject::tr("Come on next time!"));
+        }
+    }
 }
 
 void ControlPanelMediator::handleGameHintTimeOutSignal(const GameHintTimeOutEvent& event)
