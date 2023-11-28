@@ -42,6 +42,7 @@
 *.VC.db
 *.suo
 *.pdb
+*.vs
 
 #ignore files
 *.licenseheader
@@ -57,6 +58,8 @@ trunk/builds/jigsawpuzzle/x64/
 trunk/builds/jigsawpuzzle/conf/gameimages/
 trunk/builds/.vs/
 trunk/publish/
+
+out/
 
 
 *.pdb
